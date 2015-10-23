@@ -1,0 +1,65 @@
+\documentclass{article}
+
+\usepackage{amssymb}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\title{Aplikacja do śledzenia celów i fuzji danych  \\ {\large Dokumentacja wstępna}}
+\author{Przemysław Saramonowicz, Marcin Buczko, Jacek Palczewski \\ Wydział Elektroniki i Technik Informacyjnych \\ Politechnika Warszawska}
+\date{28 października 2015 r.}
+%wypełnienie strony
+%\setlength{\textheight}{24cm}
+%\setlength{\textwidth}{15.92cm}
+%\setlength{\footskip}{10mm}
+%\setlength{\oddsidemargin}{0mm}
+%\setlength{\evensidemargin}{0mm}
+%\setlength{\topmargin}{0mm}
+%\setlength{\headsep}{5mm}
+
+%kropki po \section
+\usepackage{titlesec}
+\titlelabel{\thetitle.\quad}
+
+\begin{document}
+	\maketitle
+	
+	\section{Zagadnienie}
+		W ramach projektu stworzona zostanie aplikacja, która na podstawie symulowanych danych o położeniu obiektu, będzie badała jego położenie, za pomocą sensorów, a następnie badała położenie i przewidywała tor ruchu obiektu w kolejnych iteracjach oraz porównywała tor ruchu przekazany przez obiekt i po pomiarze a następnie określała błąd przewidywania toru. 
+		
+	\section{Założenia projektowe}
+		Projekt zostanie podzielony na 5 podstawowych modułów:
+		
+		\begin{itemize}
+		\item \textbf{Symulacja ruchu obiektu} - obiekt będzie poruszał się w przestrzeni dwuwumiarowej po zdefiniowanych wcześniej trajektoriach ruchu oraz przekazywał dane o swoim położeniu sensorom.
+
+		\item \textbf{Sensor ruchu} - odbiera dane o położeniu obiektu i przekazuje je razem z własnym szumem pomiarowym na wejście filtru Kalmana.
+		
+		\item \textbf{Filtr Kalmana} - Odbiera dane z sensorów i wyznacza stan wewnętrzny modelowanego obiektu
+		
+		\item \textbf{Moduł określający błąd pomiaru} - Odbiera dane od obiektu, sensorów oraz filtru Kalmana i określa jak dokładnie filtr Kalmana przewiduje tor w kolejnych iteracjach oraz określa poprawę w stosunku do odczytów sensorów.
+		
+		\item \textbf{Interpretacja graficzna działania programu} - Rysuje obiekt w kolejnych iteracjach na jego pozycji oraz jego kopię w miejscu określonym przez układ sensorów z filtrem Kalmana a także trajektorię obu instancji obiektu.
+		\end{itemize}		
+		
+W wyniku działania programu zostanie zbadany wpływ ilości sensorów oraz szumów na dokładność odczytu. Będzie on również badał wpływ toru ruchu oraz zmienności prędkości na dokładność pomiaru.
+
+
+Aplikacja będzie spełniała założenia przenośności tzn. będzie ją można uruchomić na różnych dystrybucjach Linuxa oraz na systemach z rodziny Windows.
+				
+
+%\begin{thebibliography}{19}
+ 
+%\bibitem{regulamin}
+%  Centralne Laboratorium Fizyki Wydziału Fizyki Politechniki Warszawskiej, \\
+%  \emph{Regulamin CLF}.
+%  Dostęp: 21 marca, 2015 r,   
+%  \url{http://clf.if.pw.edu.pl/?q=pl/regulamin-clf}
+  
+%\end{thebibliography}
+
+
+\end{document}
