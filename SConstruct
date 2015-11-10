@@ -24,6 +24,7 @@ if env['SYSTEM'] == 'windows':
 
 elif env['SYSTEM'] == 'linux':
     env.Append(CXXFLAGS="-std=c++0x")
+    env.Append()
 
 #
 # Czas konfiguracji.
@@ -32,12 +33,10 @@ conf = Configure(env)
 
 if not conf.CheckCXXHeader('boost/log/trivial.hpp'):
     print 'Boost.Log not found!'
-    print env['CPPPATH']
     Exit(1)
 
 if not conf.CheckCXXHeader('boost/test/included/unit_test.hpp'):
     print 'Boost.Test not found!'
-    print env['CPPPATH']
     Exit(1)
 
 env = conf.Finish()
