@@ -18,7 +18,7 @@ env['SYSTEM'] = platform.system().lower()
 if env['SYSTEM'] == 'windows':
     env.Append( CCFLAGS=["/EHsc"] )
 
-elif ENV['SYSTEM'] == 'linux':
+elif env['SYSTEM'] == 'linux':
     env.Append(CXXFLAGS="-std=c++0x")
 
 
