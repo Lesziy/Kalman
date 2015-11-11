@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Source Files\Generator">
+      <UniqueIdentifier>{f19273e7-121f-477d-b627-5b1aba02e68b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Generator">
+      <UniqueIdentifier>{f5e513e9-06a3-4588-bba9-f9e2b02cd4c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ObserverGUI">
+      <UniqueIdentifier>{ebf06856-fef4-413f-8adb-b559167e2797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ObserverGUI">
+      <UniqueIdentifier>{0b9791b4-bed0-490f-a977-544763fa05cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Foo.cpp">
@@ -21,16 +33,21 @@
     <ClCompile Include="src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Generator\Generator.cpp">
+      <Filter>Source Files\Generator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Foo.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Generator.h">
+      <Filter>Header Files\Generator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include=".travis.yml" />
   </ItemGroup>
 </Project>
