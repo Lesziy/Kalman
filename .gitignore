@@ -79,3 +79,8 @@ $RECYCLE.BIN/
 *.aux
 *.out
 *.log
+/.sconf_temp
+/.vs/Kalman/v14
+/Kalman.opensdf
+/Kalman.sdf
+/Kalman_tests.vcxproj.user
