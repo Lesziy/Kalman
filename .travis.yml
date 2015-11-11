@@ -11,7 +11,10 @@ addons:
           - libboost-all-dev
           - libpython-dev
           - scons
-          
+          - python2.7
 
 
 script:	scons
+
+notifications:
+  email: false
