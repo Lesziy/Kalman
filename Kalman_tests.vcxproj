@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{27FC6DAE-FB37-4A25-8DC3-64E6D95E2560}</ProjectGuid>
+    <ProjectGuid>{8CD54D89-3940-4FDC-996E-4DD4171C5CC9}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -62,34 +62,31 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>scons</NMakeBuildCommandLine>
-    <NMakeOutput>app.exe</NMakeOutput>
-    <NMakeCleanCommandLine>scons -c</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>scons -c &amp;&amp; scons</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>scons test</NMakeBuildCommandLine>
+    <NMakeOutput>app-test.exe</NMakeOutput>
+    <NMakeCleanCommandLine>scons -c test</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>scons -c test &amp;&amp; scons test</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <ExecutablePath>C:\Python27\Scripts;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(SolutionDir)include;C:\Program Files (x86)\boost_1_59_0;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)include;$(SolutionDir)src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>scons</NMakeBuildCommandLine>
-    <NMakeOutput>app.exe</NMakeOutput>
-    <NMakeCleanCommandLine>scons -c</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>scons -c &amp;&amp; scons</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>scons test</NMakeBuildCommandLine>
+    <NMakeOutput>app-test.exe</NMakeOutput>
+    <NMakeCleanCommandLine>scons -c test</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>scons -c test &amp;&amp; scons test</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Foo.cpp" />
-    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="test\test_foo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="guiobserver\observer.h" />
+    <ClInclude Include="guiobserver\ObserverGUI.h" />
+    <ClInclude Include="guiobserver\Status.h" />
     <ClInclude Include="include\Foo.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".travis.yml" />
-    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
