@@ -1,12 +1,17 @@
 language: cpp
 
+sudo: false
+
 compiler:
  - g++
 
-before_script:
-  - sudo apt-get update -qq
-  - sudo apt-get install libboost-all-dev python-dev
-
+addons:
+  apt:
+    packages:
+          - libboost-all-dev
+          - libpython-dev
+          - scons
+          
 
 
 script:	scons
