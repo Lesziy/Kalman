@@ -2,7 +2,7 @@ language: cpp
 
 before_script:
   - sudo apt-get update -qq
-  - sudo apt-get install libboost-log-dev libboost-python-dev libboost-test-dev python-dev
+  - sudo apt-get install libboost-all-dev python-dev
 
 compiler:
  - gcc
