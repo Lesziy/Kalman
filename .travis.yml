@@ -11,7 +11,7 @@ addons:
           - libpython-dev
           - scons
           - python2.7
-		  - libboost-log-dev
+          - libboost-log-dev
           - libboost-python-dev
           - libboost-test-dev
 
