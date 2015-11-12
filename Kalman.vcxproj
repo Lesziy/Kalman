@@ -93,7 +93,6 @@
     <ClInclude Include="src\ObserverGUI\Observee.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".travis.yml" />
     <None Include="README.md" />
     <None Include="SConstruct" />
   </ItemGroup>
