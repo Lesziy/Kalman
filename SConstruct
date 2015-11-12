@@ -22,6 +22,7 @@ if env['SYSTEM'] == 'windows':
 
 elif env['SYSTEM'] == 'linux':
     env.Append(CXXFLAGS="-std=c++0x")
+	env.Append(CPPPATH='/usr/include/')
 
 
 #
