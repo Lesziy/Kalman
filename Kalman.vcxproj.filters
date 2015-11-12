@@ -39,6 +39,12 @@
     <ClCompile Include="src\ObserverGUI\ObserverGUI.cpp">
       <Filter>Source Files\ObserverGUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Generator\PythonFile.cpp">
+      <Filter>Source Files\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Generator\Trajectory.cpp">
+      <Filter>Source Files\Generator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Generator.h">
@@ -52,6 +58,18 @@
     </ClInclude>
     <ClInclude Include="src\ObserverGUI\Observee.h">
       <Filter>Header Files\ObserverGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Generator\Trajectory.h">
+      <Filter>Header Files\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Generator\PythonFile.h">
+      <Filter>Header Files\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Status.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Common.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

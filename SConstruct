@@ -5,12 +5,14 @@ import platform, os, glob
 boost_prefix = "C:\\Program Files (x86)\\boost_1_59_0"
 
 libs = ["Generator"]
-libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs) #[ glob.glob('src/Generator/*.cpp') , glob.glob('src/ObserverGUI/*.cpp') ]
+libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs)
 
 program_sources = ['src/Main.cpp']
 test_sources = Glob('test/*.cpp')
 
 include_search_path = ['include'] + map(lambda x: 'src/' + x, libs)
+
+apptest = ''
 
 env = Environment(CPPPATH=include_search_path,LIBPATH=['.'])
 env['SYSTEM'] = platform.system().lower()
@@ -19,12 +21,12 @@ env['SYSTEM'] = platform.system().lower()
 if env['SYSTEM'] == 'windows':
     env.Append( CCFLAGS=["/EHsc"] )
     env.Append(CPPPATH=boost_prefix)
+    env.Append(CPPPATH='C:\Python27\include')
     env.Append(LIBPATH=os.path.join(boost_prefix, 'stage\lib'))
+    env.Append(LIBPATH='C:\Python27\libs')
 
 elif env['SYSTEM'] == 'linux':
     env.Append(CXXFLAGS="-std=c++0x")
-    env.Append(CPPPATH='/usr/include/')
-
 
 #
 # Czas konfiguracji.
@@ -54,15 +56,17 @@ testEnv = env.Clone()
 #
 # Targety
 #
+
+#Domyslny
 app = env.Program("app", program_sources, LIBS=libs)
 Default(app)
 
-apptest = ''
-
+#Testy
 for i in range(len(libs)):
     apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=libs)
 
 Alias('test', apptest)
 
+#all
 Alias('all', app)
 Alias('all', apptest)
