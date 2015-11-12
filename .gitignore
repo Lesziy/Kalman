@@ -85,3 +85,4 @@ $RECYCLE.BIN/
 /Kalman.sdf
 /Kalman_tests.vcxproj.user
 /.sconsign.dblite
+/test/test.cpp

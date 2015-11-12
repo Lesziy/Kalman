@@ -1,6 +1,6 @@
 # Kalman
 
-Implementacja filtru Kalmana do �ledzenia cel�w i fuzji danych.
+Implementacja filtru Kalmana do śledzenia celów i fuzji danych.
 
 ## Wymagania
 
@@ -10,11 +10,11 @@ Implementacja filtru Kalmana do �ledzenia cel�w i fuzji danych.
 
 ## Kompilacja
 
-Pod Windowsem powinny dzia�a� pliki projektu VS2015(w projekcie s� dodane �cie�ki aby uwzgl�dni� domy�lne instalacje powy�szych program�w), pod linuxem wystarczy tylko:
+Pod Windowsem powinny działać pliki projektu VS2015(w projekcie są dodane ścieżki aby uwzględnić domyślne instalacje powyższych programów), pod linuxem wystarczy tylko:
 ```
 $ scons
 ```
-w g��wnym folderze.
+w głównym folderze.
 
 Inne opcje kompilacji:
 ```
@@ -24,4 +24,4 @@ $ scons -c [target]   # kasowanie plikow zrodlowych.
 ```
 
 ## Testy
-Na chwile obecna kazdy modul ma oddzielna aplikacje do testowania, poniewaz tak jest _zdecydowanie_ prosciej.
+Na chwile obecna kazdy moduł ma oddzielna aplikacje z testami, ponieważ tak jest _zdecydowanie_ prościej.
