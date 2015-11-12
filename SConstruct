@@ -1,6 +1,7 @@
 import platform, os, glob
 
 #Lokalizacja biblioteki Boost, dotyczy tylko Windowsow:
+#
 boost_prefix = "C:\\Program Files (x86)\\boost_1_59_0"
 
 libs = ["Generator"]
