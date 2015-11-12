@@ -68,7 +68,7 @@
     <NMakeReBuildCommandLine>scons -c &amp;&amp; scons</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <ExecutablePath>C:\Python27\Scripts;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(SolutionDir)include;C:\Program Files (x86)\boost_1_59_0;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files %28x86%29\boost_1_59_0;$(SolutionDir)include;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)include;$(SolutionDir)src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -82,12 +82,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Generator\Generator.cpp" />
-    <ClCompile Include="src\Foo.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\ObserverGUI\observer.cpp" />
+    <ClCompile Include="src\ObserverGUI\ObserverGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Generator.h" />
-    <ClInclude Include="include\Foo.h" />
+    <ClInclude Include="include\ObserverGUI.h" />
+    <ClInclude Include="src\ObserverGUI\observer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

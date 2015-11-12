@@ -27,22 +27,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Foo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Generator\Generator.cpp">
       <Filter>Source Files\Generator</Filter>
     </ClCompile>
+    <ClCompile Include="src\ObserverGUI\observer.cpp">
+      <Filter>Source Files\ObserverGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObserverGUI\ObserverGUI.cpp">
+      <Filter>Source Files\ObserverGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Foo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Generator.h">
       <Filter>Header Files\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ObserverGUI\observer.h">
+      <Filter>Header Files\ObserverGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ObserverGUI.h">
+      <Filter>Header Files\ObserverGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

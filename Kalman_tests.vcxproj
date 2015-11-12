@@ -76,11 +76,14 @@
     <NMakeCleanCommandLine>scons -c test</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>scons -c test &amp;&amp; scons test</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IncludePath>C:\Program Files %28x86%29\boost_1_59_0;$(SolutionDir)include;$(IncludePath)</IncludePath>
+    <SourcePath>$(SolutionDir)src;$(SolutionDir)include;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="test\test_foo.cpp" />
+    <ClCompile Include="test\test_generator.cpp" />
+    <ClCompile Include="test\test_ObserverGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="guiobserver\observer.h" />
