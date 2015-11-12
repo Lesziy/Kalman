@@ -3,7 +3,7 @@ import platform, os, glob
 #Lokalizacja biblioteki Boost, dotyczy tylko Windowsow:
 boost_prefix = "C:\\Program Files (x86)\\boost_1_59_0"
 
-libs = ["Generator", "ObserverGUI"]
+libs = ["Generator"]
 libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs) #[ glob.glob('src/Generator/*.cpp') , glob.glob('src/ObserverGUI/*.cpp') ]
 
 program_sources = ['src/Main.cpp']
@@ -22,7 +22,7 @@ if env['SYSTEM'] == 'windows':
 
 elif env['SYSTEM'] == 'linux':
     env.Append(CXXFLAGS="-std=c++0x")
-    env.Append()
+
 
 #
 # Czas konfiguracji.

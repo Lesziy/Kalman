@@ -44,15 +44,24 @@
     <ClInclude Include="include\Generator.h">
       <Filter>Header Files\Generator</Filter>
     </ClInclude>
-    <ClInclude Include="src\ObserverGUI\observer.h">
+    <ClInclude Include="include\ObserverGUI.h">
       <Filter>Header Files\ObserverGUI</Filter>
     </ClInclude>
-    <ClInclude Include="include\ObserverGUI.h">
+    <ClInclude Include="src\ObserverGUI\Observator.h">
+      <Filter>Header Files\ObserverGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ObserverGUI\Observee.h">
       <Filter>Header Files\ObserverGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SConstruct">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include=".travis.yml">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

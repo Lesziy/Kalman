@@ -89,10 +89,13 @@
   <ItemGroup>
     <ClInclude Include="include\Generator.h" />
     <ClInclude Include="include\ObserverGUI.h" />
-    <ClInclude Include="src\ObserverGUI\observer.h" />
+    <ClInclude Include="src\ObserverGUI\Observator.h" />
+    <ClInclude Include="src\ObserverGUI\Observee.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".travis.yml" />
     <None Include="README.md" />
+    <None Include="SConstruct" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
