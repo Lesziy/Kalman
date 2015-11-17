@@ -86,3 +86,4 @@ $RECYCLE.BIN/
 /Kalman_tests.vcxproj.user
 /.sconsign.dblite
 /test/test.cpp
+/docs/doxygen

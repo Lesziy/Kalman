@@ -5,7 +5,7 @@ class PythonFile
 	std::string pFilename;
 
 public:
-	PythonFile(std::string pF);
+	explicit PythonFile(std::string pF);
 	~PythonFile();
 };
 

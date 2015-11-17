@@ -89,7 +89,6 @@
     <ClCompile Include="src\ObserverGUI\ObserverGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Common.h" />
     <ClInclude Include="include\Generator.h" />
     <ClInclude Include="include\ObserverGUI.h" />
     <ClInclude Include="include\Status.h" />

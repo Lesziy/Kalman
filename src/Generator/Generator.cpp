@@ -5,6 +5,7 @@ extern std::mutex mtx;
 
 void Generator::Init()
 {
+
 }
 
 void Generator::MessageLoop()
@@ -27,6 +28,9 @@ void Generator::AddNewStatus(Status st)
 
 Generator::Generator(std::string pFilename) : pythonFile(PythonFile(pFilename))
 {
+	/*
+		Aby nie blokowaæ g³ównego w¹tku ca³¹ inicjalizacjê wyrzucê do osobnego w¹tku
+	*/
 }
 
 Generator::~Generator()

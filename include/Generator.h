@@ -1,6 +1,5 @@
 #pragma once
-#include "Common.h"
-
+#define BOOST_ALL_DYN_LINK
 #include <string>
 #include <mutex>
 #include <queue>
@@ -8,13 +7,16 @@
 
 #include "PythonFile.h"
 #include "Trajectory.h"
-
+#include "Status.h"
 
 
 class Generator
 {
 	PythonFile pythonFile;
 	std::queue<Status> internalQueue;
+
+	boost::python::object mainModule;
+	boost::python::object mainNamespace;
 
 	void Init();
 	void MessageLoop();
