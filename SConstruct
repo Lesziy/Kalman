@@ -4,7 +4,10 @@ import platform, os, glob
 #
 boost_prefix = "C:\\Program Files (x86)\\boost_1_59_0"
 
+
 libs = ["Generator"]
+
+external_libs = ["python2.7"]
 libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs)
 
 program_sources = ['src/Main.cpp']
@@ -27,15 +30,13 @@ if env['SYSTEM'] == 'windows':
 
 elif env['SYSTEM'] == 'linux':
     env.Append(CXXFLAGS="-std=c++0x")
+    env.Append(CPPPATH='/usr/include/python2.7')
+    env.Append(LIBPATH='/usr/lib64/python2.7')
 
 #
 # Czas konfiguracji.
 #
 conf = Configure(env)
-
-if not conf.CheckCXXHeader('boost/log/trivial.hpp'):
-    print 'Boost.Log not found!'
-    Exit(1)
 
 if not conf.CheckCXXHeader('boost/test/included/unit_test.hpp'):
     print 'Boost.Test not found!'
@@ -58,12 +59,12 @@ testEnv = env.Clone()
 #
 
 #Domyslny
-app = env.Program("app", program_sources, LIBS=libs)
+app = env.Program("app", program_sources, LIBS=external_libs+libs)
 Default(app)
 
 #Testy
 for i in range(len(libs)):
-    apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=libs)
+    apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=external_libs+libs)
 
 Alias('test', apptest)
 
