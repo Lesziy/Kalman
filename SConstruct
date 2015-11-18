@@ -7,7 +7,7 @@ boost_prefix = "C:\\Program Files (x86)\\boost_1_59_0"
 
 libs = ["Generator"]
 
-external_libs = ["python27"]
+external_libs = []# ["python27"] humor: lib pythona to python27 pod windowsem, python2.7 pod linuxami...
 libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs)
 
 program_sources = ['src/Main.cpp']
@@ -29,11 +29,17 @@ if env['SYSTEM'] == 'windows':
     env.Append(CPPPATH='C:\Python27\include')
     env.Append(LIBPATH=os.path.join(boost_prefix, 'stage\lib'))
     env.Append(LIBPATH='C:\Python27\libs')
+    external_libs.append("python27")
 
 elif env['SYSTEM'] == 'linux':
     env.Append(CXXFLAGS="-std=c++0x")
     env.Append(CPPPATH='/usr/include/python2.7')
     env.Append(LIBPATH='/usr/lib64/python2.7')
+    external_libs.append("python2.7")
+    external_libs.append("boost_python")
+    env.Append( LINKFLAGS = Split('-z origin') )
+    env.Append( RPATH = env.Literal(os.path.join('\\$$ORIGIN')))
+ 
 
 #
 # Czas konfiguracji.
@@ -49,9 +55,15 @@ env = conf.Finish()
 #
 # Kompilacja.
 #
-for i in range(len(libs)):
-    print str(i) + "lol"
-    libs_shared += env.StaticLibrary(libs[i], libs_sources[i])
+
+#Windows
+if env['SYSTEM'] == 'windows':
+    for i in range(len(libs)):
+        libs_shared += env.StaticLibrary(libs[i], libs_sources[i])
+
+if env['SYSTEM'] == 'linux':
+    for i in range(len(libs)):
+        libs_shared += env.SharedLibrary(libs[i], libs_sources[i])
 
 testEnv = env.Clone()
 #testEnv.Append(LIBPATH="src/")
