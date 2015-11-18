@@ -7,7 +7,7 @@ boost_prefix = "C:\\Program Files (x86)\\boost_1_59_0"
 
 libs = ["Generator"]
 
-external_libs = ["python2.7"]
+external_libs = ["python27"]
 libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs)
 
 program_sources = ['src/Main.cpp']
@@ -15,7 +15,9 @@ test_sources = Glob('test/*.cpp')
 
 include_search_path = ['include'] + map(lambda x: 'src/' + x, libs)
 
+app = ''
 apptest = ''
+libs_shared = ''
 
 env = Environment(CPPPATH=include_search_path,LIBPATH=['.'])
 env['SYSTEM'] = platform.system().lower()
@@ -48,7 +50,8 @@ env = conf.Finish()
 # Kompilacja.
 #
 for i in range(len(libs)):
-    env.Library(libs[i], libs_sources[i])
+    print str(i) + "lol"
+    libs_shared += env.StaticLibrary(libs[i], libs_sources[i])
 
 testEnv = env.Clone()
 #testEnv.Append(LIBPATH="src/")
@@ -60,6 +63,9 @@ testEnv = env.Clone()
 
 #Domyslny
 app = env.Program("app", program_sources, LIBS=external_libs+libs)
+env.Depends(app, libs_shared)
+
+#Default(libs_shared)
 Default(app)
 
 #Testy

@@ -83,7 +83,6 @@
   <ItemGroup>
     <ClCompile Include="src\Generator\Generator.cpp" />
     <ClCompile Include="src\Generator\PythonFile.cpp" />
-    <ClCompile Include="src\Generator\Trajectory.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\ObserverGUI\observer.cpp" />
     <ClCompile Include="src\ObserverGUI\ObserverGUI.cpp" />
@@ -93,7 +92,6 @@
     <ClInclude Include="include\ObserverGUI.h" />
     <ClInclude Include="include\Status.h" />
     <ClInclude Include="src\Generator\PythonFile.h" />
-    <ClInclude Include="src\Generator\Trajectory.h" />
     <ClInclude Include="src\ObserverGUI\Observator.h" />
     <ClInclude Include="src\ObserverGUI\Observee.h" />
   </ItemGroup>

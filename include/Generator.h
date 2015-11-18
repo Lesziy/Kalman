@@ -1,27 +1,32 @@
 #pragma once
-#define BOOST_ALL_DYN_LINK
+#ifdef _WIN32
+#define BOOST_PYTHON_STATIC_LIB
+#endif
+
 #include <string>
 #include <mutex>
 #include <queue>
+#include <Python.h>
 #include <boost/python.hpp>
 
 #include "PythonFile.h"
-#include "Trajectory.h"
+//#include "Trajectory.h"
 #include "Status.h"
 
 
 class Generator
 {
-	PythonFile pythonFile;
-	std::queue<Status> internalQueue;
 
-	boost::python::object mainModule;
-	boost::python::object mainNamespace;
+	PythonFile pythonFile_;
+	std::queue<Status> internalQueue_;
+
+	boost::python::object mainModule_;
+	boost::python::object mainNamespace_;
+
 
 	void Init();
 	void MessageLoop();
 
-	void AddNewStatus(Status st);
 
 public:
 	Generator(std::string pFilename);
@@ -29,5 +34,6 @@ public:
 
 	void Start();
 };
+
 
 
