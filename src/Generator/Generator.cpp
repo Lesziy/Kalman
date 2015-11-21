@@ -26,7 +26,7 @@ void Generator::Init()
 
 
 
-	std::cout << "hello2" << std::flush;
+	//	std::cout << "hello2" << std::flush;
 }
 
 void Generator::MessageLoop()
@@ -39,6 +39,7 @@ void Generator::MessageLoop()
 
 	while(true)
 	{
+	/*
 		std::cout << "\n\nNEW\n";
 		try {
 			retObject = eval("update()", mainNamespace_);
@@ -51,7 +52,7 @@ void Generator::MessageLoop()
 			return;
 		}
 		std::cout << retValue[0] << " " << retValue[1] << std::endl;
-
+*/
 		time_++;
 
 		if (time_ == 10) break;

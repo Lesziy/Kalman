@@ -5,9 +5,9 @@ import platform, os, glob
 boost_prefix = "C:\\Program Files (x86)\\boost_1_59_0"
 
 
-libs = ["Generator"]
+libs = ["Generator", "SimpleSDL"]
 
-external_libs = []# ["python27"] humor: lib pythona to python27 pod windowsem, python2.7 pod linuxami...
+external_libs = ['SDL']# ["python27"] humor: lib pythona to python27 pod windowsem, python2.7 pod linuxami...
 
 
 program_sources = ['src/Main.cpp']
@@ -23,6 +23,7 @@ examples = []
 libs_shared = []
 
 env = Environment(CPPPATH=include_search_path,LIBPATH=['.'])
+env.VariantDir('bin', 'src')
 env['SYSTEM'] = platform.system().lower()
 
 
@@ -47,6 +48,16 @@ conf = Configure(env)
 if not conf.CheckCXXHeader('boost/test/included/unit_test.hpp'):
     print 'Boost.Test not found!'
     Exit(1)
+
+
+if not conf.CheckCXXHeader('boost/python.hpp'):
+    print 'Boost.Python not found!'
+    Exit(1)
+    
+if not conf.CheckCXXHeader('pyconfig.h'):
+    print 'Python development files not found - fix paths in SConscript file or install them'
+    Exit(1)
+
 
 env = conf.Finish()
 
