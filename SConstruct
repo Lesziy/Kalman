@@ -8,16 +8,19 @@ boost_prefix = "C:\\Program Files (x86)\\boost_1_59_0"
 libs = ["Generator"]
 
 external_libs = []# ["python27"] humor: lib pythona to python27 pod windowsem, python2.7 pod linuxami...
-libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs)
+
 
 program_sources = ['src/Main.cpp']
+libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs)
 test_sources = Glob('test/*.cpp')
+examples_sources = glob.glob('examples/*.cpp')
 
 include_search_path = ['include'] + map(lambda x: 'src/' + x, libs)
 
-app = ''
-apptest = ''
-libs_shared = ''
+app = []
+apptest = []
+examples = []
+libs_shared = []
 
 env = Environment(CPPPATH=include_search_path,LIBPATH=['.'])
 env['SYSTEM'] = platform.system().lower()
@@ -25,24 +28,19 @@ env['SYSTEM'] = platform.system().lower()
 
 if env['SYSTEM'] == 'windows':
     env.Append( CCFLAGS=["/EHsc"] )
-    env.Append(CPPPATH=boost_prefix)
-    env.Append(CPPPATH='C:\Python27\include')
-    env.Append(LIBPATH=os.path.join(boost_prefix, 'stage\lib'))
-    env.Append(LIBPATH='C:\Python27\libs')
+    env.Append(CPPPATH=[boost_prefix, 'C:\Python27\include'])
+    env.Append(LIBPATH=[os.path.join(boost_prefix, 'stage\lib'),'C:\Python27\libs'])
     external_libs.append("python27")
 
 elif env['SYSTEM'] == 'linux':
     env.Append(CXXFLAGS="-std=c++0x")
-    env.Append(CPPPATH='/usr/include/python2.7')
-    env.Append(LIBPATH='/usr/lib64/python2.7')
-    external_libs.append("python2.7")
-    external_libs.append("boost_python")
-    env.Append( LINKFLAGS = Split('-z origin') )
-    env.Append( RPATH = env.Literal(os.path.join('\\$$ORIGIN')))
+    env.Append(CPPPATH='/usr/include/python2.7', LIBPATH='/usr/lib64/python2.7')
+    external_libs.append(["python2.7", "boost_python"])
+    env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) ) #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
  
 
 #
-# Czas konfiguracji.
+# Konfiguracja
 #
 conf = Configure(env)
 
@@ -84,8 +82,14 @@ Default(app)
 for i in range(len(libs)):
     apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=external_libs+libs)
 
+#Przyklady
+for j in examples_sources:
+    examples += testEnv.Program(os.path.splitext(os.path.split(j)[1])[0],j, LIBS=external_libs+libs)
+
 Alias('test', apptest)
+Alias('examples', examples)
 
 #all
 Alias('all', app)
 Alias('all', apptest)
+Alias('all', examples)
