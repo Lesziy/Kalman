@@ -10,7 +10,6 @@
 #include <boost/python.hpp>
 
 #include "PythonFile.h"
-//#include "Trajectory.h"
 #include "Status.h"
 
 
@@ -34,6 +33,3 @@ public:
 
 	void Start();
 };
-
-
-

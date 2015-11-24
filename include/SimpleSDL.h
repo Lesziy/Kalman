@@ -1,11 +1,10 @@
 #pragma once
-#include "SDL/SDL.h"
+#include "SDL.h"
 
-class SimpleSDL 
+class SimpleSDL
 {
-    
+
     public:
         SimpleSDL();
         ~SimpleSDL();
 };
-
