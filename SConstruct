@@ -48,9 +48,6 @@ elif env['SYSTEM'] == 'linux':
 #
 conf = Configure(env)
 
-print '[DEBUG]'
-print external_libs
-
 if not conf.CheckCXXHeader('boost/test/included/unit_test.hpp'):
     print 'Boost.Test not found!'
     Exit(1)

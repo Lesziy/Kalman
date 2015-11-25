@@ -3,19 +3,21 @@
 #include <iostream>
 //#include "ObserverGUI.h"
 
-/*
-	Bez tego nie działa. g8 work, VS.
-*/
-FILE _iob[] = { *stdin, *stdout, *stderr };
 
-extern "C" FILE * __cdecl __iob_func(void)
-{
-   return _iob;
-}
+#ifdef _WIN32
+      FILE _iob[] = { *stdin, *stdout, *stderr };
 
-std::mutex mtx;
-	int main(int argc, char* argv[])
+      extern "C" FILE * __cdecl __iob_func(void)
+      {
+         return _iob;
+      }
+#endif
+
+
+int main(int argc, char* argv[])
 {
+
+
 	Generator b("plik.txt");
 	SimpleSDL s;
 
