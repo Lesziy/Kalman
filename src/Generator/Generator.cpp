@@ -24,11 +24,12 @@ void Generator::Init()
 		std::cout << "[!] wyjątek w interpreterze!" <<  std::endl;
 		throw;
 	}
-
+	std::cout << "Python is working!\n" << std::endl;
 }
 
 void Generator::MessageLoop()
 {
+	std::cout << "MessageLoop();"<< std::endl;
 	using namespace boost::python;
 	unsigned int time_ = 0;
 

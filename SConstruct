@@ -8,7 +8,7 @@ SDL_prefix = "C:\\Program Files (x86)\\SDL"
 
 libs = ["Generator", "SimpleSDL"]
 
-external_libs = ['SDL2', 'SDL2main']# ["python27"] humor: lib pythona to python27 pod windowsem, python2.7 pod linuxami...
+external_libs = ['SDL2']#, 'SDL2main']# ["python27"] humor: lib pythona to python27 pod windowsem, python2.7 pod linuxami...
 
 
 program_sources = ['src/Main.cpp']
@@ -35,11 +35,11 @@ if env['SYSTEM'] == 'windows':
     env.Append(LIBPATH=[boost_lib_prefix,'C:\Python27\libs', os.path.join(SDL_prefix, 'lib\\x64')])
     external_libs.append("python27")
     external_libs.append("legacy_stdio_definitions")
-#    external_libs.append("SDL2.lib")
+    external_libs.append("SDL2main")
 
 elif env['SYSTEM'] == 'linux':
     env.Append(CXXFLAGS="-std=c++0x")
-    env.Append(CPPPATH='/usr/include/python2.7', LIBPATH='/usr/lib64/python2.7')
+    env.Append(CPPPATH=['/usr/include/python2.7', '/usr/include/SDL2'], LIBPATH=['/usr/lib64/python2.7','/usr/lib64/SDL2'])
     external_libs.append(["python2.7", "boost_python"])
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) ) #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
 
@@ -65,15 +65,15 @@ if not conf.CheckLib('SDL2'):
         print 'SDL2 lib not found, exiting!'
         Exit(1)
 
-if not conf.CheckLib('SDL2main'):
+if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
         print 'SDL2 lib not found, exiting!'
         Exit(1)
 
-if env['SYSTEM'] == 'linux':
+#if env['SYSTEM'] == 'linux':
     #Ten test nie dziala pod Windowsem.
-    if not conf.CheckCHeader('boost/python.hpp'):
-        print 'Boost.Python not found!'
-        Exit(1)
+   # if not conf.CheckCHeader('boost/python.hpp'):
+    #    print 'Boost.Python not found!'
+     #   Exit(1)
 
 env = conf.Finish()
 
