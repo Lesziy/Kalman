@@ -1,7 +1,5 @@
 #pragma once
-#ifdef _WIN32
-#define BOOST_PYTHON_STATIC_LIB
-#endif
+
 
 #include <string>
 #include <mutex>
