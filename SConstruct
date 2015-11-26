@@ -6,7 +6,7 @@ boost_include_prefix = "C:\\Boost\\include\\boost-1_59"
 boost_lib_prefix = "C:\Boost\lib"
 SDL_prefix = "C:\\Program Files (x86)\\SDL"
 
-libs = ["Generator", "SimpleSDL"]
+libs = ["Generator", "SimpleSDL", "UserGUI"]
 
 external_libs = ['SDL2']#, 'SDL2main']# ["python27"] humor: lib pythona to python27 pod windowsem, python2.7 pod linuxami...
 
@@ -24,6 +24,7 @@ examples = []
 libs_shared = []
 
 env = Environment(CPPPATH=include_search_path,LIBPATH=['.'])
+
 env.VariantDir('bin', 'src')
 #env['STATIC_AND_SHARED_OBJECTS_ARE_THE_SAME']=1
 env['SYSTEM'] = platform.system().lower()
@@ -38,10 +39,14 @@ if env['SYSTEM'] == 'windows':
     external_libs.append("SDL2main")
 
 elif env['SYSTEM'] == 'linux':
+    env.ParseConfig("wx-config --cxxflags --libs")
     env.Append(CXXFLAGS="-std=c++0x")
-    env.Append(CPPPATH=['/usr/include/python2.7', '/usr/include/SDL2'], LIBPATH=['/usr/lib64/python2.7','/usr/lib64/SDL2'])
+    env.Append(CPPPATH=['/usr/include/python2.7', '/usr/include/SDL2'], LIBPATH=['/usr/lib64/python2.7','/usr/lib64'])
     external_libs.append(["python2.7", "boost_python"])
+
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) ) #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
+    print env['LIBS']
+    
 
 #
 # Konfiguracja
@@ -61,9 +66,10 @@ if not conf.CheckCHeader('SDL.h'):
     print 'SDL2.h not found - install it or fix path in Sconscript file'
     Exit(1)
 
-if not conf.CheckLib('SDL2'):
-        print 'SDL2 lib not found, exiting!'
-        Exit(1)
+#if not conf.CheckLib('SDL2'):
+#        print 'SDL2 lib not found, exiting!'
+#        print env['LIBPATH']
+#	Exit(1)
 
 if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
         print 'SDL2 lib not found, exiting!'
@@ -93,7 +99,7 @@ testEnv = env.Clone()
 #
 
 #Domyslny
-app = env.Program("app", program_sources, LIBS=libs_shared+external_libs)
+app = env.Program("app", program_sources, LIBS=libs_shared+external_libs+env['LIBS'])
 env.Depends(app, libs_shared)
 
 #Default(libs_shared)

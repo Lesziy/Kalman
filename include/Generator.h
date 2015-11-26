@@ -1,5 +1,5 @@
 #pragma once
-
+//#define BOOST_STATIC_LIB
 
 #include <string>
 #include <mutex>

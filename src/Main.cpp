@@ -1,5 +1,6 @@
 #include "Generator.h"
 #include "SimpleSDL.h"
+#include "UserGUI.h"
 #include <iostream>
 //#include "ObserverGUI.h"
 
@@ -26,6 +27,7 @@ int main(int argc, char* argv[])
 	std::cout << "It works!" << std::endl;
 
 	b.Start();
+	UserGUI d;
 
     return 0;
 }
