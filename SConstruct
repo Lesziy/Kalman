@@ -93,7 +93,7 @@ testEnv = env.Clone()
 #
 
 #Domyslny
-app = env.Program("app", program_sources, LIBS=libs+external_libs)
+app = env.Program("app", program_sources, LIBS=libs_shared+external_libs)
 env.Depends(app, libs_shared)
 
 #Default(libs_shared)
