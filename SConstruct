@@ -5,6 +5,7 @@ import platform, os, glob
 boost_include_prefix = "C:\\Boost\\include\\boost-1_59"
 boost_lib_prefix = "C:\Boost\lib"
 SDL_prefix = "C:\\Program Files (x86)\\SDL"
+wx_include_prefix = "C:\wxWidgets-3.0.2\include"
 
 libs = ["Generator", "SimpleSDL", "wxGUI"]
 
@@ -25,14 +26,13 @@ libs_shared = []
 
 env = Environment(CPPPATH=include_search_path,LIBPATH=['.'])
 
-env.VariantDir('bin', 'src')
 #env['STATIC_AND_SHARED_OBJECTS_ARE_THE_SAME']=1
 env['SYSTEM'] = platform.system().lower()
 
 
 if env['SYSTEM'] == 'windows':
-    env.Append( CXXFLAGS='/EHsc /MDd', LINKFLAGS='/SUBSYSTEM:CONSOLE /NODEFAULTLIB:msvcrt' )
-    env.Append(CPPPATH=[SDL_prefix + '\include', boost_include_prefix, 'C:\Python27\include'])
+    env.Append( CXXFLAGS='/EHsc /MD', LINKFLAGS='/SUBSYSTEM:CONSOLE /NODEFAULTLIB:msvcrt' )
+    env.Append(CPPPATH=[SDL_prefix + '\include', boost_include_prefix, 'C:\Python27\include', wx_include_prefix, wx_include_prefix+'\msvc'])
     env.Append(LIBPATH=[boost_lib_prefix,'C:\Python27\libs', os.path.join(SDL_prefix, 'lib\\x64')])
     external_libs.append("python27")
     external_libs.append("legacy_stdio_definitions")
@@ -40,13 +40,13 @@ if env['SYSTEM'] == 'windows':
 
 elif env['SYSTEM'] == 'linux':
     env.ParseConfig("wx-config --cxxflags --libs --gl-libs")
-    env.Append(CXXFLAGS="-std=c++0x -w")
+    env.Append(CXXFLAGS="-std=c++0x")
     env.Append(CPPPATH=['/usr/include/python2.7', '/usr/include/SDL2'], LIBPATH=['/usr/lib64/python2.7','/usr/lib64'])
     external_libs.append(["python2.7", "boost_python", "GL"])
 
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) ) #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
-    print env['LIBS']
-    
+
+
 
 #
 # Konfiguracja
