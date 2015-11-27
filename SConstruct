@@ -6,7 +6,7 @@ boost_include_prefix = "C:\\Boost\\include\\boost-1_59"
 boost_lib_prefix = "C:\Boost\lib"
 SDL_prefix = "C:\\Program Files (x86)\\SDL"
 
-libs = ["Generator", "SimpleSDL", "UserGUI"]
+libs = ["Generator", "SimpleSDL", "wxGUI"]
 
 external_libs = ['SDL2']#, 'SDL2main']# ["python27"] humor: lib pythona to python27 pod windowsem, python2.7 pod linuxami...
 
@@ -39,10 +39,10 @@ if env['SYSTEM'] == 'windows':
     external_libs.append("SDL2main")
 
 elif env['SYSTEM'] == 'linux':
-    env.ParseConfig("wx-config --cxxflags --libs")
-    env.Append(CXXFLAGS="-std=c++0x")
+    env.ParseConfig("wx-config --cxxflags --libs --gl-libs")
+    env.Append(CXXFLAGS="-std=c++0x -w")
     env.Append(CPPPATH=['/usr/include/python2.7', '/usr/include/SDL2'], LIBPATH=['/usr/lib64/python2.7','/usr/lib64'])
-    external_libs.append(["python2.7", "boost_python"])
+    external_libs.append(["python2.7", "boost_python", "GL"])
 
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) ) #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
     print env['LIBS']

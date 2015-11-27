@@ -1,7 +1,9 @@
 #include "Generator.h"
 #include "SimpleSDL.h"
-#include "UserGUI.h"
+#include "wxGUI.h"
 #include <iostream>
+#include <chrono>
+#include <thread>
 //#include "ObserverGUI.h"
 
 
@@ -18,16 +20,16 @@
 int main(int argc, char* argv[])
 {
 
-
 	Generator b("plik.txt");
 	SimpleSDL s;
-
+    
 	//ObserverGUI bb;
 
 	std::cout << "It works!" << std::endl;
 
 	b.Start();
-	UserGUI d;
-
+	wxGUI wx;
+	char c;
+	std::cin >> c;
     return 0;
 }
