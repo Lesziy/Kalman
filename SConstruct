@@ -31,12 +31,12 @@ env['SYSTEM'] = platform.system().lower()
 
 
 if env['SYSTEM'] == 'windows':
-    env.Append( CXXFLAGS='/EHsc /MD', LINKFLAGS='/SUBSYSTEM:CONSOLE /NODEFAULTLIB:msvcrt' )
+    env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE', LINKFLAGS='/SUBSYSTEM:CONSOLE /NODEFAULTLIB:msvcrt' )
     env.Append(CPPPATH=[SDL_prefix + '\include', boost_include_prefix, 'C:\Python27\include', wx_include_prefix, wx_include_prefix+'\msvc'])
-    env.Append(LIBPATH=[boost_lib_prefix,'C:\Python27\libs', os.path.join(SDL_prefix, 'lib\\x64')])
+    env.Append(LIBPATH=[boost_lib_prefix,'C:\Python27\libs', os.path.join(SDL_prefix, 'lib\\x64'),'C:\wxWidgets-3.0.2\lib\\vc_x64_lib'])
     external_libs.append("python27")
     external_libs.append("legacy_stdio_definitions")
-    external_libs.append("SDL2main")
+    external_libs.append(["SDL2main"])
 
 elif env['SYSTEM'] == 'linux':
     env.ParseConfig("wx-config --cxxflags --libs --gl-libs")
