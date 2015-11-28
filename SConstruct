@@ -1,15 +1,46 @@
 import platform, os, glob
 
-#Lokalizacja biblioteki Boost, dotyczy tylko Windowsow:
-#
-boost_include_prefix = "C:\\Boost\\include\\boost-1_59"
-boost_lib_prefix = "C:\Boost\lib"
-SDL_prefix = "C:\\Program Files (x86)\\SDL"
-wx_include_prefix = "C:\wxWidgets-3.0.2\include"
+#Drogi uzytkowniku ktory zajrzales tutaj ze wzgledu na bledy dot. brak bibliotek,
+#To jest miejsce dla ciebie:
+include_dirs = {
+    'windows':
+    {
+        'boost' : "C:\\Boost\\include\\boost-1_59",
+        'SDL' : "C:\\Program Files (x86)\\SDL\include",
+        'python' : "C:\Python27\include",
+        'wx' : "C:\wxWidgets-3.0.2\include",
+        'wxmsvc' : "C:\wxWidgets-3.0.2\include\msvc"
+    },
+    'linux':
+    {
+        'python' : '/usr/include/python2.7',
+        'SDL': '/usr/include/SDL2',
+    }
+}
+
+libs_dirs = {
+    'windows':
+    {
+        'python': 'C:\Python27\libs',
+        'SDL': 'C:\\Program Files (x86)\\SDL\lib\\x64',
+        'wx': 'C:\wxWidgets-3.0.2\lib\\vc_x64_lib',
+        'boost': 'C:\Boost\lib'
+    },
+    'linux':
+    {
+        'python': '/usr/lib64/python2.7'
+        #'/usr/lib64'
+    }
+}
+
+external_libs = {
+    'windows' : ['SDL2', "python27", "legacy_stdio_definitions", "SDL2main"],
+    'linux' : ['SDL2', "python2.7", "boost_python", "GL"]
+}
+
 
 libs = ["Generator", "SimpleSDL", "wxGUI"]
 
-external_libs = ['SDL2']#, 'SDL2main']# ["python27"] humor: lib pythona to python27 pod windowsem, python2.7 pod linuxami...
 
 
 program_sources = ['src/Main.cpp']
@@ -26,25 +57,21 @@ libs_shared = []
 
 env = Environment(CPPPATH=include_search_path,LIBPATH=['.'])
 
-#env['STATIC_AND_SHARED_OBJECTS_ARE_THE_SAME']=1
 env['SYSTEM'] = platform.system().lower()
-
+env.Append(CPPPATH=include_dirs[env['SYSTEM']].values())
+env.Append(LIBPATH=libs_dirs[env['SYSTEM']].values())
 
 if env['SYSTEM'] == 'windows':
-    env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE', LINKFLAGS='/SUBSYSTEM:CONSOLE /NODEFAULTLIB:msvcrt' )
-    env.Append(CPPPATH=[SDL_prefix + '\include', boost_include_prefix, 'C:\Python27\include', wx_include_prefix, wx_include_prefix+'\msvc'])
-    env.Append(LIBPATH=[boost_lib_prefix,'C:\Python27\libs', os.path.join(SDL_prefix, 'lib\\x64'),'C:\wxWidgets-3.0.2\lib\\vc_x64_lib'])
-    external_libs.append("python27")
-    external_libs.append("legacy_stdio_definitions")
-    external_libs.append(["SDL2main"])
+    env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE /D WIN32 /D WINVER=0x0400 /D __WXMSW__ /D _WINDOWS', LINKFLAGS='/SUBSYSTEM:CONSOLE' )
+
+
 
 elif env['SYSTEM'] == 'linux':
     env.ParseConfig("wx-config --cxxflags --libs --gl-libs")
     env.Append(CXXFLAGS="-std=c++0x")
-    env.Append(CPPPATH=['/usr/include/python2.7', '/usr/include/SDL2'], LIBPATH=['/usr/lib64/python2.7','/usr/lib64'])
-    external_libs.append(["python2.7", "boost_python", "GL"])
 
-    env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) ) #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
+    #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
+    env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) )
 
 
 
@@ -66,20 +93,17 @@ if not conf.CheckCHeader('SDL.h'):
     print 'SDL2.h not found - install it or fix path in Sconscript file'
     Exit(1)
 
-#if not conf.CheckLib('SDL2'):
-#        print 'SDL2 lib not found, exiting!'
-#        print env['LIBPATH']
-#	Exit(1)
+if not conf.CheckLib('SDL2'):
+    print 'SDL2 lib not found, exiting!'
+    Exit(1)
 
 if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
-        print 'SDL2 lib not found, exiting!'
-        Exit(1)
+    print 'SDL2main lib not found, exiting!'
+    Exit(1)
 
-#if env['SYSTEM'] == 'linux':
-    #Ten test nie dziala pod Windowsem.
-   # if not conf.CheckCHeader('boost/python.hpp'):
-    #    print 'Boost.Python not found!'
-     #   Exit(1)
+if not conf.CheckCXXHeader('boost/python.hpp'):
+    print 'Boost.Python not found!'
+    Exit(1)
 
 env = conf.Finish()
 
@@ -87,11 +111,10 @@ env = conf.Finish()
 # Kompilacja.
 #
 
-#Windows
+
 for i in range(len(libs)):
-    libs_shared += env.Library(libs[i], libs_sources[i], LIBS=external_libs)
+    libs_shared += env.Library(libs[i], libs_sources[i], LIBS=external_libs[env['SYSTEM']])
 testEnv = env.Clone()
-#testEnv.Append(LIBPATH="src/")
 
 
 #
@@ -99,19 +122,18 @@ testEnv = env.Clone()
 #
 
 #Domyslny
-app = env.Program("app", program_sources, LIBS=libs_shared+external_libs+env['LIBS'])
+app = env.Program("app", program_sources, LIBS=libs_shared+external_libs[env['SYSTEM']]+env['LIBS'])
 env.Depends(app, libs_shared)
 
-#Default(libs_shared)
 Default(app)
 
 #Testy
 for i in range(len(libs)):
-    apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=external_libs+libs)
+    apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=external_libs[env['SYSTEM']]+libs)
 
 #Przyklady
 for j in examples_sources:
-    examples += testEnv.Program(os.path.splitext(os.path.split(j)[1])[0],j, LIBS=external_libs+libs)
+    examples += testEnv.Program(os.path.splitext(os.path.split(j)[1])[0],j, LIBS=external_libs[env['SYSTEM']]+libs)
 
 Alias('test', apptest)
 Alias('examples', examples)
