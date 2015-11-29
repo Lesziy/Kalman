@@ -154,12 +154,18 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="GraphicsCanvas.h" />
     <ClInclude Include="GraphicsContext.h" />
+    <ClInclude Include="GUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="GraphicsCanvas.cpp" />
     <ClCompile Include="GraphicsContext.cpp" />
+    <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

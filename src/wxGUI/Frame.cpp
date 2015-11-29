@@ -7,8 +7,8 @@ wxEND_EVENT_TABLE()
 Frame::Frame() : wxFrame(NULL, wxID_ANY, wxT("Kalman"))
 {
 	//create Canvas that have reference to this frame so it knows what and when to do
-	new GraphicsCanvas(this);
-	//drop-down menu with kinda option separator and close option
+	GraphicsCanvas *gc = new GraphicsCanvas(this);
+	//drop-down menu with option separator and close option
 	wxMenu *sample = new wxMenu;
 	sample->Append(ANYTHING, wxT("Sample Option"));
 	sample->AppendSeparator();
@@ -20,7 +20,7 @@ Frame::Frame() : wxFrame(NULL, wxID_ANY, wxT("Kalman"))
 	SetMenuBar(sampleBar);
 	//status bar with info on the botom of the window
 	CreateStatusBar();
-	SetClientSize(666, 666);//sry for satan
+	SetClientSize(666, 666);
 	Show();
 
 	static const int attribs[] = { WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0 };

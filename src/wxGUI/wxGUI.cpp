@@ -1,18 +1,21 @@
 #include "wxGUI.h"
 #include <wx/init.h>
-
-wxGUI::wxGUI()
+/**
+	Constructor for wxGUI needs env variables
+*/
+wxGUI::wxGUI(int argc, char **argv)
 {
-    int nasty_hack = 0;
-    char * nasty_hack_2 = "";
     wx_ = new App();
     wxApp::SetInstance(wx_);
-    wxEntryStart(nasty_hack, &nasty_hack_2);
+    wxEntryStart(argc, &argv);
     wx_->CallOnInit();
+	wx->OnRun();
+	wx->OnExit();
 }
 
 wxGUI::~wxGUI()
 {
-    /*wxEntryCleanup();
-    delete wx_;*/
+    wxEntryCleanup();
+    delete wx_;
 }
+

@@ -21,9 +21,9 @@ void GraphicsContext::draw()
 	glMatrixMode(GL_MODELVIEW);
 	glTranslatef(0.0f, 0.0f, -1.0f);
 	glBegin(GL_TRIANGLES);
-		glVertex3f(0.2, 0.2, 0.0);
-		glVertex3f(-0.2, -0.2, 0.0);
-		glVertex3f(-0.2, 0.2, 0.0);
+		glVertex3f(0.2f, 0.2f, 0.0f);
+		glVertex3f(-0.2f, -0.2f, 0.0f);
+		glVertex3f(-0.2f, 0.2f, 0.0f);
 	glEnd();
 	glFlush();
 }
