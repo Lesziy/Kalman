@@ -87,3 +87,6 @@ $RECYCLE.BIN/
 /.sconsign.dblite
 /test/test.cpp
 /docs/doxygen
+SConstruct
+*.pyc
+src/Main.cpp

@@ -1,5 +1,5 @@
 #include "Generator.h"
-#include "SimpleSDL.h"
+//#include "SimpleSDL.h"
 #include "wxGUI.h"
 #include <iostream>
 
@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 	BOOST_LOG_TRIVIAL(trace) << "entering main()";
 
 	Generator b("plik.txt");
-	SimpleSDL s;
+	//SimpleSDL s;
 
 	std::cout << "It works!" << std::endl;
 
