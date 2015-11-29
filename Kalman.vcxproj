@@ -68,8 +68,8 @@
     <NMakeReBuildCommandLine>scons -c &amp;&amp; scons</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <ExecutablePath>C:\Python27\Scripts;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(SolutionDir)src;C:\Program Files %28x86%29\boost_1_59_0;$(SolutionDir)include;$(IncludePath)</IncludePath>
-    <SourcePath>$(SolutionDir)include;$(SolutionDir)src;$(SourcePath)</SourcePath>
+    <IncludePath>C:\Boost\include\boost-1_59;$(SolutionDir)src;$(SolutionDir)include;$(IncludePath)</IncludePath>
+    <SourcePath>C:\Boost\include\boost-1_59;$(SolutionDir)include;$(SolutionDir)src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>scons</NMakeBuildCommandLine>

@@ -47,5 +47,16 @@ Na chwile obecna kazdy moduł ma oddzielna aplikacje z testami, ponieważ tak je
 - Udalo sie skompilowac, krzyczy o brak dlli. Co robic?
  - Skrypt after_install.bat dorzuca do zmiennej systemowej %PATH% foldery w ktorych przewidziana jest lokalizacja bibliotek i dlli, wiec wystarczy go uruchomic.
 
-## TODO
-- [ ] Uwzględnienie wszystkich wymagań z readme w SConscript
+## Kompilacja pod Windowsem:
+0. Instalacja VS2015
+1. Sciagniecie i instalacja:
+ - http://sourceforge.net/projects/boost/files/boost-binaries/1.59.0/boost_1_59_0-msvc-14.0-64.exe/download
+ - Python 2.7 & scons
+ - A do katalogow sugerowanych w pliku SConscript:
+  - SDL 2
+  - wxWidgets 3
+   - Najlepszym rozwiazaniem jest rozwiazanie binarne zawierajace same zrodla, tj.
+    - Poprawki w zrodlach: https://forums.wxwidgets.org/viewtopic.php?t=40491#p163676
+    - Kompilacja wx_vc12.sln, Release x64.
+2. Uruchomienie `scons all` w glownym katalogu.
+ - Ze wzgledu na _dojrzalosc_ wxWidgets i brak aktualizacji biblioteki od ponad roku jest troche niegroznych ostrzezen.

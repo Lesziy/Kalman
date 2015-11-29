@@ -1,11 +1,13 @@
 import platform, os, glob
+from scripts.newsetpath import MakeNewPathFile
+from subprocess import call
 
 #Drogi uzytkowniku ktory zajrzales tutaj ze wzgledu na bledy dot. brak bibliotek,
 #To jest miejsce dla ciebie:
 include_dirs = {
     'windows':
     {
-        'boost' : "C:\\Boost\\include\\boost-1_59",
+        'boost' : "C:\Boost",
         'SDL' : "C:\\Program Files (x86)\\SDL\include",
         'python' : "C:\Python27\include",
         'wx' : "C:\wxWidgets-3.0.2\include",
@@ -24,7 +26,7 @@ libs_dirs = {
         'python': 'C:\Python27\libs',
         'SDL': 'C:\\Program Files (x86)\\SDL\lib\\x64',
         'wx': 'C:\wxWidgets-3.0.2\lib\\vc_x64_lib',
-        'boost': 'C:\Boost\lib'
+        'boost': 'C:\Boost\lib64-msvc-14.0'
     },
     'linux':
     {
@@ -37,7 +39,6 @@ external_libs = {
     'windows' : ['SDL2', "python27", "legacy_stdio_definitions", "SDL2main"],
     'linux' : ['SDL2', "python2.7", "boost_python", "GL"]
 }
-
 
 libs = ["Generator", "SimpleSDL", "wxGUI"]
 
@@ -116,7 +117,6 @@ for i in range(len(libs)):
     libs_shared += env.Library(libs[i], libs_sources[i], LIBS=external_libs[env['SYSTEM']])
 testEnv = env.Clone()
 
-
 #
 # Targety
 #
@@ -142,3 +142,7 @@ Alias('examples', examples)
 Alias('all', app)
 Alias('all', apptest)
 Alias('all', examples)
+
+if env['SYSTEM'] == 'windows':
+    MakeNewPathFile(libs_dirs[env['SYSTEM']].values())
+    print 'W przypadku szczesliwej kompilacji uruchom after_install.bat'

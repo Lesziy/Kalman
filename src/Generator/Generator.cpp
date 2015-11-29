@@ -1,11 +1,12 @@
+#include <iostream>
+#include <boost/python.hpp>
+#include <boost/log/trivial.hpp>
 #include "Generator.h"
 
 
-#include <iostream>
-
 void Generator::Init()
 {
-	std::cout << "hello" << std::flush;
+	BOOST_LOG_TRIVIAL(trace) << "entering Generator::Init()";
 	using namespace boost::python;
 	Py_Initialize();
 
@@ -21,15 +22,15 @@ void Generator::Init()
 			"    return (i,1)\n\n", mainNamespace_);
 	} catch(...)
 	{
-		std::cout << "[!] wyjątek w interpreterze!" <<  std::endl;
+		BOOST_LOG_TRIVIAL(fatal) << "[!] wyjątek w interpreterze!" <<  std::endl;
 		throw;
 	}
-	std::cout << "Python is working!\n" << std::endl;
+	BOOST_LOG_TRIVIAL(trace) << "exiting Generator::Init()";
 }
 
 void Generator::MessageLoop()
 {
-	std::cout << "MessageLoop();"<< std::endl;
+	BOOST_LOG_TRIVIAL(trace) << "entering Generator::MessageLoop()";
 	using namespace boost::python;
 	unsigned int time_ = 0;
 
@@ -46,7 +47,7 @@ void Generator::MessageLoop()
 		}
 		catch(...)
 		{
-			std::cout << "error" << std::endl;
+			BOOST_LOG_TRIVIAL(fatal) << "error" << std::endl;
 			PyErr_Print();
 			return;
 		}
@@ -55,6 +56,7 @@ void Generator::MessageLoop()
 
 		if (time_ == 2) break;
 	}
+	BOOST_LOG_TRIVIAL(trace) << "exiting Generator::MessageLoop()";
 }
 
 Generator::Generator(std::string pFilename) : pythonFile_(PythonFile(pFilename))
