@@ -7,24 +7,26 @@ from subprocess import call
 include_dirs = {
     'windows':
     {
-        'boost' : "D:\\deps\\boost_1_59_0",
-        'python' : "D:\\Programs\Python27\include",
-        'wx' : "D:\\deps\wxWidgets-3.0.2\include",
-        'wxmsvc' : "D:\\deps\wxWidgets-3.0.2\include\msvc"
+        'boost' : "C:\Boost",
+        'SDL' : "C:\\Program Files (x86)\\SDL\include",
+        'python' : "C:\Python27\include",
+        'wx' : "C:\wxWidgets-3.0.2\include",
+        'wxmsvc' : "C:\wxWidgets-3.0.2\include\msvc"
     },
     'linux':
     {
         'python' : '/usr/include/python2.7',
+        'SDL': '/usr/include/SDL2',
     }
 }
-#'SDL' : "D:\\deps\\SDL\include",
-#'SDL': '/usr/include/SDL2',
+
 libs_dirs = {
     'windows':
     {
-        'python': 'D:\\Programs\Python27\libs',
-        'wx': 'D:\\deps\wxWidgets-3.0.2\lib\\vc_lib',
-        'boost': 'D:\\deps\\boost_1_59_0\lib32-msvc-14.0'
+        'python': 'C:\Python27\libs',
+        'SDL': 'C:\\Program Files (x86)\\SDL\lib\\x64',
+        'wx': 'C:\wxWidgets-3.0.2\lib\\vc_x64_lib',
+        'boost': 'C:\Boost\lib64-msvc-14.0'
     },
     'linux':
     {
@@ -32,14 +34,15 @@ libs_dirs = {
         #'/usr/lib64'
     }
 }
-#'SDL': 'D:\\deps\\SDL\lib',
+
 external_libs = {
-    'windows' : ["python27", "legacy_stdio_definitions"],
+    'windows' : ['SDL2', "python27", "legacy_stdio_definitions", "SDL2main"],
     'linux' : ['SDL2', "python2.7", "boost_python", "GL"]
 }
-#"SDL2main",'SDL2',
-libs = ["Generator", "wxGUI"]
-#"SimpleSDL",
+
+libs = ["Generator", "SimpleSDL", "wxGUI"]
+
+
 
 program_sources = ['src/Main.cpp']
 libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs)
@@ -60,7 +63,7 @@ env.Append(CPPPATH=include_dirs[env['SYSTEM']].values())
 env.Append(LIBPATH=libs_dirs[env['SYSTEM']].values())
 
 if env['SYSTEM'] == 'windows':
-    env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE /D WIN32 /D WINVER=0x0400 /D __WXMSW__ /D _WINDOWS /D wxUSE_GUI=1', LINKFLAGS='/SUBSYSTEM:CONSOLE' )
+    env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE /D WIN32 /D WINVER=0x0400 /D __WXMSW__ /D _WINDOWS', LINKFLAGS='/SUBSYSTEM:CONSOLE' )
 
 
 
@@ -87,17 +90,17 @@ if not conf.CheckCXXHeader('pyconfig.h'):
     Exit(1)
 
 
-#if not conf.CheckCHeader('SDL.h'):
-#    print 'SDL2.h not found - install it or fix path in Sconscript file'
-#    Exit(1)
+if not conf.CheckCHeader('SDL.h'):
+    print 'SDL2.h not found - install it or fix path in Sconscript file'
+    Exit(1)
 
-#if not conf.CheckLib('SDL2'):
-#    print 'SDL2 lib not found, exiting!'
-#    Exit(1)
+if not conf.CheckLib('SDL2'):
+    print 'SDL2 lib not found, exiting!'
+    Exit(1)
 
-#if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
-#    print 'SDL2main lib not found, exiting!'
-#    Exit(1)
+if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
+    print 'SDL2main lib not found, exiting!'
+    Exit(1)
 
 if not conf.CheckCXXHeader('boost/python.hpp'):
     print 'Boost.Python not found!'
