@@ -31,13 +31,13 @@ namespace logging = boost::log;
 void InitBoostLog()
 {
 	namespace attrs = boost::log::attributes;
-	
+
 	logging::add_file_log
 		(
 			keywords::file_name = "logKalman_%N.log",
 			keywords::rotation_size = 10 * 1024 * 1024,
 			keywords::format = "[%TimeStamp% (%ThreadID%)]: %Message%"
-		
+
 	);
 	logging::core::get()->set_filter
 	(
@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 
 	InitBoostLog();
 	logging::add_common_attributes();
-	
+
 	BOOST_LOG_TRIVIAL(trace) << "entering main()";
 
 	Generator b("plik.txt");
@@ -61,9 +61,7 @@ int main(int argc, char* argv[])
 	std::cout << "It works!" << std::endl;
 
 	b.Start();
-	wxGUI wx;
-	char c;
-	std::cin >> c;
+	wxGUI wx(argc, argv);
 	BOOST_LOG_TRIVIAL(trace) << "exiting main() gracefully";
     return 0;
 }

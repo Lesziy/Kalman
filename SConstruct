@@ -7,11 +7,16 @@ from subprocess import call
 include_dirs = {
     'windows':
     {
-        'boost' : "C:\Boost",
-        'SDL' : "C:\\Program Files (x86)\\SDL\include",
-        'python' : "C:\Python27\include",
-        'wx' : "C:\wxWidgets-3.0.2\include",
-        'wxmsvc' : "C:\wxWidgets-3.0.2\include\msvc"
+        'jp_boost' : "C:\Boost",
+        'jp_SDL' : "C:\\Program Files (x86)\\SDL\include",
+        'jp_python' : "C:\Python27\include",
+        'jp_wx' : "C:\wxWidgets-3.0.2\include",
+        'jp_wxmsvc' : "C:\wxWidgets-3.0.2\include\msvc",
+        'ps_boost' : "D:\\deps\\boost_1_59_0",
+        'ps_python' : "D:\\Programs\Python27\include",
+        'ps_wx' : "D:\\deps\wxWidgets-3.0.2\include",
+        'ps_wxmsvc' : "D:\\deps\wxWidgets-3.0.2\include\msvc",
+        'ps_SDL' : "D:\\deps\\SDL\include"
     },
     'linux':
     {
@@ -23,10 +28,14 @@ include_dirs = {
 libs_dirs = {
     'windows':
     {
-        'python': 'C:\Python27\libs',
-        'SDL': 'C:\\Program Files (x86)\\SDL\lib\\x64',
-        'wx': 'C:\wxWidgets-3.0.2\lib\\vc_x64_lib',
-        'boost': 'C:\Boost\lib64-msvc-14.0'
+        'jp_python': 'C:\Python27\libs',
+        'jp_SDL': 'C:\\Program Files (x86)\\SDL\lib\\x64',
+        'jp_wx': 'C:\wxWidgets-3.0.2\lib\\vc_x64_lib',
+        'jp_boost': 'C:\Boost\lib64-msvc-14.0',
+        'ps_python': 'D:\\Programs\Python27\libs',
+        'ps_wx': 'D:\\deps\wxWidgets-3.0.2\lib\\vc_lib',
+        'ps_boost': 'D:\\deps\\boost_1_59_0\lib32-msvc-14.0',
+        'ps_SDL': 'D:\\deps\\SDL\lib'
     },
     'linux':
     {
@@ -64,7 +73,8 @@ env.Append(LIBPATH=libs_dirs[env['SYSTEM']].values())
 
 if env['SYSTEM'] == 'windows':
     env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE /D WIN32 /D WINVER=0x0400 /D __WXMSW__ /D _WINDOWS', LINKFLAGS='/SUBSYSTEM:CONSOLE' )
-
+    MakeNewPathFile(libs_dirs[env['SYSTEM']].values())
+    print '[!!!]W przypadku szczesliwej kompilacji uruchom after_install.bat'
 
 
 elif env['SYSTEM'] == 'linux':
@@ -142,7 +152,3 @@ Alias('examples', examples)
 Alias('all', app)
 Alias('all', apptest)
 Alias('all', examples)
-
-if env['SYSTEM'] == 'windows':
-    MakeNewPathFile(libs_dirs[env['SYSTEM']].values())
-    print 'W przypadku szczesliwej kompilacji uruchom after_install.bat'

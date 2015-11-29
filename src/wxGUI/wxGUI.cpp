@@ -7,10 +7,10 @@ wxGUI::wxGUI(int argc, char **argv)
 {
     wx_ = new App();
     wxApp::SetInstance(wx_);
-    wxEntryStart(argc, &argv);
+    wxEntryStart(argc, argv);
     wx_->CallOnInit();
-	wx->OnRun();
-	wx->OnExit();
+    wx_->OnRun();
+    wx_->OnExit();
 }
 
 wxGUI::~wxGUI()
@@ -18,4 +18,3 @@ wxGUI::~wxGUI()
     wxEntryCleanup();
     delete wx_;
 }
-

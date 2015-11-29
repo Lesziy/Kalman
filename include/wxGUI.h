@@ -1,12 +1,11 @@
 #pragma once
 #include "App.h"
 
-class wxGUI 
+class wxGUI
 {
     App * wx_;
-    
+
     public:
-        wxGUI();
+        wxGUI::wxGUI(int argc, char **argv);
         ~wxGUI();
 };
-
