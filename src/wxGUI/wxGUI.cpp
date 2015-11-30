@@ -10,11 +10,12 @@ wxGUI::wxGUI(int argc, char **argv)
     wxEntryStart(argc, argv);
     wx_->CallOnInit();
     wx_->OnRun();
-    wx_->OnExit();
 }
 
 wxGUI::~wxGUI()
 {
+	
+    wx_->OnExit();
     wxEntryCleanup();
     delete wx_;
 }

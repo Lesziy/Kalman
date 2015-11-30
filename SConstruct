@@ -13,7 +13,7 @@ include_dirs = {
         'jp_wx' : "C:\wxWidgets-3.0.2\include",
         'jp_wxmsvc' : "C:\wxWidgets-3.0.2\include\msvc",
         'ps_boost' : "D:\\deps\\Boost",
-        'ps_python' : "D:\\Programs\Python27\include",
+        'ps_python' : "D:\\deps\Python27\include",
         'ps_wx' : "D:\\deps\wxWidgets-3.0.2\include",
         'ps_wxmsvc' : "D:\\deps\wxWidgets-3.0.2\include\msvc",
         'ps_SDL' : "D:\\deps\\SDL\include"
@@ -32,7 +32,7 @@ libs_dirs = {
         'jp_SDL': 'C:\\Program Files (x86)\\SDL\lib\\x64',
         'jp_wx': 'C:\wxWidgets-3.0.2\lib\\vc_x64_lib',
         'jp_boost': 'C:\Boost\lib64-msvc-14.0',
-        'ps_python': 'D:\\Programs\Python27\libs',
+        'ps_python': 'D:\\deps\Python27\libs',
         'ps_SDL': 'D:\\deps\\SDL\lib\\x64',
         'ps_wx': 'D:\\deps\wxWidgets-3.0.2\lib\\vc_x64_lib',
         'ps_boost': 'D:\\deps\Boost\lib64-msvc-14.0'
@@ -95,9 +95,9 @@ if not conf.CheckCXXHeader('boost/test/included/unit_test.hpp'):
     print 'Boost.Test not found!'
     Exit(1)
 
-if not conf.CheckCXXHeader('pyconfig.h'):
-    print 'Python development files not found - fix paths in SConscript file or install them'
-    Exit(1)
+#if not conf.CheckCXXHeader('pyconfig.h'):
+#    print 'Python development files not found - fix paths in SConscript file or install them'
+#    Exit(1)
 
 
 if not conf.CheckCHeader('SDL.h'):
@@ -108,9 +108,9 @@ if not conf.CheckLib('SDL2'):
     print 'SDL2 lib not found, exiting!'
     Exit(1)
 
-if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
-    print 'SDL2main lib not found, exiting!'
-    Exit(1)
+#if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
+#    print 'SDL2main lib not found, exiting!'
+#    Exit(1)
 
 if not conf.CheckCXXHeader('boost/python.hpp'):
     print 'Boost.Python not found!'

@@ -18,9 +18,9 @@ Frame::Frame() : wxFrame(NULL, wxID_ANY, wxT("Kalman"))
 	wxMenuBar *sampleBar = new wxMenuBar;
 	sampleBar->Append(sample, wxT("&Option"));
 	SetMenuBar(sampleBar);
-	//status bar with info on the botom of the window
+	//status bar with info on the bottom of the window
 	CreateStatusBar();
-	SetClientSize(666, 666);
+	SetClientSize(300, 300);
 	Show();
 
 	static const int attribs[] = { WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0 };

@@ -1,21 +1,21 @@
 #pragma once
 #include <wx/glcanvas.h>
-#include "App.h"
-#include "GraphicsContext.h"
 /**
 	Used to display graphics from graphicscontext
+	Much part of this class is suggested on samples in wxWidgets 3.0.2
 */
 class GraphicsCanvas : public wxGLCanvas
 {
 public:
 	GraphicsCanvas(wxWindow *parent);
-	GraphicsContext &getContext();
 private:
 	/**
 		defines behaviour when parent asks it to paint
 	*/
-	GraphicsContext *graphicsContext;
-	void onPaint(wxPaintEvent &event);
+	void OnPaint(wxPaintEvent &event);
+	void OnEraseBackground(wxEraseEvent& WXUNUSED(event));
+	void OnSize(wxSizeEvent& WXUNUSED(event));
 	wxDECLARE_EVENT_TABLE();
+	void ResetProjectionMode();
 };
 
