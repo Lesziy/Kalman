@@ -12,7 +12,7 @@ include_dirs = {
         'jp_python' : "C:\Python27\include",
         'jp_wx' : "C:\wxWidgets-3.0.2\include",
         'jp_wxmsvc' : "C:\wxWidgets-3.0.2\include\msvc",
-        'ps_boost' : "D:\\deps\\boost_1_59_0",
+        'ps_boost' : "D:\\deps\\Boost",
         'ps_python' : "D:\\Programs\Python27\include",
         'ps_wx' : "D:\\deps\wxWidgets-3.0.2\include",
         'ps_wxmsvc' : "D:\\deps\wxWidgets-3.0.2\include\msvc",
@@ -33,9 +33,9 @@ libs_dirs = {
         'jp_wx': 'C:\wxWidgets-3.0.2\lib\\vc_x64_lib',
         'jp_boost': 'C:\Boost\lib64-msvc-14.0',
         'ps_python': 'D:\\Programs\Python27\libs',
-        'ps_wx': 'D:\\deps\wxWidgets-3.0.2\lib\\vc_lib',
-        'ps_boost': 'D:\\deps\\boost_1_59_0\lib32-msvc-14.0',
-        'ps_SDL': 'D:\\deps\\SDL\lib'
+        'ps_SDL': 'D:\\deps\\SDL\lib\\x64',
+        'ps_wx': 'D:\\deps\wxWidgets-3.0.2\lib\\vc_x64_lib',
+        'ps_boost': 'D:\\deps\Boost\lib64-msvc-14.0'
     },
     'linux':
     {
@@ -101,7 +101,7 @@ if not conf.CheckCXXHeader('pyconfig.h'):
 
 
 if not conf.CheckCHeader('SDL.h'):
-    print 'SDL2.h not found - install it or fix path in Sconscript file'
+    print 'SDL.h not found - install it or fix path in Sconscript file'
     Exit(1)
 
 if not conf.CheckLib('SDL2'):
