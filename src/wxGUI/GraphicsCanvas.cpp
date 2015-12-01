@@ -14,7 +14,12 @@ GraphicsContext &GraphicsCanvas::getContext()
 	{
 		graphicsContext = new GraphicsContext(this);
 	}
+	//hotfix 01.12.2015
+	#ifndef _WIN32 
+	graphicsContext->SetCurrent(*this);
+	#else	
 	graphicsContext->SetCurrent(this);
+	#endif	
 	return *graphicsContext;
 }
 void GraphicsCanvas::OnPaint(wxPaintEvent & event)
