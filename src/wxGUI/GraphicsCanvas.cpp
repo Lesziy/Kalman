@@ -1,20 +1,29 @@
 #include "GraphicsCanvas.h"
-#include "GraphicsContext.h"
 #include "App.h"
 #include <wx/wxprec.h>
 #include <wx/wx.h>
 #include <iostream>
 GraphicsCanvas::GraphicsCanvas(wxWindow *parent) : wxGLCanvas(parent,wxID_ANY,NULL,wxDefaultPosition,wxDefaultSize,wxFULL_REPAINT_ON_RESIZE)
-{ }
+{ 
+	graphicsContext = new GraphicsContext(this);
+}
 
-
+GraphicsContext &GraphicsCanvas::getContext()
+{
+	if (!graphicsContext)
+	{
+		graphicsContext = new GraphicsContext(this);
+	}
+	graphicsContext->SetCurrent(this);
+	return *graphicsContext;
+}
 void GraphicsCanvas::OnPaint(wxPaintEvent & event)
 {
 	//getting context to draw on canvas
-	GraphicsContext &context = reinterpret_cast<App*>(wxTheApp)->getContext(this);
-	
-	context.draw();
-	
+	int w, h;
+	GetClientSize(&w, &h);
+	glViewport(0, 0, (GLint) w, (GLint) h);
+	graphicsContext->draw();
 	SwapBuffers();
 }
 
@@ -53,6 +62,6 @@ void GraphicsCanvas::OnEraseBackground(wxEraseEvent& WXUNUSED(event))
 }
 wxBEGIN_EVENT_TABLE(GraphicsCanvas, wxGLCanvas)
 	EVT_PAINT(GraphicsCanvas::OnPaint)
-	EVT_SIZE(GraphicsCanvas::OnSize)
+	//EVT_SIZE(GraphicsCanvas::OnSize)
 wxEND_EVENT_TABLE()
 

@@ -1,14 +1,18 @@
 #pragma once
 #include <wx/glcanvas.h>
+#include "GraphicsContext.h"
 /**
 	Used to display graphics from graphicscontext
-	Much part of this class is suggested on samples in wxWidgets 3.0.2
+	Much huge part of this class is suggested on samples in wxWidgets 3.0.2
 */
 class GraphicsCanvas : public wxGLCanvas
 {
 public:
 	GraphicsCanvas(wxWindow *parent);
+	
+	GraphicsContext &getContext();
 private:
+	GraphicsContext *graphicsContext;
 	/**
 		defines behaviour when parent asks it to paint
 	*/
