@@ -7,7 +7,7 @@ wxEND_EVENT_TABLE()
 Frame::Frame() : wxFrame(NULL, wxID_ANY, wxT("Kalman"))
 {
 	//create Canvas that have reference to this frame so it knows what and when to do
-	GraphicsCanvas *gc = new GraphicsCanvas(this);
+	
 	//drop-down menu with option separator and close option
 	wxMenu *sample = new wxMenu;
 	sample->Append(ANYTHING, wxT("Sample Option"));
@@ -22,7 +22,8 @@ Frame::Frame() : wxFrame(NULL, wxID_ANY, wxT("Kalman"))
 	CreateStatusBar();
 	SetClientSize(300, 300);
 	Show();
-
+	
+	GraphicsCanvas *gc = new GraphicsCanvas(this);
 	static const int attribs[] = { WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0 };
 	wxLogStatus("Double-buffered display %s supported",
 		wxGLCanvas::IsDisplaySupported(attribs) ? "is" : "not");
