@@ -79,7 +79,7 @@ if env['SYSTEM'] == 'windows':
 
 elif env['SYSTEM'] == 'linux':
     env.ParseConfig("wx-config --cxxflags --libs --gl-libs")
-    env.Append(CXXFLAGS="-DBOOST_LOG_DYN_LINK -std=c++0x")
+    env.Append(CXXFLAGS="-DBOOST_LOG_DYN_LINK -w -std=c++0x")
 
     #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) )
