@@ -19,17 +19,7 @@ bool App::OnInit()
 	//t = new std::thread(f);
 	return true;
 }
-GraphicsContext &App::getContext(GraphicsCanvas *canvas)
-{
-	GraphicsContext *context;
-	if (!graphicsContext)
-	{
-		graphicsContext = new GraphicsContext(canvas);
-	}
-	context = graphicsContext;
-	context->SetCurrent(*canvas);
-	return *context;
-}
+
 int App::OnExit()
 {
 	//t->join();
