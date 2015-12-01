@@ -46,7 +46,7 @@ libs_dirs = {
 
 external_libs = {
     'windows' : ['SDL2', "python27", "legacy_stdio_definitions", "SDL2main"],
-    'linux' : ['SDL2', "python2.7", "boost_python", "GL"]
+    'linux' : ['SDL2', "python2.7","boost_system", "boost_python", "GL","pthread","boost_log_setup","boost_log"]
 }
 
 libs = ["Generator", "SimpleSDL", "wxGUI"]
@@ -79,7 +79,7 @@ if env['SYSTEM'] == 'windows':
 
 elif env['SYSTEM'] == 'linux':
     env.ParseConfig("wx-config --cxxflags --libs --gl-libs")
-    env.Append(CXXFLAGS="-std=c++0x")
+    env.Append(CXXFLAGS="-DBOOST_LOG_DYN_LINK -std=c++0x")
 
     #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) )

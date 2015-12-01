@@ -28,7 +28,7 @@ namespace keywords = boost::log::keywords;
 #endif
 namespace logging = boost::log;
 
-void InitBoostLog()
+/*void InitBoostLog()
 {
 	namespace attrs = boost::log::attributes;
 
@@ -43,15 +43,13 @@ void InitBoostLog()
 	(
 		logging::trivial::severity >= logging::trivial::trace
 	);
-	boost::shared_ptr< logging::core > core = logging::core::get();
-	core->add_global_attribute("Scope", attrs::named_scope());
-}
+}*/
 int main(int argc, char* argv[])
 {
 	using namespace logging::trivial;
 
-	InitBoostLog();
-	logging::add_common_attributes();
+//	InitBoostLog();
+//	logging::add_common_attributes();
 
 	BOOST_LOG_TRIVIAL(trace) << "entering main()";
 
