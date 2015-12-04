@@ -9,7 +9,7 @@ using namespace boost::unit_test;
 BOOST_AUTO_TEST_SUITE(test_wxGUI)
 BOOST_AUTO_TEST_CASE(test_true)
 {
-	wxGUI Foo();
+//	wxGUI Foo();
 	BOOST_CHECK(true);
 }
 BOOST_AUTO_TEST_SUITE_END()

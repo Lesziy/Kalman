@@ -139,11 +139,11 @@ Default(app)
 
 #Testy
 for i in range(len(libs)):
-    apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=external_libs[env['SYSTEM']]+libs)
+    apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=external_libs[env['SYSTEM']]+env['LIBS'])
 
 #Przyklady
 for j in examples_sources:
-    examples += testEnv.Program(os.path.splitext(os.path.split(j)[1])[0],j, LIBS=external_libs[env['SYSTEM']]+libs)
+    examples += testEnv.Program(os.path.splitext(os.path.split(j)[1])[0],j, LIBS=external_libs[env['SYSTEM']]+env['LIBS'])
 
 Alias('test', apptest)
 Alias('examples', examples)

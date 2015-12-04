@@ -4,12 +4,11 @@
 
 using namespace boost::unit_test;
 
-std::mutex mtx;
 
 BOOST_AUTO_TEST_SUITE(test_generator)
 BOOST_AUTO_TEST_CASE(test_true)
 {
-	Generator g("plik.txt");
+//	Generator g("plik.txt");
 	BOOST_CHECK(true);
 }
 BOOST_AUTO_TEST_SUITE_END()
