@@ -14,9 +14,6 @@
 #include <boost/log/sources/record_ostream.hpp>
 #include <boost/shared_ptr.hpp>
 namespace logging = boost::log;
-namespace src = boost::log::sources;
-namespace sinks = boost::log::sinks;
-namespace keywords = boost::log::keywords;
 
 #ifdef _WIN32
       FILE _iob[] = { *stdin, *stdout, *stderr };
@@ -26,30 +23,21 @@ namespace keywords = boost::log::keywords;
          return _iob;
       }
 #endif
-namespace logging = boost::log;
 
-/*void InitBoostLog()
+
+void InitBoostLog()
 {
-	namespace attrs = boost::log::attributes;
-
-	logging::add_file_log
-		(
-			keywords::file_name = "logKalman_%N.log",
-			keywords::rotation_size = 10 * 1024 * 1024,
-			keywords::format = "[%TimeStamp% (%ThreadID%)]: %Message%"
-
-	);
 	logging::core::get()->set_filter
 	(
 		logging::trivial::severity >= logging::trivial::trace
 	);
-}*/
+}
+
 int main(int argc, char* argv[])
 {
 	using namespace logging::trivial;
 
-//	InitBoostLog();
-//	logging::add_common_attributes();
+	InitBoostLog();
 
 	BOOST_LOG_TRIVIAL(trace) << "entering main()";
 

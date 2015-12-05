@@ -1,7 +1,6 @@
-
 #define BOOST_TEST_MODULE wxGUI test module
 #include <boost/test/included/unit_test.hpp>
-#include "wxGUI.h"
+//#include "wxGUI.h"
 
 using namespace boost::unit_test;
 

@@ -59,11 +59,17 @@ void Generator::MessageLoop()
 	BOOST_LOG_TRIVIAL(trace) << "exiting Generator::MessageLoop()";
 }
 
-Generator::Generator(std::string pFilename) : pythonFile_(PythonFile(pFilename))
+Generator::Generator(std::string pFilename) 
 {
-	/*
-		Aby nie blokowa� g��wnego w�tku ca�� inicjalizacj� wyrzuc� do osobnego w�tku
-	*/
+	try
+	{
+		pythonFile_ = PythonFile(pFilename);
+	}
+	catch(...)
+	{
+		BOOST_LOG_TRIVIAL(fatal) << "Generator ctor failed - first script not found, exiting.";
+		throw;
+	}
 }
 
 Generator::~Generator()
