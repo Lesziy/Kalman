@@ -13,7 +13,7 @@ Implementacja filtru Kalmana do śledzenia celów i fuzji danych.
  - Pod windowsem po cichu zakładam lokalizację C:\Program Files (x86)\SDL.
 - Plik Sconscript opiera się na 64bitowej architekturze.
 - VS2015 pod Windowsem
-
+- wxWidgets 3.0.2
 
 
 ## Kompilacja
