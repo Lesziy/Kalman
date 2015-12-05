@@ -18,7 +18,7 @@ Implementacja filtru Kalmana do śledzenia celów i fuzji danych.
 
 ## Kompilacja
 
-Pod Windowsem powinny działać pliki projektu VS2015(w projekcie są dodane ścieżki aby uwzględnić domyślne instalacje powyższych programów), pod linuxem wystarczy tylko:
+Pod Windows powinny działać pliki projektu VS2015(w projekcie są dodane ścieżki aby uwzględnić domyślne instalacje powyższych programów), pod linuxem wystarczy tylko:
 ```
 $ scons
 ```
