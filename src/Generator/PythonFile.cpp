@@ -9,7 +9,7 @@ void PythonFile::GetFileContent()
 	{
 		std::ifstream ifs(pFilename_);
 		if (!ifs || ifs.bad())
-			throw std::exception("Can't load file");
+			throw std::exception();
 
 		pSource_.assign(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
 	}
@@ -20,10 +20,7 @@ void PythonFile::GetFileContent()
 	}
 }
 
-PythonFile::PythonFile()
-{
-	BOOST_LOG_TRIVIAL(trace) << "PythonFile::PythonFile()";
-}
+
 
 PythonFile::PythonFile(std::string pF): pFilename_(pF)
 {

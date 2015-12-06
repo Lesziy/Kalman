@@ -60,17 +60,13 @@ void Generator::MessageLoop()
 }
 
 Generator::Generator(std::string pFilename) 
+try : pythonFile_(pFilename) { /*function body*/ }
+catch (...)
 {
-	try
-	{
-		pythonFile_ = PythonFile(pFilename);
-	}
-	catch(...)
-	{
-		BOOST_LOG_TRIVIAL(fatal) << "Generator ctor failed - first script not found, exiting.";
-		throw;
-	}
+	BOOST_LOG_TRIVIAL(fatal) << "Generator ctor failed - first script not found, exiting.";
+	throw;
 }
+
 
 Generator::~Generator()
 {

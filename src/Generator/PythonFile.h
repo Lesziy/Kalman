@@ -10,8 +10,7 @@ class PythonFile
 	
 	void GetFileContent();
 public:
-	PythonFile();
-	PythonFile(std::string pF);
+	explicit PythonFile(std::string pF);
 	std::string ToString() const;
 
 	~PythonFile();
