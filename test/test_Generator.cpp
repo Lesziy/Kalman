@@ -14,7 +14,7 @@ BOOST_AUTO_TEST_CASE(pythonFile_FileNotFound)
 
 BOOST_AUTO_TEST_CASE(pythonfile_classicUse)
 {
-	PythonFile pf("test/fixtures/Generator/SimpleScript.Py");
+	PythonFile pf("test/fixtures/Generator/SimpleScript.py");
 	BOOST_REQUIRE_EQUAL(pf.ToString(), "def update():\n    return (1,1)\n");
 
 }
