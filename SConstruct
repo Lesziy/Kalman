@@ -139,7 +139,7 @@ Default(app)
 
 #Testy
 for i in range(len(libs)):
-    apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=external_libs[env['SYSTEM']]+env['LIBS']+libs_shared)
+    apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=libs_shared+external_libs[env['SYSTEM']]+env['LIBS'])
 
 #Przyklady
 for j in examples_sources:
