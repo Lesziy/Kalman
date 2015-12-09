@@ -4,6 +4,7 @@
 #include <boost/log/trivial.hpp>
 #include <boost/log/expressions.hpp>
 #include <fstream>
+#include <regex>
 
 class PythonFile
 {
@@ -11,6 +12,7 @@ class PythonFile
 	std::string pSource_;
 	
 	void GetFileContent();
+	void CheckFile() const;
 public:
 	explicit PythonFile(std::string pF);
 	std::string ToString() const;

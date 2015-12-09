@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE wxGUI test module
+#define BOOST_TEST_MODULE wxGUI_test_module
 #include <boost/test/included/unit_test.hpp>
 //#include "wxGUI.h"
 

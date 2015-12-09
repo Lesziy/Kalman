@@ -1,5 +1,4 @@
-
-#define BOOST_TEST_MODULE SimpleSDL test module
+#define BOOST_TEST_MODULE SimpleSDL_test_module
 #include <boost/test/included/unit_test.hpp>
 #include "SimpleSDL.h"
 
