@@ -9,7 +9,7 @@ void PythonFile::GetFileContent()
 	{
 		std::ifstream ifs(pFilename_);
 		if (!ifs || ifs.bad())
-			throw std::exception();
+			throw std::runtime_error("File not found or cannot be open.");
 
 		pSource_.assign(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
 	}
@@ -50,7 +50,7 @@ void PythonFile::CheckFile()
 
 
 	BOOST_LOG_TRIVIAL(error) << "PythonFile::CheckFile() failed, regex didn't found any matching functions.";
-	throw std::exception("Don't found any matching functions with the filename!");
+	throw std::runtime_error("Don't found any matching functions with the filename!");
 }
 
 
