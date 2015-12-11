@@ -20,26 +20,41 @@ void PythonFile::GetFileContent()
 	}
 }
 
-void PythonFile::CheckFile() const
+std::string PythonFile::GetFilenameWithoutEx() const
+{
+	boost::filesystem::path p(pFilename_);
+	return p.stem().string();
+}
+
+void PythonFile::CheckFile()
 {
 	BOOST_LOG_TRIVIAL(trace) << "PythonFile::CheckFile()";
-
+	
 	std::regex regex("def (\\w+)\\(\\):\n(\\s{4}|\\t)");
 	std::smatch stringMatches;
 	std::string temp = pSource_;
+	auto possibleFunc = GetFilenameWithoutEx();
+	
 	while (std::regex_search(temp, stringMatches, regex))
 	{
-		BOOST_LOG_TRIVIAL(debug) << "PythonFile::CheckFile() - std::regex match something: ";
-		for (auto a : stringMatches)
-			BOOST_LOG_TRIVIAL(debug) << a.str() << " ";
-			temp = stringMatches.suffix().str();
+		for (auto match : stringMatches)
+			if(match == possibleFunc)
+			{
+				BOOST_LOG_TRIVIAL(trace) << "PythonFile::CheckFile() - possibly valid function found.";
+				pFuncName_ = match;
+				return;
+			}
+		
+		temp = stringMatches.suffix().str();
 	}
-	BOOST_LOG_TRIVIAL(trace) << "PythonFile::CheckFile() - ok";
 
+
+	BOOST_LOG_TRIVIAL(error) << "PythonFile::CheckFile() failed, regex didn't found any matching functions.";
+	throw std::exception("Don't found any matching functions with the filename!");
 }
 
 
-PythonFile::PythonFile(std::string pF): pFilename_(pF)
+PythonFile::PythonFile(std::string pF): pFilename_(pF), pFuncName_()
 {
 	BOOST_LOG_TRIVIAL(trace) << "PythonFile::PythonFile(string)";
 
@@ -54,12 +69,17 @@ PythonFile::PythonFile(std::string pF): pFilename_(pF)
 		throw;
 	}
 	
-	BOOST_LOG_TRIVIAL(trace) << "PythonFile ctor exit gracefully";
+	BOOST_LOG_TRIVIAL(trace) << "PythonFile ctor exitedtes gracefully";
 }
 
 std::string PythonFile::ToString() const
 {
 	return pSource_;
+}
+
+std::string PythonFile::GetFunctionName() const
+{
+	return pFuncName_;
 }
 
 PythonFile::~PythonFile()

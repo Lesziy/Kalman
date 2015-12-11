@@ -3,6 +3,7 @@
 #include <boost/log/core.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/log/expressions.hpp>
+#include <boost/filesystem.hpp>
 #include <fstream>
 #include <regex>
 
@@ -10,13 +11,19 @@ class PythonFile
 {
 	std::string pFilename_;
 	std::string pSource_;
-	
+	std::string pFuncName_;
+
+
 	void GetFileContent();
-	void CheckFile() const;
+	std::string GetFilenameWithoutEx() const;
+
+	void CheckFile();
 public:
 	explicit PythonFile(std::string pF);
+	
 	std::string ToString() const;
-
+	std::string GetFunctionName() const;
+	
 	~PythonFile();
 };
 
