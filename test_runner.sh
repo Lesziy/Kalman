@@ -4,12 +4,12 @@ ARGS=''
 
 if [[ $user ==  'jenkins' ]] 
 then
-    for i in ./test-*
+    for i in $(find ./test-* -type f -executable)
     do
       $i "--log_format=XML --log_level=all --report_level=no --result_code=no --log_sink=$i.xml"
     done
 else
-    for i in ./test-*
+    for i in $(find ./test-* -type f -executable)
     do
       $i
     done
