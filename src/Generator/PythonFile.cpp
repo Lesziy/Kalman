@@ -42,6 +42,7 @@ void PythonFile::CheckFile()
 			{
 				BOOST_LOG_TRIVIAL(trace) << "PythonFile::CheckFile() - possibly valid function found.";
 				pFuncName_ = match;
+				pFuncName_ += "()";
 				return;
 			}
 		
@@ -69,10 +70,10 @@ PythonFile::PythonFile(std::string pF): pFilename_(pF), pFuncName_()
 		throw;
 	}
 	
-	BOOST_LOG_TRIVIAL(trace) << "PythonFile ctor exitedtes gracefully";
+	BOOST_LOG_TRIVIAL(trace) << "PythonFile ctor exited gracefully";
 }
 
-std::string PythonFile::ToString() const
+const std::string & PythonFile::ToString() const
 {
 	return pSource_;
 }

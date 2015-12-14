@@ -21,7 +21,7 @@ class PythonFile
 public:
 	explicit PythonFile(std::string pF);
 	
-	std::string ToString() const;
+	const std::string & ToString() const;
 	std::string GetFunctionName() const;
 	
 	~PythonFile();

@@ -16,7 +16,11 @@ BOOST_AUTO_TEST_CASE(pythonfile_classicUse)
 {
 	PythonFile pf("test/fixtures/Generator/SimpleScript.py");
 	BOOST_REQUIRE_EQUAL(pf.ToString(), "def SimpleScript():\n    return (1,1)\n");
+	BOOST_REQUIRE_EQUAL(pf.GetFunctionName(), "SimpleScript()");
 
+
+	PythonFile pf2("maps/standard.py");
+	BOOST_REQUIRE_EQUAL(pf2.GetFunctionName(), "standard()");
 }
 
 BOOST_AUTO_TEST_SUITE_END()
