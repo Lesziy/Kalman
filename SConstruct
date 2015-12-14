@@ -70,6 +70,7 @@ env = Environment(CPPPATH=include_search_path,LIBPATH=['.'])
 env['SYSTEM'] = platform.system().lower()
 env.Append(CPPPATH=include_dirs[env['SYSTEM']].values())
 env.Append(LIBPATH=libs_dirs[env['SYSTEM']].values())
+env['EXTERNAL_LIBS'] = external_libs[env['SYSTEM']]
 
 if env['SYSTEM'] == 'windows':
     env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE /D WIN32 /D WINVER=0x0400 /D __WXMSW__ /D _WINDOWS', LINKFLAGS='/SUBSYSTEM:CONSOLE' )
@@ -139,11 +140,11 @@ Default(app)
 
 #Testy
 for i in range(len(libs)):
-    apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=libs_shared+external_libs[env['SYSTEM']]+env['LIBS'])
+    apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=libs_shared+env['EXTERNAL_LIBS']+env['LIBS'])
 
 #Przyklady
 for j in examples_sources:
-    examples += testEnv.Program(os.path.splitext(os.path.split(j)[1])[0],j, LIBS=external_libs[env['SYSTEM']]+env['LIBS'])
+    examples += testEnv.Program(os.path.splitext(os.path.split(j)[1])[0],j, LIBS=env['EXTERNAL_LIBS']+env['LIBS'])
 
 Alias('test', apptest)
 Alias('examples', examples)
