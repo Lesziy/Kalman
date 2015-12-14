@@ -46,7 +46,7 @@ libs_dirs = {
 
 external_libs = {
     'windows' : ['SDL2', "python27", "legacy_stdio_definitions", "SDL2main"],
-    'linux' : ['SDL2', "python2.7","boost_system", "boost_filesystem","boost_python", "GL","pthread","boost_log_setup","boost_log"]
+    'linux' : ['SDL2', "python2.7","boost_system", "boost_filesystem","boost_program_options","boost_python", "GL","pthread","boost_log_setup","boost_log"]
 }
 
 libs = ["Generator", "SimpleSDL", "wxGUI"]
