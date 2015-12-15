@@ -89,3 +89,4 @@ $RECYCLE.BIN/
 /test/test.cpp
 /docs/doxygen
 *.pyc
+*.manifest
