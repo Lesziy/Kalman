@@ -53,12 +53,11 @@ libs = ["Generator", "SimpleSDL", "wxGUI"]
 
 
 
-program_sources = ['src/Main.cpp']
-libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs)
-test_sources = Glob('test/*.cpp')
-examples_sources = glob.glob('examples/*.cpp')
+#program_sources = ['#src/Main.cpp']
+#libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs)
+#examples_sources = glob.glob('examples/*.cpp')
 
-include_search_path = ['include'] + map(lambda x: 'src/' + x, libs)
+include_search_path = ['#include'] + map(lambda x: '#src/' + x, libs)
 
 app = []
 apptest = []
@@ -71,11 +70,15 @@ env['SYSTEM'] = platform.system().lower()
 env.Append(CPPPATH=include_dirs[env['SYSTEM']].values())
 env.Append(LIBPATH=libs_dirs[env['SYSTEM']].values())
 env['EXTERNAL_LIBS'] = external_libs[env['SYSTEM']]
+env['SHARED_LIBS'] = []
+Progress(['-\r', '\\\r', '|\r', '/\r'], interval=5)
 
 if env['SYSTEM'] == 'windows':
     env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE /D WIN32 /D WINVER=0x0400 /D __WXMSW__ /D _WINDOWS', LINKFLAGS='/SUBSYSTEM:CONSOLE' )
     MakeNewPathFile(libs_dirs[env['SYSTEM']].values())
-    print '[!!!]W przypadku szczesliwej kompilacji uruchom after_install.bat'
+    print '[!!!]     WAZNE: W przypadku szczesliwej kompilacji uruchom after_install.bat'
+
+
 
 
 elif env['SYSTEM'] == 'linux':
@@ -85,7 +88,9 @@ elif env['SYSTEM'] == 'linux':
     #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) )
 
-
+    #Warunkowe dorzucenie liczenia pokrycia.
+        if ARGUMENTS.get('coverage', 0):
+            env.Append(CXXFLAGS="-fprofile-arcs -ftest-coverage", LINKFLAGS = Split('-lgcov --coverage'))
 
 #
 # Konfiguracja
@@ -96,10 +101,9 @@ if not conf.CheckCXXHeader('boost/test/included/unit_test.hpp'):
     print 'Boost.Test not found!'
     Exit(1)
 
-#if not conf.CheckCXXHeader('pyconfig.h'):
-#    print 'Python development files not found - fix paths in SConscript file or install them'
-#    Exit(1)
-
+if not conf.CheckCXXHeader('pyconfig.h'):
+    print 'Python development files not found - fix paths in SConscript file or install them'
+    Exit(1)
 
 if not conf.CheckCHeader('SDL.h'):
     print 'SDL.h not found - install it or fix path in Sconscript file'
@@ -109,12 +113,24 @@ if not conf.CheckLib('SDL2'):
     print 'SDL2 lib not found, exiting!'
     Exit(1)
 
-#if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
-#    print 'SDL2main lib not found, exiting!'
-#    Exit(1)
+if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
+    print 'SDL2main lib not found, exiting!'
+    Exit(1)
 
 if not conf.CheckCXXHeader('boost/python.hpp'):
     print 'Boost.Python not found!'
+    Exit(1)
+
+if not conf.CheckCXXHeader('boost/program_options.hpp'):
+    print 'Boost::program_options not found!'
+    Exit(1)
+
+if not conf.CheckCXXHeader('boost/log/trivial.hpp'):
+    print 'Boost::logging::trivial not found!'
+    Exit(1)
+
+if not conf.CheckCXXHeader('wx/wx.h'):
+    print 'wxWidgets not found!'
     Exit(1)
 
 env = conf.Finish()
@@ -122,34 +138,35 @@ env = conf.Finish()
 #
 # Kompilacja.
 #
+app = env.SConscript('src/SConscript',
+           variant_dir = 'build/libs',
+           duplicate = 0,
+           exports = 'env libs')
 
-
-for i in range(len(libs)):
-    libs_shared += env.Library(libs[i], libs_sources[i], LIBS=external_libs[env['SYSTEM']])
-testEnv = env.Clone()
-
-#
-# Targety
-#
-
-#Domyslny
-app = env.Program("app", program_sources, LIBS=libs_shared+external_libs[env['SYSTEM']]+env['LIBS'])
-env.Depends(app, libs_shared)
-
-Default(app)
 
 #Testy
-for i in range(len(libs)):
-    apptest += testEnv.Program("test-" +libs[i]  , 'test/test_'+libs[i]+'.cpp', LIBS=libs_shared+env['EXTERNAL_LIBS']+env['LIBS'])
+test = env.SConscript('test/SConscript',
+           variant_dir = 'build/test',
+           duplicate = 0,
+           exports = 'env libs')
+
 
 #Przyklady
-for j in examples_sources:
-    examples += testEnv.Program(os.path.splitext(os.path.split(j)[1])[0],j, LIBS=env['EXTERNAL_LIBS']+env['LIBS'])
-
-Alias('test', apptest)
-Alias('examples', examples)
+examples = env.SConscript('examples/SConscript',
+           variant_dir = 'build/examples',
+           duplicate = 0,
+           exports = 'env')
 
 #all
 Alias('all', app)
-Alias('all', apptest)
+Alias('all', test)
 Alias('all', examples)
+
+
+Help("""
+    Available targets:
+        scons           - default, build application only.
+        scons test      - builds all tests available in test/ directory.
+        scons examples  - builds all files available in examples/ directory.
+        scons all       - alias to build all targets mentioned above.
+""")
