@@ -79,6 +79,8 @@ if env['SYSTEM'] == 'windows':
     print '[!!!]     WAZNE: W przypadku szczesliwej kompilacji uruchom after_install.bat'
 
 
+
+
 elif env['SYSTEM'] == 'linux':
     env.ParseConfig("wx-config --cxxflags --libs --gl-libs")
     env.Append(CXXFLAGS="-DBOOST_LOG_DYN_LINK -w -std=c++0x")
@@ -86,6 +88,9 @@ elif env['SYSTEM'] == 'linux':
     #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) )
 
+    #Warunkowe dorzucenie liczenia pokrycia.
+        if ARGUMENTS.get('coverage', 0):
+            env.Append(CXXFLAGS="-fprofile-arcs -ftest-coverage", LINKFLAGS = Split('-lgcov --coverage'))
 
 #
 # Konfiguracja
@@ -134,7 +139,7 @@ env = conf.Finish()
 # Kompilacja.
 #
 app = env.SConscript('src/SConscript',
-           variant_dir = 'build/application',
+           variant_dir = 'build/libs',
            duplicate = 0,
            exports = 'env libs')
 
