@@ -29,7 +29,9 @@ public:
 	explicit Generator(std::string pFilename, std::chrono::milliseconds waitTime = std::chrono::milliseconds(100));
 	~Generator();
 
-	void Start();
+	void Start(bool MessageLoop = true);
+	void ExecuteOnce();
+
 
 	void SetReceiver(std::function<void(Status)> what) { receiverFunction_ = what; }
 	};

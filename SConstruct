@@ -83,7 +83,7 @@ if env['SYSTEM'] == 'windows':
 
 elif env['SYSTEM'] == 'linux':
     env.ParseConfig("wx-config --cxxflags --libs --gl-libs")
-    env.Append(CXXFLAGS="-DBOOST_LOG_DYN_LINK -w -g -std=c++11")
+    env.Append(CXXFLAGS="-DBOOST_LOG_DYN_LINK -w -std=c++11")
 
     #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) )
@@ -134,8 +134,24 @@ env = conf.Finish()
 
 
 if ARGUMENTS.get('coverage', 0) and env['SYSTEM']=='linux':
+    print 'Coverage flag enabled'
     env.Append(CXXFLAGS="-fprofile-arcs -ftest-coverage", LINKFLAGS='-ftest-coverage')
     env['EXTERNAL_LIBS'].append('gcov')
+
+if ARGUMENTS.get('debug', 0):
+	print 'Debug flag enabled'
+	if env['SYSTEM'] == 'windows':
+		env.Append(CXXFLAGS='/D _DEBUG')
+	elif env['SYSTEM'] == 'linux':
+		env.Append(CXXFLAGS='-g')
+
+if ARGUMENTS.get('optimize', 0):
+	print 'Debug flag enabled'
+	if env['SYSTEM'] == 'windows':
+		env.Append(CXXFLAGS='/Ox')
+	elif env['SYSTEM'] == 'linux':
+		env.Append(CXXFLAGS='-O3')
+
 
 #
 # Kompilacja.
@@ -171,4 +187,8 @@ Help("""
         scons test      - builds all tests available in test/ directory.
         scons examples  - builds all files available in examples/ directory.
         scons all       - alias to build all targets mentioned above.
+
+	Available flags:
+		coverage=1		- enables gcov-related flags(linux only).
+		debug=1			- enables debug flags.
 """)

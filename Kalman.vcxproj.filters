@@ -25,6 +25,9 @@
     <Filter Include="Source Files\ObserverGUI">
       <UniqueIdentifier>{0b9791b4-bed0-490f-a977-544763fa05cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Examples">
+      <UniqueIdentifier>{6cd69eed-94ea-4907-b246-793377417c5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -41,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="src\Generator\PythonFile.cpp">
       <Filter>Source Files\Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\benchmark.cpp">
+      <Filter>Examples</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

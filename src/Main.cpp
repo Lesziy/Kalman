@@ -87,7 +87,9 @@ int main(int argc, char* argv[])
 
 	std::cout << "It works!" << std::endl;
 
-	b.Start();
+	b.Start(false);
+	b.ExecuteOnce();
+
 	wxGUI wx(argc, argv);
 	BOOST_LOG_TRIVIAL(trace) << "exiting main() gracefully";
     return 0;
