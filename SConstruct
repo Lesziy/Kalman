@@ -83,13 +83,11 @@ if env['SYSTEM'] == 'windows':
 
 elif env['SYSTEM'] == 'linux':
     env.ParseConfig("wx-config --cxxflags --libs --gl-libs")
-    env.Append(CXXFLAGS="-DBOOST_LOG_DYN_LINK -w -std=c++11")
+    env.Append(CXXFLAGS="-DBOOST_LOG_DYN_LINK -w -g -std=c++11")
 
     #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) )
     #Warunkowa kompilacja z liczeniem pokrycia.
-    if ARGUMENTS.get('coverage', 0):
-        env.Append(CXXFLAGS="-fprofile-arcs -ftest-coverage", LINKFLAGS = "-lgcov --coverage")
 
 #
 # Konfiguracja
@@ -133,6 +131,11 @@ if not conf.CheckCXXHeader('wx/wx.h'):
     Exit(1)
 
 env = conf.Finish()
+
+
+if ARGUMENTS.get('coverage', 0) and env['SYSTEM']=='linux':
+    env.Append(CXXFLAGS="-fprofile-arcs -ftest-coverage", LINKFLAGS='-ftest-coverage')
+    env['EXTERNAL_LIBS'].append('gcov')
 
 #
 # Kompilacja.
