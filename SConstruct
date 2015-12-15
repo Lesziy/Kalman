@@ -87,10 +87,9 @@ elif env['SYSTEM'] == 'linux':
 
     #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) )
-
-    #Warunkowe dorzucenie liczenia pokrycia.
+    #Warunkowa kompilacja z liczeniem pokrycia.
         if ARGUMENTS.get('coverage', 0):
-            env.Append(CXXFLAGS="-fprofile-arcs -ftest-coverage", LINKFLAGS = Split('-lgcov --coverage'))
+            env.Append(CXXFLAGS="-fprofile-arcs -ftest-coverage", LINKFLAGS = "-lgcov --coverage")
 
 #
 # Konfiguracja
