@@ -49,13 +49,13 @@ int main(int argc, char* argv[])
 {
 	options::variables_map vm;
 	std::cout << "Kalman" << std::endl;
-	try 
-	{ 
+	try
+	{
 		options::options_description desc("Options");
-		
+
 		desc.add_options()
 			("help", "Produce help message")
-			("script,s", options::value<std::string>()->default_value("maps/standard.py"), "set script path")
+			("script,s", options::value<std::string>()->default_value("../maps/standard.py"), "set script path")
 			("verbose,v", options::value<int>()->default_value(3), "set verbose level")
 			;
 
@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 			std::cout << desc << std::endl;
 			return 0;
 		}
-		
+
 		InitBoostLog(vm["verbose"].as<int>());
 
 	}
@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
 	SimpleSDL s;
 
 	std::cout << "It works!" << std::endl;
-	
+
 	b.Start();
 	wxGUI wx(argc, argv);
 	BOOST_LOG_TRIVIAL(trace) << "exiting main() gracefully";

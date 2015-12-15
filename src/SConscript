@@ -1,0 +1,20 @@
+Import('env')
+Import('libs')
+import glob
+
+libs_sources = map(lambda x: Glob(x + '/*.cpp'), libs)
+program_sources = ['#src/Main.cpp']
+print libs
+print libs_sources
+for i in range(len(libs)):
+    env['SHARED_LIBS'].append(env.Library(libs[i],libs_sources[i], LIBS=env['EXTERNAL_LIBS']))
+
+
+#Domyslny
+app = env.Program("../app", program_sources, LIBS=env['SHARED_LIBS']+env['EXTERNAL_LIBS']+env['LIBS'])
+env.Depends(app, env['SHARED_LIBS'])
+
+Default(app)
+
+Export('env')
+Return('app')

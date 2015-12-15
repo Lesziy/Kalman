@@ -1,0 +1,9 @@
+Import('env')
+Import('libs')
+
+tests = []
+
+for l in libs:
+    tests += env.Program("test-" +l, 'test_'+l+'.cpp', LIBS=env['SHARED_LIBS']+env['EXTERNAL_LIBS']+env['LIBS'])
+
+Return('tests')
