@@ -90,3 +90,13 @@ $RECYCLE.BIN/
 /docs/doxygen
 *.pyc
 *.manifest
+
+#Temp z gedita
+*~
+
+#Testy
+wyniki.xml
+test-*.xml
+
+#gcov
+*.gcno
