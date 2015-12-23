@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ARGS=''
+cd ${0%/*}
 
 if [[ $user ==  'jenkins' ]]
 then

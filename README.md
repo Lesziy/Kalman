@@ -27,6 +27,7 @@ w głównym folderze.
 Inne opcje kompilacji:
 ```
 $ scons test          # do kompilacji testow
+$ scons docs          # do kompilacji samej dokumentacji
 $ scons all           # do kompilacji programu + testow
 $ scons -c [target]   # kasowanie plikow zrodlowych.
 ```
