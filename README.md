@@ -7,14 +7,14 @@ Implementacja filtru Kalmana do śledzenia celów i fuzji danych.
 - Python 2.7
  - SCons domyślnie leci architekturą procesora(a że się z nim zgadzam to nie interweniuję), więc pod Windowsem należy uważać na wersję (tylko x64)
 - SCons
-- Boost 
+- Boost
  - boost.python wymaga specjalnej uwagi, por. dalej.
 - SDL 2.0.3
  - Pod windowsem po cichu zakładam lokalizację C:\Program Files (x86)\SDL.
 - Plik Sconscript opiera się na 64bitowej architekturze.
 - VS2015 pod Windowsem
 - wxWidgets 3.0.2
-
+- Doxygen
 
 ## Kompilacja
 

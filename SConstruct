@@ -51,11 +51,7 @@ external_libs = {
 
 libs = ["Generator", "SimpleSDL", "wxGUI"]
 
-
-
-#program_sources = ['#src/Main.cpp']
-#libs_sources = map(lambda x: glob.glob('src/' + x + '/*.cpp'), libs)
-#examples_sources = glob.glob('examples/*.cpp')
+doxygen_builder = Builder(action = 'doxygen')
 
 include_search_path = ['#include'] + map(lambda x: '#src/' + x, libs)
 
@@ -67,8 +63,9 @@ libs_shared = []
 env = Environment(CPPPATH=include_search_path,LIBPATH=['.'])
 
 env['SYSTEM'] = platform.system().lower()
-env.Append(CPPPATH=include_dirs[env['SYSTEM']].values())
-env.Append(LIBPATH=libs_dirs[env['SYSTEM']].values())
+env.Append( CPPPATH=include_dirs[env['SYSTEM']].values(), LIBPATH=libs_dirs[env['SYSTEM']].values(),
+            BUILDERS={'Docs':doxygen_builder})
+env['ENV']['PATH']+=os.environ['PATH']
 env['EXTERNAL_LIBS'] = external_libs[env['SYSTEM']]
 env['SHARED_LIBS'] = []
 Progress(['-\r', '\\\r', '|\r', '/\r'], interval=5)
@@ -175,15 +172,21 @@ examples = env.SConscript('examples/SConscript',
            duplicate = 0,
            exports = 'env')
 
+
+#Ciezko
+docs = env.Docs("Foo", "Doxyfile")
+
+env.Depends(app, docs)
 #all
 Alias('all', app)
 Alias('all', test)
 Alias('all', examples)
-
+Alias('all', docs)
 
 Help("""
     Available targets:
-        scons           - default, build application only.
+        scons           - default, build application+docs.
+        scons docs      - build doxygen(equal to running doxygen).
         scons test      - builds all tests available in test/ directory.
         scons examples  - builds all files available in examples/ directory.
         scons all       - alias to build all targets mentioned above.

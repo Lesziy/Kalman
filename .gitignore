@@ -100,3 +100,4 @@ test-*.xml
 
 #gcov
 *.gcno
+*.opendb
