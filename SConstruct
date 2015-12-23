@@ -39,8 +39,8 @@ libs_dirs = {
     },
     'linux':
     {
-        'python': '/usr/lib64/python2.7'
-        #'/usr/lib64'
+        'python': '/usr/lib64/python2.7',
+        'libs':'/usr/lib'
     }
 }
 
@@ -60,7 +60,7 @@ apptest = []
 examples = []
 libs_shared = []
 
-env = Environment(CPPPATH=include_search_path,LIBPATH=['.'])
+env = Environment(CPPPATH=include_search_path)
 
 env['SYSTEM'] = platform.system().lower()
 env.Append( CPPPATH=include_dirs[env['SYSTEM']].values(), LIBPATH=libs_dirs[env['SYSTEM']].values(),
@@ -103,9 +103,9 @@ if not conf.CheckCHeader('SDL.h'):
     print 'SDL.h not found - install it or fix path in Sconscript file'
     Exit(1)
 
-if not conf.CheckLib('SDL2'):
-    print 'SDL2 lib not found, exiting!'
-    Exit(1)
+#if not conf.CheckLib('SDL2'):
+#    print 'SDL2 lib not found, exiting!'
+#    Exit(1)
 
 if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
     print 'SDL2main lib not found, exiting!'
@@ -176,7 +176,7 @@ examples = env.SConscript('examples/SConscript',
 #Ciezko
 docs = env.Docs("Foo", "Doxyfile")
 
-env.Depends(app, docs)
+#env.Depends(app, docs)
 #all
 Alias('all', app)
 Alias('all', test)
