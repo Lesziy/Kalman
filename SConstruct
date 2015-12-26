@@ -7,11 +7,11 @@ from subprocess import call
 include_dirs = {
     'windows':
     {
-        'jp_boost' : "C:\Boost",
-        'jp_SDL' : "C:\\Program Files (x86)\\SDL\include",
-        'jp_python' : "C:\Python27\include",
-        'jp_wx' : "C:\wxWidgets-3.0.2\include",
-        'jp_wxmsvc' : "C:\wxWidgets-3.0.2\include\msvc",
+        'jp_boost' : "C:\\Boost2",
+        'jp_SDL' : "C:\\SDL2-2.0.3\\include",
+        'jp_python' : "C:\\Python27\\include",
+        'jp_wx' : "C:\\wxWidgets-3.0.2\\include",
+        'jp_wxmsvc' : "C:\\wxWidgets-3.0.2\\include\\msvc",
         'ps_boost' : "D:\\deps\\Boost",
         'ps_python' : "D:\\deps\Python27\include",
         'ps_wx' : "D:\\deps\wxWidgets-3.0.2\include",
@@ -28,10 +28,10 @@ include_dirs = {
 libs_dirs = {
     'windows':
     {
-        'jp_python': 'C:\Python27\libs',
-        'jp_SDL': 'C:\\Program Files (x86)\\SDL\lib\\x64',
-        'jp_wx': 'C:\wxWidgets-3.0.2\lib\\vc_x64_lib',
-        'jp_boost': 'C:\Boost\lib64-msvc-14.0',
+        'jp_python': 'C:\\Python27\\libs',
+        'jp_SDL': 'C:\\SDL2-2.0.3\\lib\\x64',
+        'jp_wx': 'C:\\wxWidgets-3.0.2\\lib\\vc_x64_lib',
+        'jp_boost': 'C:\\boost2\\lib64-msvc-14.0',
         'ps_python': 'D:\\deps\Python27\libs',
         'ps_SDL': 'D:\\deps\\SDL\lib\\x64',
         'ps_wx': 'D:\\deps\wxWidgets-3.0.2\lib\\vc_x64_lib',
@@ -43,6 +43,7 @@ libs_dirs = {
         'libs':'/usr/lib'
     }
 }
+
 
 external_libs = {
     'windows' : ['SDL2', "python27", "legacy_stdio_definitions", "SDL2main"],
@@ -65,13 +66,14 @@ env = Environment(CPPPATH=include_search_path)
 env['SYSTEM'] = platform.system().lower()
 env.Append( CPPPATH=include_dirs[env['SYSTEM']].values(), LIBPATH=libs_dirs[env['SYSTEM']].values(),
             BUILDERS={'Docs':doxygen_builder})
+print env.Dump()
 env['ENV']['PATH']+=os.environ['PATH']
 env['EXTERNAL_LIBS'] = external_libs[env['SYSTEM']]
 env['SHARED_LIBS'] = []
 Progress(['-\r', '\\\r', '|\r', '/\r'], interval=5)
 
 if env['SYSTEM'] == 'windows':
-    env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE /D WIN32 /D WINVER=0x0400 /D __WXMSW__ /D _WINDOWS', LINKFLAGS='/SUBSYSTEM:CONSOLE' )
+    env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE /D WIN32 /D WINVER=0x0400 /D __WXMSW__ /D _WINDOWS', LINKFLAGS='/SUBSYSTEM:CONSOLE', TARGET_ARCH='x64' )
     MakeNewPathFile(libs_dirs[env['SYSTEM']].values())
     print '[!!!]     WAZNE: W przypadku szczesliwej kompilacji uruchom after_install.bat'
 
@@ -103,9 +105,9 @@ if not conf.CheckCHeader('SDL.h'):
     print 'SDL.h not found - install it or fix path in Sconscript file'
     Exit(1)
 
-#if not conf.CheckLib('SDL2'):
-#    print 'SDL2 lib not found, exiting!'
-#    Exit(1)
+if not conf.CheckLib('SDL2'):
+    print 'SDL2 lib not found, exiting!'
+    Exit(1)
 
 if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
     print 'SDL2main lib not found, exiting!'
