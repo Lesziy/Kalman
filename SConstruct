@@ -66,7 +66,7 @@ env = Environment(CPPPATH=include_search_path)
 env['SYSTEM'] = platform.system().lower()
 env.Append( CPPPATH=include_dirs[env['SYSTEM']].values(), LIBPATH=libs_dirs[env['SYSTEM']].values(),
             BUILDERS={'Docs':doxygen_builder})
-print env.Dump()
+
 env['ENV']['PATH']+=os.environ['PATH']
 env['EXTERNAL_LIBS'] = external_libs[env['SYSTEM']]
 env['SHARED_LIBS'] = []
