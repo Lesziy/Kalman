@@ -3,6 +3,7 @@
 #include <boost/log/trivial.hpp>
 #include "Generator.h"
 
+using namespace GeneratorUtil;
 
 void Generator::Init()
 {
@@ -63,13 +64,13 @@ void Generator::MessageLoop()
 			PyErr_Print();
 			throw;
 		}
-		
+
 	}
 
 	BOOST_LOG_TRIVIAL(trace) << "exiting Generator::MessageLoop()";
 }
 
-Generator::Generator(	std::string pFilename, 
+Generator::Generator(	std::string pFilename,
 						std::chrono::milliseconds waitTime)
 try : pythonFile_(pFilename), waitTime_(waitTime)
 { /*function body*/ }

@@ -1,6 +1,8 @@
 #include "Common.h"
 
-Common::Common() 
+
+//! Klasa pozostawiona dla symetrii względem innych klas.
+Common::Common()
 {
 }
 

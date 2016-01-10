@@ -4,6 +4,7 @@
 #include "../src/Generator/PythonFile.h"
 
 using namespace boost::unit_test;
+using namespace GeneratorUtil;
 
 BOOST_AUTO_TEST_SUITE(PythonFile_tests)
 

@@ -8,11 +8,12 @@
 #include "PythonFile.h"
 #include "Status.h"
 
+using namespace GeneratorUtil;
 
 //! Klasa odpowiedzialna za generowanie trajektorii obiektu.
 class Generator
 {
-			
+
 	PythonFile pythonFile_;							//!< Aktualnie wykonywany skrypt Pythona.
 
 	boost::python::object mainModule_;				//!< Zmienna związana z obsługą Pythona.
@@ -51,7 +52,7 @@ public:
 
 	*/
 	void Start(bool MessageLoop = true);
-	
+
 	//! Jednokrotne wywołanie procedury odpowiedzialnej za wywołanie skryptu: Generator::receiverFunction_ powinno dostać jeden obiekt Status.
 	void ExecuteOnce();
 
@@ -61,5 +62,3 @@ public:
 	*/
 	void SetReceiver(std::function<void(Status)> what) { receiverFunction_ = what; }
 	};
-
-
