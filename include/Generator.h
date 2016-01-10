@@ -57,7 +57,7 @@ public:
 	*/
 	void Start(bool MessageLoop = true);
 
-	//! Jednokrotne wywołanie procedury odpowiedzialnej za wywołanie skryptu: Generator::receiverFunction_ powinno dostać jeden obiekt Status.
+	//! Jednokrotne wywołanie procedury odpowiedzialnej za wywołanie skryptu: Generator::receiverFunction_ powinno dostać jeden obiekt CommonUtil::Status.
 	void ExecuteOnce();
 
 	//! Ustawienie odbiorcy wywołań skryptu.
@@ -65,4 +65,8 @@ public:
 		\param what funkcja która przyjmuje dane.
 	*/
 	void SetReceiver(std::function<void(Status)> what) { receiverFunction_ = what; }
-	};
+};
+
+/** \example benchmark.cpp
+    Przykład użycia klasy Generator - liczenie wygenerowanych CommonUtil::Status.
+*/

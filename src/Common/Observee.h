@@ -11,6 +11,8 @@ namespace CommonUtil {
       abstrakcyjna klasa -
       w momencie, gdy zmieniamy wartosc metoda Observee::setPosition
       wszystkie funkcje podlaczone metoda connect zostaja wywolane z argumentem f-cji Observee::setPosition
+
+      Przykłady użycia: https://github.com/jpalczewski/Kalman/tree/8d34fe8850c9c91a3ae2750ec68bff0dd8cdffea/src/ObserverGUI
     */
     class Observee
     {
