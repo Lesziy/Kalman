@@ -1,3 +1,7 @@
+# Folder z binarkami
+build/*
+
+
 # Compiled Object files
 *.slo
 *.lo
