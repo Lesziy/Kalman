@@ -1,0 +1,27 @@
+#pragma once
+#include<functional>
+#include <boost/signals2.hpp>
+#include "Status.h"
+
+
+namespace CommonUtil {
+
+    //! Interfejs dla obiektow obserwowanych
+    /**
+      abstrakcyjna klasa -
+      w momencie, gdy zmieniamy wartosc metoda Observee::setPosition
+      wszystkie funkcje podlaczone metoda connect zostaja wywolane z argumentem f-cji Observee::setPosition
+    */
+    class Observee
+    {
+    public:
+        //! Łączy sloty.
+    	void connect(std::function<void(Status)> slot);
+        //! Ustawia nową wartość CommonUtil::Status dla wszystkich obserwujących.
+    	virtual void setPosition(Status status) = 0;
+
+    protected:
+    	Status status_;
+    	boost::signals2::signal<void(Status)> signal_;
+    };
+};
