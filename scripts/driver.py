@@ -1,17 +1,22 @@
 #!/bin/python
-
+# -*- coding: UTF-8 -*-
 import sys, os, time, math
 #import numpy as np
+import matplotlib
+matplotlib.use('WXAgg') 
 import matplotlib.pyplot as plt
 
 fname = ''
 ok = 1
 
+# Dodaje główny folder projektu do path, przez co możemy importować mapy.
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+
 try:
     fname = sys.argv[1]
-    exec('from ' + fname + ' import ' + fname)
+    exec('from maps.' + fname + ' import ' + fname)
 except:
-    print('Importing ' + fname + '() from ' + fname + ' failed!')
+    print('Import: ' + 'from maps.' + fname + ' import ' + fname + ' failed!')
     sys.exit(1)
 
 plt.axis([0,1,0,1])
@@ -28,5 +33,3 @@ while ok:
     print(ret)
     plt.scatter(ret[1], ret[0],c=[clr, clr, clr])
     plt.draw()
-    
-    

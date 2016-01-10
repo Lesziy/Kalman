@@ -9,12 +9,21 @@ Implementacja filtru Kalmana do śledzenia celów i fuzji danych.
 - SCons
 - Boost
  - boost.python wymaga specjalnej uwagi, por. dalej.
+ - Uwaga: Aktualne, skompilowane biblioteki pod Windowsa nie współgrają z projektem - prawdopodobnie jakiś błąd w boost::log.
 - SDL 2.0.3
- - Pod windowsem po cichu zakładam lokalizację C:\Program Files (x86)\SDL.
 - Plik Sconscript opiera się na 64bitowej architekturze.
 - VS2015 pod Windowsem
 - wxWidgets 3.0.2
 - Doxygen
+
+### Dodatkowe
+Aby uruchomić pliki z folderu _maps_ bez kompilacji całego projektu należy zainstalować matplotlib, tj.
+```
+$ pip2 install matplotlib
+```
+Do tego należy zainstalować pakiet wxpython2.8, zgodnie z dystrybucją:
+- Linux:
+  - Pod Archem należy zainstlować paczkę `wxpython2.8`.
 
 ## Kompilacja
 
@@ -31,16 +40,16 @@ $ scons docs          # do kompilacji samej dokumentacji
 $ scons all           # do kompilacji programu + testow
 $ scons -c [target]   # kasowanie plikow zrodlowych.
 ```
+Dostępne są również przełączniki umożliwiające liczenie pokrycia kodu i kompilację opartą na bibliotekach do debugowania - tutaj odsyłam do pomocy.
+## Użycie
 
-### Boost
-Do klasycznej instalacji(np. sugerowanej w biowebie) należy dodać dynamiczne biblioteki w następujący sposob(komendy do uruchomienia w folderze boosta):
- ```
- bjam --with-python link=shared address-model=64 stage
- bjam --with-python link=shared address-model=64 install
- ```
+Program zawiera wbudowaną pomoc, dostępną pod:
+```
+$ app -h
+```
 
 ## Testy
-Na chwile obecna kazdy moduł ma oddzielna aplikacje z testami, ponieważ tak jest _zdecydowanie_ prościej.
+Na chwilę obecną każdy moduł ma oddzielną aplikację z testami, ponieważ tak jest _zdecydowanie_ prościej.
 
 ## FAQ
 - Czy ostrzeżenie podczas kompilacji jest grozne?
@@ -50,14 +59,14 @@ Na chwile obecna kazdy moduł ma oddzielna aplikacje z testami, ponieważ tak je
 
 ## Kompilacja pod Windowsem:
 0. Instalacja VS2015
-1. Sciagniecie i instalacja:
+1. Ściągnięcie i instalacja:
  - http://sourceforge.net/projects/boost/files/boost-binaries/1.59.0/boost_1_59_0-msvc-14.0-64.exe/download
  - Python 2.7 & scons
- - A do katalogow sugerowanych w pliku SConscript:
+ - A do katalogów sugerowanych w pliku SConscript:
   - SDL 2
   - wxWidgets 3
-   - Najlepszym rozwiazaniem jest rozwiazanie binarne zawierajace same zrodla, tj.
-    - Poprawki w zrodlach: https://forums.wxwidgets.org/viewtopic.php?t=40491#p163676
+   - Najlepszym rozwiązaniem jest rozwiazanie binarne zawierajace same zrodla, tj.
+    - Poprawki w zródłach: https://forums.wxwidgets.org/viewtopic.php?t=40491#p163676
     - Kompilacja wx_vc12.sln, Release x64.
-2. Uruchomienie `scons all` w glownym katalogu.
- - Ze wzgledu na _dojrzalosc_ wxWidgets i brak aktualizacji biblioteki od ponad roku jest troche niegroznych ostrzezen.
+2. Uruchomienie `scons all` w głównym katalogu.
+ - Ze względu na _dojrzałość_ wxWidgets i brak aktualizacji biblioteki od ponad roku podczas kompilacji występują ostrzeżenia, które można zlikwidować większą liczbą poprawek w kodzie(por. link do forum wxWidgets).
