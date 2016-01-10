@@ -1,7 +1,9 @@
 #include "Common.h"
 
+//! Klasy wspólne dla całego projektu.
+namespace CommonUtil
+{ };
 
-//! Klasa pozostawiona dla symetrii względem innych klas.
 Common::Common()
 {
 }

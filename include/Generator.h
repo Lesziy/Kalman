@@ -8,7 +8,11 @@
 #include "PythonFile.h"
 #include "Status.h"
 
+//! Wszystkie klasy wykorzystywane w Generator
+namespace GeneratorUtil {};
+
 using namespace GeneratorUtil;
+using namespace CommonUtil;
 
 //! Klasa odpowiedzialna za generowanie trajektorii obiektu.
 class Generator

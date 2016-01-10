@@ -7,7 +7,6 @@
 #include <fstream>
 #include <regex>
 
-//! Wszystkie klasy wykorzystywane w Generator
 namespace GeneratorUtil {
     //! Abstrakcja obsługująca dostęp do skryptu.
     class PythonFile
