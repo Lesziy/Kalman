@@ -17,6 +17,7 @@ namespace CommonUtil {
     class Observee
     {
     public:
+        /** \todo GCC wymagało jawnych konstruktorów: czy żadne dodatkowe rzeczy nie będą wymagane pod MSVC? */
         Observee() {};
         ~Observee() {};
         //! Łączy sloty.
