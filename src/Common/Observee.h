@@ -17,6 +17,8 @@ namespace CommonUtil {
     class Observee
     {
     public:
+        Observee() {};
+        ~Observee() {};
         //! Łączy sloty.
     	void connect(std::function<void(Status)> slot);
         //! Ustawia nową wartość CommonUtil::Status dla wszystkich obserwujących.
