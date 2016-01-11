@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(classicUse)
     Ping ping;
     Pong pong;
 
-    ping.connect(boost::bind(&Pong::update, pong, boost::placeholders::_1));
+    ping.connect(std::bind(&Pong::update, pong, std::placeholders::_1));
     ping.setPosition(Status(123.0, 0));
 
 
