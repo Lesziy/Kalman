@@ -16,8 +16,15 @@ Implementacja filtru Kalmana do śledzenia celów i fuzji danych.
 
 #### Niewymagane, aczkolwiek przydatne
 - [pywin32](http://sourceforge.net/projects/pywin32/) wycisza ostrzeżenia dotyczące dorzucania flagi `j`(liczby jednoczesnych kompilacji)
+- Aby uruchomić pliki z folderu _maps_ bez kompilacji całego projektu za pomocą skryptu driver.py należy zainstalować matplotlib, tj.
+```
+$ pip2 install matplotlib
+```
+ - Skrypt wymaga dodatkowej biblioteki, `wxPython2.8`.
+
 
 ### Linux
+Pod Ubuntu wymagane są następujące biblioteki:
 
  - wxgtk
  - libboost-dev
@@ -25,6 +32,8 @@ Implementacja filtru Kalmana do śledzenia celów i fuzji danych.
  - doxygen
  - python2.7
  - scons
+
+Na innych platformach analogicznie.
 ## Kompilacja
 
 ```
@@ -39,6 +48,8 @@ Dostępne flagi:
     coverage=1  	- Pod Linuxem dołączane są flagi umożliwiające liczenie pokrycia kodu.
     debug=1         - flaga /D pod Windowsem bądź -g pod Linuxem.
 ```
+Dostępne są również przełączniki umożliwiające liczenie pokrycia kodu i kompilację opartą na bibliotekach do debugowania - tutaj odsyłam do pomocy.
+## Użycie
 
 Warto korzystać z `j` aby przyśpieszyć kompilację.
 
@@ -56,7 +67,8 @@ Na chwile obecna kazdy moduł ma oddzielną aplikację z testami, ponieważ tak 
 1. Ściągnięcie i instalacja, przy kilku zastrzeżeniach:
  - [Prekomiplowanego Boosta](http://sourceforge.net/projects/boost/files/boost-binaries/1.59.0/boost_1_59_0-msvc-14.0-64.exe/download)
   - wxWidgets 3
-   - Najlepszym rozwiazaniem jest rozwiazanie binarne zawierajace same zrodla, tj.
-    - Poprawki w zrodlach: https://forums.wxwidgets.org/viewtopic.php?t=40491#p163676
+   - Najlepszym rozwiązaniem jest rozwiazanie binarne zawierajace same zrodla, tj.
+    - Poprawki w zródłach: https://forums.wxwidgets.org/viewtopic.php?t=40491#p163676
     - Kompilacja wx_vc12.sln, Release x64.
 2. Uruchomienie `scons all` w głównym katalogu.
+ - Ze względu na _dojrzałość_ wxWidgets i brak aktualizacji biblioteki od ponad roku podczas kompilacji występują ostrzeżenia, które można zlikwidować większą liczbą poprawek w kodzie(por. link do forum wxWidgets).

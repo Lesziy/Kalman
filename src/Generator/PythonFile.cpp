@@ -1,5 +1,6 @@
 #include "PythonFile.h"
 
+using namespace GeneratorUtil;
 
 void PythonFile::GetFileContent()
 {
@@ -29,12 +30,12 @@ std::string PythonFile::GetFilenameWithoutEx() const
 void PythonFile::CheckFile()
 {
 	BOOST_LOG_TRIVIAL(trace) << "PythonFile::CheckFile()";
-	
+
 	std::regex regex("def (\\w+)\\(\\):\n(\\s{4}|\\t)");
 	std::smatch stringMatches;
 	std::string temp = pSource_;
 	auto possibleFunc = GetFilenameWithoutEx();
-	
+
 	while (std::regex_search(temp, stringMatches, regex))
 	{
 		for (auto match : stringMatches)
@@ -45,7 +46,7 @@ void PythonFile::CheckFile()
 				pFuncName_ += "()";
 				return;
 			}
-		
+
 		temp = stringMatches.suffix().str();
 	}
 
@@ -69,7 +70,7 @@ PythonFile::PythonFile(std::string pF): pFilename_(pF), pFuncName_()
 		BOOST_LOG_TRIVIAL(error) << "PythonFile ctor failed";
 		throw;
 	}
-	
+
 	BOOST_LOG_TRIVIAL(trace) << "PythonFile ctor exited gracefully";
 }
 

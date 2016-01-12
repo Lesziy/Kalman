@@ -90,6 +90,7 @@ int main(int argc, char* argv[])
 	b.Start(false);
 	b.ExecuteOnce();
 
+    
 	wxGUI wx(argc, argv);
 	BOOST_LOG_TRIVIAL(trace) << "exiting main() gracefully";
     return 0;

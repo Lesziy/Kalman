@@ -1,18 +1,19 @@
-#define BOOST_TEST_MODULE Generator_test_module
+#define BOOST_TEST_MODULE Generator_tests
 #include <boost/test/included/unit_test.hpp>
 #include "Generator.h"
 #include "../src/Generator/PythonFile.h"
 
 using namespace boost::unit_test;
+using namespace GeneratorUtil;
 
-BOOST_AUTO_TEST_SUITE(test_pythonfile)
+BOOST_AUTO_TEST_SUITE(PythonFile_tests)
 
-BOOST_AUTO_TEST_CASE(pythonFile_FileNotFound)
+BOOST_AUTO_TEST_CASE(FileNotFound)
 {
 	BOOST_REQUIRE_THROW(PythonFile pf("niegzgbzcbzxbgeddgdg.cvcvzxczxc"), std::exception);
 }
 
-BOOST_AUTO_TEST_CASE(pythonfile_classicUse)
+BOOST_AUTO_TEST_CASE(classicUse)
 {
 	PythonFile pf("test/fixtures/Generator/SimpleScript.py");
 	BOOST_REQUIRE_EQUAL(pf.ToString(), "def SimpleScript():\n    return (1,1)\n");
@@ -27,7 +28,7 @@ BOOST_AUTO_TEST_SUITE_END()
 
 
 
-BOOST_AUTO_TEST_SUITE(test_generator)
+BOOST_AUTO_TEST_SUITE(Generator_tests)
 BOOST_AUTO_TEST_CASE(test_true)
 {
 //	Generator g("plik.txt");
