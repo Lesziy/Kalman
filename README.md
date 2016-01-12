@@ -49,9 +49,18 @@ Dostępne flagi:
     debug=1         - flaga /D pod Windowsem bądź -g pod Linuxem.
 ```
 Dostępne są również przełączniki umożliwiające liczenie pokrycia kodu i kompilację opartą na bibliotekach do debugowania - tutaj odsyłam do pomocy.
+
+Warto korzystać z `j` aby przyśpieszyć kompilację, tj.
+```
+  scons -j[liczba równoległych kompilacji]
+```
+***Ostrzeżenie.*** W trakcie testów wychodzi, że `-j4` potrafi zużywać nawet 2GB pamięci!
 ## Użycie
 
-Warto korzystać z `j` aby przyśpieszyć kompilację.
+Odsyłam do aplikacji,
+```
+build/app --help
+```
 
 ## Testy
 Na chwile obecna kazdy moduł ma oddzielną aplikację z testami, ponieważ tak jest _zdecydowanie_ prościej.
