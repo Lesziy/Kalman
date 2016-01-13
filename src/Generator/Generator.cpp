@@ -3,6 +3,7 @@
 #include <boost/log/trivial.hpp>
 #include "Generator.h"
 
+using namespace GeneratorUtil;
 
 void Generator::Init()
 {
@@ -14,64 +15,86 @@ void Generator::Init()
 		mainModule_ = import("__main__");
 		mainNamespace_ = mainModule_.attr("__dict__");
 
-		exec(
-			"i = 0\n"
-			"def update():\n"
-			"    global i\n"
-			"    i = i + 1\n"
-			"    return (i,1)\n\n", mainNamespace_);
+		exec(pythonFile_.ToString().c_str(), mainNamespace_);
 	} catch(...)
 	{
-		BOOST_LOG_TRIVIAL(fatal) << "[!] wyjątek w interpreterze!" <<  std::endl;
+		BOOST_LOG_TRIVIAL(fatal) << "[!] Generator::Init() failed" <<  std::endl;
 		throw;
 	}
 	BOOST_LOG_TRIVIAL(trace) << "exiting Generator::Init()";
+}
+
+void Generator::ExecuteUpdate(std::array<double, 2>& retValue) const
+{
+	BOOST_LOG_TRIVIAL(trace) << "Generator::ExecuteUpdate()";
+	boost::python::object retObject;
+	try {
+		retObject = eval(pythonFile_.GetFunctionName().c_str(), mainNamespace_);
+		retValue = { boost::python::extract<double>(retObject[0]), boost::python::extract<double>(retObject[1]) };
+	}
+	catch(const boost::python::error_already_set & eas)
+	{
+		BOOST_LOG_TRIVIAL(error) << "Generator::ExecuteUpdate() failed";
+		PyErr_Print();
+		throw;
+	}
+}
+
+void Generator::SendUpdate(std::array<double, 2>& retValue)
+{
+	BOOST_LOG_TRIVIAL(trace) << "Generator::SendUpdate()";
+	Status s(retValue[0], retValue[1]);
+	receiverFunction_(s);
+
 }
 
 void Generator::MessageLoop()
 {
 	BOOST_LOG_TRIVIAL(trace) << "entering Generator::MessageLoop()";
 	using namespace boost::python;
-	unsigned int time_ = 0;
-
-	object retObject;
-	std::array<double, 2> retValue;
-
-	std::cout << "\nCyferki wygenerowane w pythonie: " << std::endl;
 
 	while(true)
 	{
 		try {
-			retObject = eval("update()", mainNamespace_);
-			retValue = { extract<double>(retObject[0]), extract<double>(retObject[1]) };
+			ExecuteOnce();
 		}
-		catch(...)
+		catch(std::exception e)
 		{
-			BOOST_LOG_TRIVIAL(fatal) << "error" << std::endl;
+			BOOST_LOG_TRIVIAL(fatal) << "Generator::ExecuteUpdate() catch block: " << e.what();
 			PyErr_Print();
-			return;
+			throw;
 		}
-		std::cout << retValue[0] << " " << retValue[1] << std::endl;
-		time_++;
 
-		if (time_ == 2) break;
 	}
+
 	BOOST_LOG_TRIVIAL(trace) << "exiting Generator::MessageLoop()";
 }
 
-Generator::Generator(std::string pFilename) : pythonFile_(PythonFile(pFilename))
+Generator::Generator(	std::string pFilename,
+						std::chrono::milliseconds waitTime)
+try : pythonFile_(pFilename), waitTime_(waitTime)
+{ /*function body*/ }
+catch (...)
 {
-	/*
-		Aby nie blokowa� g��wnego w�tku ca�� inicjalizacj� wyrzuc� do osobnego w�tku
-	*/
+	BOOST_LOG_TRIVIAL(fatal) << "Generator ctor failed - first script not found, exiting.";
+	throw;
 }
+
 
 Generator::~Generator()
 {
 }
 
-void Generator::Start()
+void Generator::Start(bool MessageLoopEnabled)
 {
 	Init();
-	MessageLoop();
+	if(MessageLoopEnabled)
+		MessageLoop();
+}
+
+void Generator::ExecuteOnce()
+{
+	std::array<double, 2> retValue;
+	ExecuteUpdate(retValue);
+	SendUpdate(retValue);
 }

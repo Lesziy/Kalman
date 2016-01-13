@@ -81,6 +81,7 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="examples\benchmark.cpp" />
     <ClCompile Include="src\Generator\Generator.cpp" />
     <ClCompile Include="src\Generator\PythonFile.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="src\ObserverGUI\Observee.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Doxyfile" />
     <None Include="README.md" />
     <None Include="SConstruct" />
   </ItemGroup>

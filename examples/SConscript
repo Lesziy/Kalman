@@ -1,0 +1,10 @@
+Import('env')
+import os,glob
+
+examples_sources = Glob('*.cpp')
+examples = []
+
+for j in examples_sources:
+    examples += env.Program(source=j, LIBS=env['SHARED_LIBS']+env['EXTERNAL_LIBS']+env['LIBS'])
+
+Return('examples')

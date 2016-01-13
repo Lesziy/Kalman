@@ -1,8 +1,13 @@
+# Folder z binarkami
+build/*
+
+
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+*.os
 
 # Precompiled Headers
 *.gch
@@ -87,3 +92,18 @@ $RECYCLE.BIN/
 /.sconsign.dblite
 /test/test.cpp
 /docs/doxygen
+*.pyc
+*.manifest
+
+#Temp z gedita
+*~
+
+#Testy
+wyniki.xml
+test-*.xml
+
+#gcov
+*.gcno
+*.opendb
+
+after_install.bat
