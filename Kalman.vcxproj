@@ -21,6 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{27FC6DAE-FB37-4A25-8DC3-64E6D95E2560}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -34,12 +35,12 @@
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>Makefile</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>Makefile</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
@@ -77,6 +78,20 @@
     <NMakeCleanCommandLine>scons -c</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>scons -c &amp;&amp; scons</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir)src\Common;$(ProjectDir)\include;$(IncludePath)</IncludePath>
+    <NMakeBuildCommandLine>scons all</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>scons -c &amp;&amp; scons all</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>scons -c</NMakeCleanCommandLine>
+    <NMakeIncludeSearchPath>$(ProjectDir)\include</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectDir)src\Common;$(ProjectDir)\include;$(IncludePath)</IncludePath>
+    <NMakeBuildCommandLine>scons all</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>scons -c &amp;&amp; scons all</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>scons -c</NMakeCleanCommandLine>
+    <NMakeIncludeSearchPath>$(ProjectDir)\include</NMakeIncludeSearchPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Kalman", "Kalman.vcxproj", "{27FC6DAE-FB37-4A25-8DC3-64E6D95E2560}"
 EndProject
@@ -12,24 +12,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Kalman_tests", "Kalman_test
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{27FC6DAE-FB37-4A25-8DC3-64E6D95E2560}.Debug|x64.ActiveCfg = Debug|x64
-		{27FC6DAE-FB37-4A25-8DC3-64E6D95E2560}.Debug|x64.Build.0 = Debug|x64
-		{27FC6DAE-FB37-4A25-8DC3-64E6D95E2560}.Debug|x86.ActiveCfg = Debug|Win32
-		{27FC6DAE-FB37-4A25-8DC3-64E6D95E2560}.Debug|x86.Build.0 = Debug|Win32
 		{27FC6DAE-FB37-4A25-8DC3-64E6D95E2560}.Release|x64.ActiveCfg = Release|x64
 		{27FC6DAE-FB37-4A25-8DC3-64E6D95E2560}.Release|x64.Build.0 = Release|x64
 		{27FC6DAE-FB37-4A25-8DC3-64E6D95E2560}.Release|x86.ActiveCfg = Release|Win32
 		{27FC6DAE-FB37-4A25-8DC3-64E6D95E2560}.Release|x86.Build.0 = Release|Win32
-		{8CD54D89-3940-4FDC-996E-4DD4171C5CC9}.Debug|x64.ActiveCfg = Debug|x64
-		{8CD54D89-3940-4FDC-996E-4DD4171C5CC9}.Debug|x64.Build.0 = Debug|x64
-		{8CD54D89-3940-4FDC-996E-4DD4171C5CC9}.Debug|x86.ActiveCfg = Release|Win32
-		{8CD54D89-3940-4FDC-996E-4DD4171C5CC9}.Debug|x86.Build.0 = Release|Win32
 		{8CD54D89-3940-4FDC-996E-4DD4171C5CC9}.Release|x64.ActiveCfg = Release|x64
 		{8CD54D89-3940-4FDC-996E-4DD4171C5CC9}.Release|x64.Build.0 = Release|x64
 		{8CD54D89-3940-4FDC-996E-4DD4171C5CC9}.Release|x86.ActiveCfg = Release|Win32
