@@ -26,6 +26,8 @@ class Generator
 
 	std::function<void(Status)> receiverFunction_;	//!< Tymczasowe rozwiązanie: aktualna funkcja przyjmująca wyniki wykonania skryptu.
 
+
+	long long time_;
     /** Właściwa inicjalizacja obiektu.
         Metoda inicjalizuje interpreter Pythona i ładuje do niego zawartość pliku podanego jako argument konstruktora Generator::Generator().
         \returns nic

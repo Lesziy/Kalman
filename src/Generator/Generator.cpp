@@ -44,7 +44,7 @@ void Generator::ExecuteUpdate(std::array<double, 2>& retValue) const
 void Generator::SendUpdate(std::array<double, 2>& retValue)
 {
 	BOOST_LOG_TRIVIAL(trace) << "Generator::SendUpdate()";
-	Status s(retValue[0], retValue[1]);
+	Status s(retValue[0], retValue[1], time_++, CommonUtil::GENERATOR);
 	receiverFunction_(s);
 
 }
@@ -73,7 +73,7 @@ void Generator::MessageLoop()
 
 Generator::Generator(	std::string pFilename,
 						std::chrono::milliseconds waitTime)
-try : pythonFile_(pFilename), waitTime_(waitTime)
+try : pythonFile_(pFilename), waitTime_(waitTime), time_(0)
 { /*function body*/ }
 catch (...)
 {

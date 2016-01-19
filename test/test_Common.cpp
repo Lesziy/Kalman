@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(classicUse)
     Pong pong;
 
     ping.connect(std::bind(&Pong::update, std::ref(pong), std::placeholders::_1));
-    ping.setPosition(Status(123.0, 0));
+    ping.setPosition(Status(123.0, 0, 0, CommonUtil::NONE));
 
     BOOST_REQUIRE(pong.ok);
 }

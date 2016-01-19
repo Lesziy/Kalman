@@ -1,19 +1,23 @@
 #pragma once
 
 namespace CommonUtil {
-    //struktura w ktorej moga byc przekazywane dane
-    enum Type{KALMAN, BODY};
+    //! Etykiety dla nadawców.
+    enum Type { NONE,       //!< Wartość zostawiona dla wychwycenia stworzenia obiektu przez domyślny konstruktora.
+                GENERATOR,  //!< Wartość przeznaczona dla obiektu Generator
+                SENSORS,    //!< Przeznaczone dla obiektu Sensors
+                KALMAN      //!< Przeznaczone dla obiektu Kalman
+              };
 
     //! Pojedyncza lokalizacja obiektu.
     struct Status
     {
     	double x;
     	double y;
-    	double othr;// to b�dzie powiedzmy ta dodatkowa dana
-    	Type type;
+      long long time;
+    	Type author;
 
-        Status() : x(0), y(0), othr(0), type(KALMAN) {};
-    	Status(double px, double py) : x(px), y(py), othr(0), type(KALMAN) {};
+      Status() : x(0), y(0), time(0), author(KALMAN) {};
+    	Status(double px, double py, long long ptime, Type who) : x(px), y(py), time(ptime), author(who) {};
     };
 
 };

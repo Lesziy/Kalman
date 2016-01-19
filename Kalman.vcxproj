@@ -80,18 +80,20 @@
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)src\Common;$(ProjectDir)\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\boost2;$(ProjectDir)src\Common;$(ProjectDir)\include;$(IncludePath)</IncludePath>
     <NMakeBuildCommandLine>scons all</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>scons -c &amp;&amp; scons all</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>scons -c</NMakeCleanCommandLine>
-    <NMakeIncludeSearchPath>$(ProjectDir)\include</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>C:\boost2;$(ProjectDir)include</NMakeIncludeSearchPath>
+    <SourcePath>$(IncludePath);$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)src\Common;$(ProjectDir)\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\boost2;$(ProjectDir)src\Common;$(ProjectDir)\include;$(IncludePath)</IncludePath>
     <NMakeBuildCommandLine>scons all</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>scons -c &amp;&amp; scons all</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>scons -c</NMakeCleanCommandLine>
-    <NMakeIncludeSearchPath>$(ProjectDir)\include</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>C:\boost2;$(ProjectDir)include</NMakeIncludeSearchPath>
+    <SourcePath>$(IncludePath);$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
@@ -106,7 +108,6 @@
   <ItemGroup>
     <ClInclude Include="include\Generator.h" />
     <ClInclude Include="include\ObserverGUI.h" />
-    <ClInclude Include="include\Status.h" />
     <ClInclude Include="src\Generator\PythonFile.h" />
     <ClInclude Include="src\ObserverGUI\Observator.h" />
     <ClInclude Include="src\ObserverGUI\Observee.h" />
