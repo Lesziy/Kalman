@@ -5,6 +5,7 @@
 
 using namespace GeneratorUtil;
 
+
 void Generator::Init()
 {
 	BOOST_LOG_TRIVIAL(trace) << "entering Generator::Init()";

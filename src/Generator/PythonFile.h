@@ -44,7 +44,7 @@ namespace GeneratorUtil {
 
     	//! Funkcja zwracająca nazwę głównej funkcji w obiekcie.
     	/*!
-    		\return Nazwa głównej zmiennej.
+    		\return Nazwa aktualnej funkcji odpowiedzialnej za obliczanie trajektorii obiektu.
     	*/
     	std::string GetFunctionName() const;
 
