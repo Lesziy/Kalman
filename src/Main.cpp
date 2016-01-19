@@ -1,6 +1,4 @@
 #include "Generator.h"
-#include "SimpleSDL.h"
-#include "wxGUI.h"
 #include <iostream>
 
 /*Boost.Log related*/
@@ -13,6 +11,7 @@
 #include <boost/log/sources/severity_logger.hpp>
 #include <boost/log/sources/record_ostream.hpp>
 #include <boost/shared_ptr.hpp>
+
 #include <boost/program_options.hpp>
 namespace logging = boost::log;
 namespace options = boost::program_options;
@@ -83,15 +82,14 @@ int main(int argc, char* argv[])
 	BOOST_LOG_TRIVIAL(info) << "Selected script file: " << vm["script"].as<std::string>();
 	Generator b(vm["script"].as<std::string>());
 	b.SetReceiver(Foo);
-	SimpleSDL s;
 
 	std::cout << "It works!" << std::endl;
 
 	b.Start(false);
 	b.ExecuteOnce();
 
-    
-	wxGUI wx(argc, argv);
+
+
 	BOOST_LOG_TRIVIAL(trace) << "exiting main() gracefully";
     return 0;
 }
