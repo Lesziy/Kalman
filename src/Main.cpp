@@ -41,7 +41,7 @@ void InitBoostLog(int which)
 
 void Foo(Status s)
       {
-		  std::cout << "Got " << s.x << " " << s.y << std::endl;
+		  std::cout << "Got " << s.x << " " << s.y << "at time " << s.time << std::endl;
       }
 
 int main(int argc, char* argv[])
@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
 
 	b.Start(false);
 	b.ExecuteOnce();
-
+  b.ExecuteOnce();
 
 
 	BOOST_LOG_TRIVIAL(trace) << "exiting main() gracefully";
