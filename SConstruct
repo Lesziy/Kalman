@@ -16,7 +16,12 @@ include_dirs = {
         'ps_python' : "D:\\deps\Python27\include",
         'ps_wx' : "D:\\deps\wxWidgets-3.0.2\include",
         'ps_wxmsvc' : "D:\\deps\wxWidgets-3.0.2\include\msvc",
-        'ps_SDL' : "D:\\deps\\SDL\include"
+        'ps_SDL' : "D:\\deps\\SDL\include",
+		'mb_boost' :  "C:\\local\\boost_1_59_0",
+		'mb_SDL' : "C:\\SDL2-2.0.3\\include",
+		'mb_python' : "C:\\Python27\\include",
+		'mb_wx' : "C:\\wxWidgets-3.0.2\\include",
+        'mb_wxmsvc' : "C:\\wxWidgets-3.0.2\\include\\msvc"
     },
     'linux':
     {
@@ -35,7 +40,11 @@ libs_dirs = {
         'ps_python': 'D:\\deps\Python27\libs',
         'ps_SDL': 'D:\\deps\\SDL\lib\\x64',
         'ps_wx': 'D:\\deps\wxWidgets-3.0.2\lib\\vc_x64_lib',
-        'ps_boost': 'D:\\deps\Boost\lib64-msvc-14.0'
+        'ps_boost': 'D:\\deps\Boost\lib64-msvc-14.0',
+		'mb_python': 'C:\\Python27\\libs',
+        'mb_SDL': 'C:\\SDL2-2.0.3\\lib\\x64',
+        'mb_wx': 'C:\\wxWidgets-3.0.2\\lib\\vc_x64_lib',
+        'mb_boost': 'C:\\local\\boost_1_59_0\\lib64-msvc-14.0'
     },
     'linux':
     {
