@@ -5,6 +5,6 @@ examples_sources = Glob('*.cpp')
 examples = []
 
 for j in examples_sources:
-    examples += env.Program(source=j, LIBS=env['SHARED_LIBS']+env['EXTERNAL_LIBS']+env['LIBS'])
+    examples += env.Program(source=j, LIBS=env['SHARED_LIBS']+env['EXTERNAL_LIBS'])
 
 Return('examples')

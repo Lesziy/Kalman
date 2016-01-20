@@ -70,6 +70,8 @@ Na chwile obecna kazdy moduł ma oddzielną aplikację z testami, ponieważ tak 
  - Nie, ze względu na http://stackoverflow.com/questions/30412951/unresolved-external-symbol-imp-fprintf-and-imp-iob-func-sdl2 wymagane jest takie brudne obejście aby pozwolić na linkowanie. Fakt że wxWidgets wyszło ostatni raz ponad rok temu(gdy VS2015 był w powijakach) również negatywnie wpłwa na liczbę błędów.
 - Udało się skompilować, krzyczy o brak dlli. Co robić?
  - Skrypt after_install.bat dorzuca do zmiennej systemowej %PATH% foldery w ktorych przewidziana jest lokalizacja bibliotek i dlli, wiec wystarczy go uruchomić.
+- Co zrobić w przypadku błędu `ImportError: No module named site` pod Windowsem?
+ - Pomaga postąpienie według [tych wskazówek](http://stackoverflow.com/questions/5599872/python-windows-importerror-no-module-named-site).
 
 ## Kompilacja pod Windowsem:
 0. Instalacja VS2015

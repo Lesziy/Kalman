@@ -48,6 +48,9 @@
     <ClCompile Include="examples\benchmark.cpp">
       <Filter>Examples</Filter>
     </ClCompile>
+    <ClCompile Include="examples\workers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Generator.h">
@@ -64,9 +67,6 @@
     </ClInclude>
     <ClInclude Include="src\Generator\PythonFile.h">
       <Filter>Header Files\Generator</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Status.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

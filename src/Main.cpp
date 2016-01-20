@@ -1,18 +1,7 @@
 #include "Generator.h"
-#include "SimpleSDL.h"
-#include "wxGUI.h"
+#include "Common.h"
 #include <iostream>
 
-/*Boost.Log related*/
-#include <boost/log/core.hpp>
-#include <boost/log/trivial.hpp>
-#include <boost/log/expressions.hpp>
-#include <boost/log/sinks/text_file_backend.hpp>
-#include <boost/log/utility/setup/file.hpp>
-#include <boost/log/utility/setup/common_attributes.hpp>
-#include <boost/log/sources/severity_logger.hpp>
-#include <boost/log/sources/record_ostream.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/program_options.hpp>
 namespace logging = boost::log;
 namespace options = boost::program_options;
@@ -26,23 +15,9 @@ namespace options = boost::program_options;
       }
 #endif
 
-
-void InitBoostLog(int which)
-{
-	if (which < 0) which = 0;
-	if (which > 5) which = 5;
-	using namespace logging::trivial;
-	std::array<severity_level,6> levels = { trace, debug, info, warning, error, fatal };
-
-	logging::core::get()->set_filter
-		(
-			logging::trivial::severity >= levels[which]
-		);
-}
-
 void Foo(Status s)
       {
-		  std::cout << "Got " << s.x << " " << s.y << std::endl;
+		  std::cout << "Got " << s.x << " " << s.y << "at time " << s.time << std::endl;
       }
 
 int main(int argc, char* argv[])
@@ -69,7 +44,7 @@ int main(int argc, char* argv[])
 			return 0;
 		}
 
-		InitBoostLog(vm["verbose"].as<int>());
+		Common::InitBoostLog(vm["verbose"].as<int>());
 
 	}
 	catch (std::exception e)
@@ -83,15 +58,14 @@ int main(int argc, char* argv[])
 	BOOST_LOG_TRIVIAL(info) << "Selected script file: " << vm["script"].as<std::string>();
 	Generator b(vm["script"].as<std::string>());
 	b.SetReceiver(Foo);
-	SimpleSDL s;
 
 	std::cout << "It works!" << std::endl;
 
 	b.Start(false);
 	b.ExecuteOnce();
+  b.ExecuteOnce();
 
-    
-	wxGUI wx(argc, argv);
+
 	BOOST_LOG_TRIVIAL(trace) << "exiting main() gracefully";
     return 0;
 }

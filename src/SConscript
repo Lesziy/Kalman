@@ -8,7 +8,7 @@ program_sources = ['#src/Main.cpp']
 for i in range(len(libs)):
     env['SHARED_LIBS'].append(env.Library(libs[i],libs_sources[i], LIBS=env['EXTERNAL_LIBS']))
 
-app = env.Program("../app", program_sources, LIBS=env['SHARED_LIBS']+env['EXTERNAL_LIBS']+env['LIBS'])
+app = env.Program("../app", program_sources, LIBS=env['SHARED_LIBS']+env['EXTERNAL_LIBS'])
 env.Depends(app, env['SHARED_LIBS'])
 
 Default(app)

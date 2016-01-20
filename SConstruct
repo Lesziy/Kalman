@@ -46,11 +46,11 @@ libs_dirs = {
 
 
 external_libs = {
-    'windows' : ['SDL2', "python27", "legacy_stdio_definitions", "SDL2main"],
-    'linux' : ['SDL2', "python2.7","boost_system", "boost_filesystem","boost_program_options","boost_python", "GL","pthread","boost_log_setup","boost_log"]
+    'windows' :[ "python27"],
+    'linux' : [ "python2.7","boost_system", "boost_filesystem","boost_program_options","boost_python","pthread","boost_log_setup","boost_log", "boost_iostreams"]
 }
 
-libs = ["Common","Generator", "SimpleSDL", "wxGUI", "Sensors", "Kalman", "Measurements"]
+libs = ["Common","Generator", "Sensors", "Kalman", "Measurements", "Writer"]
 
 doxygen_builder = Builder(action = 'doxygen')
 
@@ -100,18 +100,6 @@ if not conf.CheckCXXHeader('pyconfig.h'):
     print 'Python development files not found - fix paths in SConscript file or install them'
     Exit(1)
 
-if not conf.CheckCHeader('SDL.h'):
-    print 'SDL.h not found - install it or fix path in Sconscript file'
-    Exit(1)
-
-if not conf.CheckLib('SDL2'):
-    print 'SDL2 lib not found, exiting!'
-    Exit(1)
-
-if not conf.CheckLib('SDL2main') and env['SYSTEM']=='windows':
-    print 'SDL2main lib not found, exiting!'
-    Exit(1)
-
 if not conf.CheckCXXHeader('boost/python.hpp'):
     print 'Boost.Python not found!'
     Exit(1)
@@ -122,10 +110,6 @@ if not conf.CheckCXXHeader('boost/program_options.hpp'):
 
 if not conf.CheckCXXHeader('boost/log/trivial.hpp'):
     print 'Boost::logging::trivial not found!'
-    Exit(1)
-
-if not conf.CheckCXXHeader('wx/wx.h'):
-    print 'wxWidgets not found!'
     Exit(1)
 
 env = conf.Finish()
