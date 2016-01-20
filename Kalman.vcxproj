@@ -99,6 +99,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="examples\benchmark.cpp" />
+    <ClCompile Include="examples\workers.cpp" />
     <ClCompile Include="src\Generator\Generator.cpp" />
     <ClCompile Include="src\Generator\PythonFile.cpp" />
     <ClCompile Include="src\Main.cpp" />

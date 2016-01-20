@@ -49,7 +49,7 @@ void Generator::SendUpdate(std::array<double, 2>& retValue)
 
 }
 
-void Generator::MessageLoop()
+Status Generator::ThreadProc()
 {
 	BOOST_LOG_TRIVIAL(trace) << "entering Generator::MessageLoop()";
 	using namespace boost::python;
@@ -89,8 +89,7 @@ Generator::~Generator()
 void Generator::Start(bool MessageLoopEnabled)
 {
 	Init();
-	if(MessageLoopEnabled)
-		MessageLoop();
+
 }
 
 void Generator::ExecuteOnce()

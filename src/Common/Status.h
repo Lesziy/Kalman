@@ -14,10 +14,10 @@ namespace CommonUtil {
     	double x;
     	double y;
       long long time;
-    	Type author;
+    	Type type;
 
-      Status() : x(0), y(0), time(0), author(KALMAN) {};
-    	Status(double px, double py, long long ptime, Type who) : x(px), y(py), time(ptime), author(who) {};
+      Status() : x(0), y(0), time(0), type(KALMAN) {};
+    	Status(double px, double py, long long ptime, Type who) : x(px), y(py), time(ptime), type(who) {};
     };
 
 };

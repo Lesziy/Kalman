@@ -2,11 +2,19 @@
 //#define BOOST_LOG_DYN_LINK
 #include <string>
 #include <queue>
+#ifdef _DEBUG
+#undef _DEBUG
 #include <Python.h>
+#define _DEBUG
+#else
+#include <Python.h>
+#endif
 #include <boost/python.hpp>
 #include <chrono>
+
+#include "Common.h"
 #include "PythonFile.h"
-#include "Status.h"
+#include "Worker.h"
 
 //! Wszystkie klasy wykorzystywane w Generator
 namespace GeneratorUtil {};
@@ -15,7 +23,7 @@ using namespace GeneratorUtil;
 using namespace CommonUtil;
 
 //! Klasa odpowiedzialna za generowanie trajektorii obiektu.
-class Generator
+class Generator : public Worker<OutputWorker>
 {
 
 	PythonFile pythonFile_;							//!< Aktualnie wykonywany skrypt Pythona.
@@ -57,7 +65,7 @@ class Generator
         \returns nic
         \throws nic
     */
-    void MessageLoop();
+	Status ThreadProc() override;
 
 public:
 	/** Konstruktor.
