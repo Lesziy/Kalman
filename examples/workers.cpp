@@ -18,29 +18,57 @@ public:
 
 class Client : public Worker<CommonUtil::InputWorker>
 {
-	void ThreadProc(Status s) override
+	std::string name;
+	int ThreadProc(Status s) override
 	{
-		BOOST_LOG_TRIVIAL(info) << "client got " << s.time;
+		BOOST_LOG_TRIVIAL(info) << name << " client got " << s.x;
+		return 0;
 	}
+
+public:
+
+	Client(std::string in) : name(in) { };
+
 };
 
+class Seller : public Worker<CommonUtil::InputOutputWorker>
+{
+	std::string name;
+	Status ThreadProc(Status s) override
+	{
+		BOOST_LOG_TRIVIAL(info) << name << " seller got " << s.time;
+		s.x = s.time;
+		return s;
+	}
+
+public:
+
+	Seller(std::string in) : name(in) { };
+
+};
 
 int main()
 {
+	Common::InitBoostLog(2);
 	BOOST_LOG_TRIVIAL(trace) << '1';
 	Producer producer;
-	Client cli;
+	Client cli("One");
+	Seller Two("Two");
 
 	BOOST_LOG_TRIVIAL(trace) << '2';
-	producer.Connect(cli);
+	producer.Connect(Two);
+	Two.Connect(cli);
 	BOOST_LOG_TRIVIAL(trace) << '3';
+	
 	try
 	{
-		std::thread t(std::ref(cli));
 		std::thread u(std::ref(producer));
+		std::thread t(std::ref(cli));
+		std::thread k(std::ref(Two));
 
 		t.join();
 		u.join();
+		k.join();
 	}
 	catch (std::exception e)
 	{
