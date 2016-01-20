@@ -14,6 +14,9 @@
 #include "Status.h"
 
 namespace logging = boost::log;
+
+
+
 //! Klasa pozostawiona dla symetrii względem innych klas.
 class Common
 {

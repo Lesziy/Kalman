@@ -3,6 +3,7 @@
 #include <deque>
 #include <boost/signals2.hpp>
 #include <type_traits>
+#include <condition_variable>
 #include "Common.h"
 #include "Status.h"
 #include "Workable.h"
