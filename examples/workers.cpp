@@ -7,18 +7,19 @@ class Producer : public Worker<CommonUtil::OutputWorker>
 
 	Status ThreadProc()
 	{
-		BOOST_LOG_TRIVIAL(trace) << '5';
-		Status s(0,0, d_, CommonUtil::NONE);
+		Status s(0,0, d_++, CommonUtil::NONE);
 		return s;
 	}
 
+public:
+	Producer() : d_(0) { };
+	
 };
 
 class Client : public Worker<CommonUtil::InputWorker>
 {
 	void ThreadProc(Status s) override
 	{
-		BOOST_LOG_TRIVIAL(trace) << '4';
 		BOOST_LOG_TRIVIAL(info) << "client got " << s.time;
 	}
 };
@@ -31,12 +32,15 @@ int main()
 	Client cli;
 
 	BOOST_LOG_TRIVIAL(trace) << '2';
-	//producer.Connect(cli);
+	producer.Connect(cli);
 	BOOST_LOG_TRIVIAL(trace) << '3';
 	try
 	{
 		std::thread t(std::ref(cli));
 		std::thread u(std::ref(producer));
+
+		t.join();
+		u.join();
 	}
 	catch (std::exception e)
 	{

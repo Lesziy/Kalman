@@ -1,4 +1,5 @@
 #include "Worker.h"
+#include "Windows.h"
 using namespace CommonUtil;
 
 
@@ -11,8 +12,8 @@ void Worker<OutputWorker>::operator()() {
 
 	while (good_)
 	{
-	//	ret = ThreadProc();
-//		signal_(ret);
+		ret = ThreadProc();
+		signal_(ret);
 	}
 
 
@@ -25,11 +26,10 @@ void Worker<InputWorker>::operator()() {
 	Status s;
 	while (good_)
 	{
-	//	if (queue_.empty())
-//			;
-//		s = queue_.front();
-//		queue_.pop_front();
-//		ThreadProc(s);
+		Sleep(400);
+		s = queue_.front();
+		queue_.pop_front();
+		ThreadProc(s);
 	}
 
 
@@ -41,11 +41,11 @@ void Worker<InputWorker>::operator()() {
 template<>
 void Worker<OutputWorker>::Update(Status s)
 {
-		
+
 }
 
 template<>
-void Worker<InputWorker>::Update(Status s) 
+void Worker<InputWorker>::Update(Status s)
 {
 	queue_.push_back(s);
 }
