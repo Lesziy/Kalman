@@ -5,8 +5,8 @@
 #include <type_traits>
 #include "Common.h"
 #include "Status.h"
-#include "Observator.h"
-#include "Windows.h"
+#include "Workable.h"
+
 namespace CommonUtil {
 	//! Trejt który umożliwia Worker wysyłanie danych.
 	struct ThreadProcSendable
@@ -41,10 +41,9 @@ namespace CommonUtil {
 
 using namespace CommonUtil;
 
-
 //! Ogólny szablon modułu aplikacji.
 template <typename T>
-class Worker
+class Worker : public Workable
 {
 	std::mutex mtx_;
 	std::condition_variable cv_;
@@ -147,7 +146,7 @@ public:
 		BOOST_LOG_TRIVIAL(trace) << "Exiting Worker::Update()";
 	}
 	
-	void operator()()
+	void operator()() override
 	{
 		BOOST_LOG_TRIVIAL(trace) << "Entering Worker::Operator()()";
 		_MessageLoop(std::is_base_of<OutputWorker, T>());

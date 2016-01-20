@@ -1,13 +1,15 @@
 #include "Common.h"
 #include "Worker.h"
 #include <thread>
+#include "SimpleWorkerPool.h"
+
 class Producer : public Worker<CommonUtil::OutputWorker>
 {
 	long long d_;
 
 	Status ThreadProc()
 	{
-		Status s(0,0, d_++, CommonUtil::NONE);
+		Status s(-d_,0, d_++, CommonUtil::NONE);
 		return s;
 	}
 
@@ -47,31 +49,24 @@ public:
 
 };
 
+#define SWPR(x) 
 int main()
-{
+{	
 	Common::InitBoostLog(2);
-	BOOST_LOG_TRIVIAL(trace) << '1';
-	Producer producer;
-	Client cli("One");
-	Seller Two("Two");
 
-	BOOST_LOG_TRIVIAL(trace) << '2';
-	producer.Connect(Two);
-	Two.Connect(cli);
-	BOOST_LOG_TRIVIAL(trace) << '3';
+
+	auto producer = std::make_shared<Producer>();
+	auto client = std::make_shared<Client>("Last");
+	auto better = std::make_shared<Client>("Klient lepszego sortu");
+	auto seller = std::make_shared<Seller>("Middle");
+	SimpleWorkerPool swp;
+
+
+	producer->Connect(*better);
+	producer->Connect(*seller);
+	seller->Connect(*client);
 	
-	try
-	{
-		std::thread u(std::ref(producer));
-		std::thread t(std::ref(cli));
-		std::thread k(std::ref(Two));
-
-		t.join();
-		u.join();
-		k.join();
-	}
-	catch (std::exception e)
-	{
-		std::cout << e.what();
-	}
+	swp.Register({ producer, client, seller, better });
+	
+	swp();
 };

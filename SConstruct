@@ -50,7 +50,7 @@ external_libs = {
     'linux' : [ "python2.7","boost_system", "boost_filesystem","boost_program_options","boost_python","pthread","boost_log_setup","boost_log", "boost_iostreams"]
 }
 
-libs = ["Common","Generator", "Sensors", "Kalman", "Measurements", "Writer"]
+libs = ["Common","Generator", "Kalman", "Measurements", "Writer"]#, "Sensors"]
 
 doxygen_builder = Builder(action = 'doxygen')
 
