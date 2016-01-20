@@ -13,7 +13,7 @@ Sensor::Sensor(boost::filesystem::path path)
 
 void Sensor::updateCoordinates(double x, double y)
 {
-	outCoordinates = std::pair<double, double>(x*noise, y*noise);
+	outCoordinates = std::pair<double, double>(x*(1-noise), y*(1 - noise));
 }
 
 std::pair<double, double> Sensor::getCooridnates()
