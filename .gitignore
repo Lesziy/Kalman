@@ -1,6 +1,9 @@
 # Folder z binarkami
 build/*
 
+#gocv-related
+*.gcov
+*.gcda
 
 # Compiled Object files
 *.slo
