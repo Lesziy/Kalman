@@ -25,7 +25,7 @@ void Generator::Init()
 	BOOST_LOG_TRIVIAL(trace) << "exiting Generator::Init()";
 }
 
-Status Generator::ExecuteUpdate() 
+Status Generator::ExecuteUpdate()
 {
 	std::array<double, 2> retValue;
 
@@ -46,7 +46,7 @@ Status Generator::ExecuteUpdate()
 	return s;
 }
 
-Status Generator::ThreadProc()
+Status Generator::ThreadProc(int)
 {
 	BOOST_LOG_TRIVIAL(trace) << "entering Generator::MessageLoop()";
 	using namespace boost::python;

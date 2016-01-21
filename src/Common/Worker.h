@@ -12,7 +12,7 @@ namespace CommonUtil {
 	struct ThreadProcSendable
 	{
 		typedef Status ThreadProcType;
-		typedef void ThreadProcArg;
+		typedef int ThreadProcArg;
 		typedef boost::signals2::signal<void(Status)> SignalType;
 		typedef int QueueType;
 	};
@@ -35,7 +35,7 @@ namespace CommonUtil {
 		typedef boost::signals2::signal<void(Status)> SignalType;
 		typedef std::deque<Status> QueueType;
 	};
-	
+
 
 };
 
@@ -89,7 +89,7 @@ class Worker : public Workable
 
 		while (good_)
 		{
-			ret = ThreadProc();
+			ret = ThreadProc(0);
 			signal_(ret);
 		}
 
@@ -112,7 +112,7 @@ class Worker : public Workable
 			queue_.pop_front();
 			ret = ThreadProc(value);
 			_MessageLoop_InputWorker_Send(ret, std::is_base_of<ThreadProcSendable, T>());
-	
+
 		}
 	}
 
@@ -123,13 +123,13 @@ class Worker : public Workable
 
 	void _MessageLoop_InputWorker_Send(typename T::ThreadProcType & ret, std::false_type)
 	{
-		if (ret > 0) 
+		if (ret > 0)
 			Worker::KillAll();
 	}
 public:
 
 	Worker()  { };
-	
+
 
 	template <typename U>
 	void Connect(Worker<U> & observer)
@@ -145,7 +145,7 @@ public:
 		_Update(s, std::is_base_of<InputWorker, T>());
 		BOOST_LOG_TRIVIAL(trace) << "Exiting Worker::Update()";
 	}
-	
+
 	void operator()() override
 	{
 		BOOST_LOG_TRIVIAL(trace) << "Entering Worker::Operator()()";
@@ -154,7 +154,7 @@ public:
 
 
 	/** Funkcja wywoływana na bieżąco w OutputWorker, w InputWorker tylko w przypadku dorzucenia statusu do kolejki.
-	
+
 	*/
 	virtual typename T::ThreadProcType ThreadProc(typename T::ThreadProcArg) = 0;
 
