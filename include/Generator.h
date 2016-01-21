@@ -48,7 +48,7 @@ class Generator : public Worker<OutputWorker>
         \returns nic
         \throws nic
     */
-	Status ThreadProc() override;
+	virtual Status ThreadProc(int) override;
 
 public:
 	/** Konstruktor.

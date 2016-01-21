@@ -17,15 +17,17 @@ int main(int argc, char* argv[])
 	SimpleWorkerPool pool;
 	options::variables_map vm;
 	std::cout << "Kalman" << std::endl;
+    std::chrono::seconds sleepTime;
 	try
 	{
 		options::options_description desc("Options");
 
 		desc.add_options()
-			("help", "Produce help message")
+			("help,h", "Produce help message")
 			("script,s", options::value<std::string>()->default_value("../maps/standard.py"), "set script path")
 			("verbose,v", options::value<int>()->default_value(3), "set verbose level")
-			;
+            ("time,t", options::value<int>()->default_value(1), "set duration of experiment in seconds")
+            ;
 
 
 		options::store(options::parse_command_line(argc, argv, desc), vm);
@@ -38,6 +40,7 @@ int main(int argc, char* argv[])
 		}
 
 		Common::InitBoostLog(vm["verbose"].as<int>());
+        sleepTime = std::chrono::seconds(vm["verbose"].as<int>());
 
 	}
 	catch (std::exception e)
@@ -48,19 +51,28 @@ int main(int argc, char* argv[])
 
 	BOOST_LOG_TRIVIAL(trace) << "entering main()";
 	BOOST_LOG_TRIVIAL(info) << "Selected script file: " << vm["script"].as<std::string>();
-	
-	
+
+
 	auto generator = std::make_shared<Generator>(vm["script"].as<std::string>());
 	auto writer = std::make_shared<Writer>("output.csv", ';');
 	auto kalman = std::make_shared<Kalman>();
-	
+
 	generator->Connect(*kalman);
 	generator->Connect(*writer);
 	kalman->Connect(*writer);
-	
+
 	pool.Register({ generator, kalman, writer });
 
-	pool();
+	std::thread t(std::ref(pool));
+
+    std::this_thread::sleep_for(sleepTime);
+
+    Worker<CommonUtil::InputWorker>::KillAll();
+    Worker<CommonUtil::OutputWorker>::KillAll();
+    Worker<CommonUtil::InputOutputWorker>::KillAll();
+
+
+    t.join();
 
 	BOOST_LOG_TRIVIAL(trace) << "exiting main() gracefully";
     return 0;
