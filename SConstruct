@@ -8,20 +8,11 @@ include_dirs = {
     'windows':
     {
         'jp_boost' : "C:\\Boost2",
-        'jp_SDL' : "C:\\SDL2-2.0.3\\include",
         'jp_python' : "C:\\Python27\\include",
-        'jp_wx' : "C:\\wxWidgets-3.0.2\\include",
-        'jp_wxmsvc' : "C:\\wxWidgets-3.0.2\\include\\msvc",
         'ps_boost' : "D:\\deps\\Boost",
         'ps_python' : "D:\\deps\Python27\include",
-        'ps_wx' : "D:\\deps\wxWidgets-3.0.2\include",
-        'ps_wxmsvc' : "D:\\deps\wxWidgets-3.0.2\include\msvc",
-        'ps_SDL' : "D:\\deps\\SDL\include",
 		'mb_boost' :  "C:\\local\\boost_1_59_0",
-		'mb_SDL' : "C:\\SDL2-2.0.3\\include",
-		'mb_python' : "C:\\Python27\\include",
-		'mb_wx' : "C:\\wxWidgets-3.0.2\\include",
-        'mb_wxmsvc' : "C:\\wxWidgets-3.0.2\\include\\msvc"
+		'mb_python' : "C:\\Python27\\include"
     },
     'linux':
     {
@@ -34,29 +25,23 @@ libs_dirs = {
     'windows':
     {
         'jp_python': 'C:\\Python27\\libs',
-        'jp_SDL': 'C:\\SDL2-2.0.3\\lib\\x64',
-        'jp_wx': 'C:\\wxWidgets-3.0.2\\lib\\vc_x64_lib',
         'jp_boost': 'C:\\boost2\\lib64-msvc-14.0',
         'ps_python': 'D:\\deps\Python27\libs',
-        'ps_SDL': 'D:\\deps\\SDL\lib\\x64',
-        'ps_wx': 'D:\\deps\wxWidgets-3.0.2\lib\\vc_x64_lib',
         'ps_boost': 'D:\\deps\Boost\lib64-msvc-14.0',
-		'mb_python': 'C:\\Python27\\libs',
-        'mb_SDL': 'C:\\SDL2-2.0.3\\lib\\x64',
-        'mb_wx': 'C:\\wxWidgets-3.0.2\\lib\\vc_x64_lib',
+        'mb_python': 'C:\\Python27\\libs',
         'mb_boost': 'C:\\local\\boost_1_59_0\\lib64-msvc-14.0'
     },
     'linux':
     {
         'python': '/usr/lib64/python2.7',
-        'libs':'/usr/lib'
+        'libs': '/usr/lib'
     }
 }
 
 
 external_libs = {
-    'windows' :[ "python27"],
-    'linux' : [ "python2.7","boost_system", "boost_filesystem","boost_program_options","boost_python","pthread","boost_log_setup","boost_log", "boost_iostreams"]
+    'windows': ["python27"],
+    'linux': ["python2.7", "boost_system", "boost_filesystem","boost_program_options","boost_python","pthread","boost_log_setup","boost_log", "boost_iostreams"]
 }
 
 libs = ["Common","Generator", "Kalman", "Measurements", "Writer"]#, "Sensors"]
@@ -89,7 +74,6 @@ if env['SYSTEM'] == 'windows':
 
 
 elif env['SYSTEM'] == 'linux':
-    env.ParseConfig("wx-config --cxxflags --libs --gl-libs")
     env.Append(CXXFLAGS="-DBOOST_LOG_DYN_LINK -w -std=c++11")
 
     #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
