@@ -1,7 +1,5 @@
-#include "SimpleWorkerPool.h"
 #include "Common.h"
 #include <string>
-#include <Workable.h>
 
 struct BB : public Workable
 {

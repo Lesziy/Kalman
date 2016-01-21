@@ -1,7 +1,5 @@
 #include "Common.h"
-#include "Worker.h"
 #include <thread>
-#include "SimpleWorkerPool.h"
 
 class Producer : public Worker<CommonUtil::OutputWorker>
 {
