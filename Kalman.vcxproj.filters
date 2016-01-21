@@ -51,6 +51,9 @@
     <ClCompile Include="examples\workers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="examples\csv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Generator.h">
@@ -67,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="src\Generator\PythonFile.h">
       <Filter>Header Files\Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\ExitHandler.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
