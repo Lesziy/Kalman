@@ -2,19 +2,12 @@
 //#define BOOST_LOG_DYN_LINK
 #include <string>
 #include <queue>
-#ifdef _DEBUG
-#undef _DEBUG
 #include <Python.h>
-#define _DEBUG
-#else
-#include <Python.h>
-#endif
 #include <boost/python.hpp>
 #include <chrono>
-
 #include "Common.h"
 #include "PythonFile.h"
-#include "Worker.h"
+
 
 //! Wszystkie klasy wykorzystywane w Generator
 namespace GeneratorUtil {};
@@ -32,9 +25,6 @@ class Generator : public Worker<OutputWorker>
 	boost::python::object mainNamespace_;			//!< Zmienna związana z obsługą Pythona.
 	std::chrono::milliseconds waitTime_;			//!< Opóźnienie pomiędzy wysyłanymi sygnałami.
 
-	std::function<void(Status)> receiverFunction_;	//!< Tymczasowe rozwiązanie: aktualna funkcja przyjmująca wyniki wykonania skryptu.
-
-
 	long long time_;
     /** Właściwa inicjalizacja obiektu.
         Metoda inicjalizuje interpreter Pythona i ładuje do niego zawartość pliku podanego jako argument konstruktora Generator::Generator().
@@ -50,16 +40,9 @@ class Generator : public Worker<OutputWorker>
         \returns nic
         \throws boost::python::error_already_set w przypadku błędów interpretera.
     */
-	void ExecuteUpdate(std::array<double, 2>& retValue) const;
+	Status ExecuteUpdate();
 
-    /** Wysłanie otrzymanych wyników w świat
-        Metoda wysyła wartości zmiennych w świat.
-        \param  retValue parametry do wysłania w świat.
-        \throws Błędy związane z propagacją wiadomości.
-        \returns nic
-        \sa Generator::receiverFunction_
-    */
-	void SendUpdate(std::array<double, 2>& retValue);
+
 
     /** Aktualny prototyp pętli komunikatów.
         \returns nic
@@ -82,22 +65,6 @@ public:
     */
     ~Generator();
 
-	/** Funkcja odpowiedzialna za właściwy start obiektu.
-		\param MessageLoop Określa, czy wewnętrzna pętla ma zostać uruchomiona - przydatne w celu testowania skryptu za pomocą ExecuteOnce()
-		\sa ExecuteOnce()
-
-	*/
-	void Start(bool MessageLoop = true);
-
-	/** Jednokrotne wywołanie procedury odpowiedzialnej za wywołanie skryptu.
-        \returns Generator::receiverFunction_ powinno dostać jeden obiekt CommonUtil::Status.
-    */
-    void ExecuteOnce();
-
-	/** Ustawienie odbiorcy wywołań skryptu.
-		\param what funkcja która przyjmuje dane.
-	*/
-	void SetReceiver(std::function<void(Status)> what) { receiverFunction_ = what; }
 };
 
 /** \example benchmark.cpp

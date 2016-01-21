@@ -78,7 +78,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
+*.csv
 #Latex 
 *.synctex.gz
 *.aux

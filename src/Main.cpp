@@ -1,19 +1,11 @@
-#include "Generator.h"
-#include "Common.h"
-#include <iostream>
-
 #include <boost/program_options.hpp>
+#include "Common.h"
+#include "Kalman.h"
+#include "Writer.h"
+#include "Generator.h"
+
 namespace logging = boost::log;
 namespace options = boost::program_options;
-
-#ifdef _WIN32
-      FILE _iob[] = { *stdin, *stdout, *stderr };
-
-      extern "C" FILE * __cdecl __iob_func(void)
-      {
-         return _iob;
-      }
-#endif
 
 void Foo(Status s)
       {
@@ -22,6 +14,7 @@ void Foo(Status s)
 
 int main(int argc, char* argv[])
 {
+	SimpleWorkerPool pool;
 	options::variables_map vm;
 	std::cout << "Kalman" << std::endl;
 	try
@@ -54,17 +47,20 @@ int main(int argc, char* argv[])
 	}
 
 	BOOST_LOG_TRIVIAL(trace) << "entering main()";
-
 	BOOST_LOG_TRIVIAL(info) << "Selected script file: " << vm["script"].as<std::string>();
-	Generator b(vm["script"].as<std::string>());
-	b.SetReceiver(Foo);
+	
+	
+	auto generator = std::make_shared<Generator>(vm["script"].as<std::string>());
+	auto writer = std::make_shared<Writer>("output.csv", ';');
+	auto kalman = std::make_shared<Kalman>();
+	
+	generator->Connect(*kalman);
+	generator->Connect(*writer);
+	kalman->Connect(*writer);
+	
+	pool.Register({ generator, kalman, writer });
 
-	std::cout << "It works!" << std::endl;
-
-	b.Start(false);
-	b.ExecuteOnce();
-  b.ExecuteOnce();
-
+	pool();
 
 	BOOST_LOG_TRIVIAL(trace) << "exiting main() gracefully";
     return 0;

@@ -16,7 +16,7 @@ namespace CommonUtil {
       long long time;
     	Type type;
 
-      Status() : x(0), y(0), time(0), type(KALMAN) {};
+      Status() : x(0), y(0), time(0), type(NONE) {};
     	Status(double px, double py, long long ptime, Type who) : x(px), y(py), time(ptime), type(who) {};
     };
 

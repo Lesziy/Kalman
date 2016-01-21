@@ -25,8 +25,10 @@ void Generator::Init()
 	BOOST_LOG_TRIVIAL(trace) << "exiting Generator::Init()";
 }
 
-void Generator::ExecuteUpdate(std::array<double, 2>& retValue) const
+Status Generator::ExecuteUpdate() 
 {
+	std::array<double, 2> retValue;
+
 	BOOST_LOG_TRIVIAL(trace) << "Generator::ExecuteUpdate()";
 	boost::python::object retObject;
 	try {
@@ -39,14 +41,9 @@ void Generator::ExecuteUpdate(std::array<double, 2>& retValue) const
 		PyErr_Print();
 		throw;
 	}
-}
 
-void Generator::SendUpdate(std::array<double, 2>& retValue)
-{
-	BOOST_LOG_TRIVIAL(trace) << "Generator::SendUpdate()";
 	Status s(retValue[0], retValue[1], time_++, CommonUtil::GENERATOR);
-	receiverFunction_(s);
-
+	return s;
 }
 
 Status Generator::ThreadProc()
@@ -54,10 +51,8 @@ Status Generator::ThreadProc()
 	BOOST_LOG_TRIVIAL(trace) << "entering Generator::MessageLoop()";
 	using namespace boost::python;
 
-	while(true)
-	{
 		try {
-			ExecuteOnce();
+			return ExecuteUpdate();
 		}
 		catch(std::exception e)
 		{
@@ -66,15 +61,14 @@ Status Generator::ThreadProc()
 			throw;
 		}
 
-	}
-
-	BOOST_LOG_TRIVIAL(trace) << "exiting Generator::MessageLoop()";
 }
 
 Generator::Generator(	std::string pFilename,
 						std::chrono::milliseconds waitTime)
 try : pythonFile_(pFilename), waitTime_(waitTime), time_(0)
-{ /*function body*/ }
+{
+	Init();
+}
 catch (...)
 {
 	BOOST_LOG_TRIVIAL(fatal) << "Generator ctor failed - first script not found, exiting.";
@@ -84,17 +78,4 @@ catch (...)
 
 Generator::~Generator()
 {
-}
-
-void Generator::Start(bool MessageLoopEnabled)
-{
-	Init();
-
-}
-
-void Generator::ExecuteOnce()
-{
-	std::array<double, 2> retValue;
-	ExecuteUpdate(retValue);
-	SendUpdate(retValue);
 }

@@ -9,9 +9,10 @@
 #include <boost/log/sources/record_ostream.hpp>
 #include <boost/shared_ptr.hpp>
 
-#include "Observator.h"
-#include "Observee.h"
 #include "Status.h"
+#include "Workable.h"
+#include "Worker.h"
+#include "SimpleWorkerPool.h"
 
 namespace logging = boost::log;
 
