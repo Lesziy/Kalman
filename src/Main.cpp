@@ -3,6 +3,7 @@
 #include "Kalman.h"
 #include "Writer.h"
 #include "Generator.h"
+#include "Windows.h"
 
 namespace logging = boost::log;
 namespace options = boost::program_options;
@@ -60,7 +61,14 @@ int main(int argc, char* argv[])
 	
 	pool.Register({ generator, kalman, writer });
 
-	pool();
+	std::thread t(std::ref(pool));
+	Sleep(1000);
+
+	Worker<InputOutputWorker>::KillAll();
+	Worker<OutputWorker>::KillAll();
+	Worker<InputWorker>::KillAll();
+
+	t.join();
 
 	BOOST_LOG_TRIVIAL(trace) << "exiting main() gracefully";
     return 0;
