@@ -8,15 +8,28 @@
 #include <boost/any.hpp>
 #include "Workable.h"
 
-class SimpleWorkerPool
+namespace CommonUtil
 {
-	std::vector<WorkablePtr> workers;
-	std::vector<std::thread> threads;
+	//! Obiekt zajmujący się poszczególnymi wątkami aplikacji.
+	class SimpleWorkerPool
+	{
+		//! Kolekcja wskaźników na poszczególne obiekty.
+		std::vector<WorkablePtr> workers;
 
-public:
-	void Register(std::initializer_list<WorkablePtr>);
+		//! Kolekcja wątków, wykorzystywana w operator()() do czekania na nie.
+		std::vector<std::thread> threads;
 
-	void operator()();
+	public:
+
+		/** Rejestrowanie modułów aplikacji.
+		/param Lista inicjalizacyjna zawierająca wskaźniki na moduły aplikacji.
+		/returns nic
+		*/
+		void Register(std::initializer_list<WorkablePtr>);
+
+		/** Uruchomienie wszystkich wątków zarejestrowanych poprzez metodę Register.
+		*/
+		void operator()();
+	};
+
 };
-
-

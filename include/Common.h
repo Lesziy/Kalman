@@ -18,7 +18,7 @@ namespace logging = boost::log;
 
 
 
-//! Klasa pozostawiona dla symetrii względem innych klas.
+//! Klasa pozostawiona dla symestrii, zawierająca funkcje ogólnego przeznaczenia.
 class Common
 {
 
@@ -26,5 +26,10 @@ class Common
         Common();
         ~Common();
 
+        /** Ustawienie filtru dla Boost::log.
+            Filtruje wiadomości poprzez makro BOOST_LOG_TRIVIAL.
+        \param which minimalna wyświetlana wartość, 0: trace, 6: fatal.
+        \returns nic
+        */
         static void InitBoostLog(int which);
 };

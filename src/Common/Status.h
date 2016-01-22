@@ -13,11 +13,14 @@ namespace CommonUtil {
     {
     	double x;
     	double y;
-      long long time;
+        long long time;
     	Type type;
 
-      Status() : x(0), y(0), time(0), type(NONE) {};
-    	Status(double px, double py, long long ptime, Type who) : x(px), y(py), time(ptime), type(who) {};
+        /** Domyślny konstruktor, inicjalizuje typ na NONE z CommonUtil::Type.
+        */
+        Status() : x(0), y(0), time(0), type(NONE) {};
+        //! Wypełnia strukturę według argumentów.
+        Status(double px, double py, long long ptime, Type who) : x(px), y(py), time(ptime), type(who) {};
     };
 
 };
