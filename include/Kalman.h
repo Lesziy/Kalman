@@ -1,12 +1,13 @@
 #pragma once
 #include "Common.h"
-class Kalman : public Worker<CommonUtil::InputOutputWorker>
+using namespace CommonUtil;
+
+class Kalman : public Worker<Traits::InputOutputWorker>
 {
-    
+
     public:
         Kalman();
         ~Kalman();
 
-		Status ThreadProc(Status s);
+	    Status ThreadProc(Status s) override;
 };
-

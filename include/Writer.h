@@ -18,9 +18,9 @@ namespace WriterUtil
 	};
 }
 
-class Writer : public Worker<CommonUtil::InputWorker>
+class Writer : public CommonUtil::Worker<CommonUtil::Traits::InputWorker>
 {
-	std::map<long long, std::pair<Status, Status>> data_;
+	std::map<long long, std::pair<CommonUtil::Status, CommonUtil::Status>> data_;
 	long long actualTime_;
 	std::ofstream file_;
 	char separator_;
@@ -28,7 +28,7 @@ class Writer : public Worker<CommonUtil::InputWorker>
 	void CommitData(long long number);
 
 
-	
+
     public:
         Writer(std::string output_fie, char separator);
         ~Writer();
@@ -36,5 +36,3 @@ class Writer : public Worker<CommonUtil::InputWorker>
 		int ThreadProc(CommonUtil::Status s) override;
 
 };
-
-

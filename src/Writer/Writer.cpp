@@ -9,7 +9,7 @@ Writer::Writer(std::string output_file, char separator) : actualTime_(0), separa
 {
 	file_.imbue(std::locale(file_.getloc(), new WriterUtil::punct_facet));
 	file_.open(output_file, ios::out | ios::trunc );
-	
+
 	if (!file_.is_open())
 		throw std::runtime_error("Writer can't open file for writing");
 
@@ -24,6 +24,8 @@ Writer::~Writer()
 
 int Writer::ThreadProc(CommonUtil::Status s)
 {
+	using namespace CommonUtil;
+	
 	if (s.type == GENERATOR)
 		data_[s.time].first = s;
 	else if (s.type == KALMAN)
@@ -34,13 +36,13 @@ int Writer::ThreadProc(CommonUtil::Status s)
 
 	while((data_[actualTime_].first.type == GENERATOR) && (data_[actualTime_].second.type == KALMAN))
 		CommitData(actualTime_++);
-	
+
 	return 0;
 }
 
 inline void Writer::CommitData(long long number)
 {
 	BOOST_LOG_TRIVIAL(trace) << "s" << data_[number].second.x;
-	file_	<< data_[number].first.x << separator_ << data_[number].first.y << separator_ 
+	file_	<< data_[number].first.x << separator_ << data_[number].first.y << separator_
 			<< data_[number].second.x << separator_ << data_[number].second.y << endl << flush;
 }

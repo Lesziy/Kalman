@@ -14,6 +14,7 @@ namespace GeneratorUtil {};
 
 using namespace GeneratorUtil;
 using namespace CommonUtil;
+using namespace Traits;
 
 //! Klasa odpowiedzialna za generowanie trajektorii obiektu.
 class Generator : public Worker<OutputWorker>

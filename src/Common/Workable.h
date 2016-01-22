@@ -7,7 +7,7 @@ namespace CommonUtil {
 	public:
 		virtual void operator()() {};
 	};
-};
 
 //! Wskaźnik na typ CommonUtil::Workable
 typedef std::shared_ptr<Workable> WorkablePtr;
+};

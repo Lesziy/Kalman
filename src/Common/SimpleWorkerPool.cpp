@@ -1,5 +1,6 @@
 #include "SimpleWorkerPool.h"
 using namespace std::placeholders;
+using namespace CommonUtil;
 
 using boost::any_cast;
 

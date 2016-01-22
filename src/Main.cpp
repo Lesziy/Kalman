@@ -67,9 +67,9 @@ int main(int argc, char* argv[])
 
     std::this_thread::sleep_for(sleepTime);
 
-    Worker<CommonUtil::InputWorker>::KillAll();
-    Worker<CommonUtil::OutputWorker>::KillAll();
-    Worker<CommonUtil::InputOutputWorker>::KillAll();
+    Worker<CommonUtil::Traits::InputWorker>::KillAll();
+    Worker<CommonUtil::Traits::OutputWorker>::KillAll();
+    Worker<CommonUtil::Traits::InputOutputWorker>::KillAll();
 
 
     t.join();

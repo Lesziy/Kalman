@@ -13,7 +13,7 @@ namespace CommonUtil {
 		Ciekawostka: typ void nie może być stosowany jako argument via typedef
 		w GCC.
 	*/
-	typdef int NoneType;
+	//typdef int int;
 
 	//! Zbiór trejtów wykorzystywanych w CommonUtil::Worker
 	namespace Traits {
@@ -25,7 +25,7 @@ namespace CommonUtil {
 			typedef Status ThreadProcType;
 
 			//! Argument funkcji Worker::ThreadProc
-			typedef NoneType ThreadProcArg;
+			typedef int ThreadProcArg;
 
 			/** @brief Typ który jest odpowiedzialny za obsługę przesyłania wiadomości.
 
@@ -38,9 +38,9 @@ namespace CommonUtil {
 				Ze względu na ogólność i multiplatformowość projektu typ musi
 				mieć jakąś postać nawet w ThreadProcSendable zjadliwą dla
 				kompilatora.
-				\sa NoneType
+				\sa int
 			*/
-			typedef NoneType QueueType;
+			typedef int QueueType;
 		};
 
 		//! Trejt który określa moduły tylko nadające informację(np. Generator)
@@ -72,6 +72,7 @@ namespace CommonUtil {
 
 	};
 
+	using namespace Traits;
 	//! Ogólny szablon modułu aplikacji.
 	template <typename T>
 	class Worker : public Workable
@@ -173,7 +174,7 @@ namespace CommonUtil {
 			}
 		}
 
-		
+
 		void _MessageLoop_InputWorker_Send(typename T::ThreadProcType & ret, std::true_type)
 		{
 			signal_(ret);
