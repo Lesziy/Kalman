@@ -9,6 +9,7 @@
 #include <boost/log/sources/record_ostream.hpp>
 #include <boost/shared_ptr.hpp>
 
+#include "Currently.h"
 #include "Status.h"
 #include "Workable.h"
 #include "Worker.h"

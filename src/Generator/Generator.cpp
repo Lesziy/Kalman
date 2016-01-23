@@ -63,9 +63,8 @@ Status Generator::ThreadProc(int)
 
 }
 
-Generator::Generator(	std::string pFilename,
-						std::chrono::milliseconds waitTime)
-try : pythonFile_(pFilename), waitTime_(waitTime), time_(0)
+Generator::Generator(	std::string pFilename)
+try : pythonFile_(pFilename), time_(0)
 {
 	Init();
 }

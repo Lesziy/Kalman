@@ -5,6 +5,8 @@ namespace CommonUtil {
 	class Workable
 	{
 	public:
+		/** Funkcja wirtualna, uchwyt do uruchomienia procedury dla SimpleWorkerPool.
+		*/
 		virtual void operator()() {};
 	};
 

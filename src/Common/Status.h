@@ -11,9 +11,13 @@ namespace CommonUtil {
     //! Pojedyncza lokalizacja obiektu.
     struct Status
     {
+        //! Współrzędna x.
     	double x;
+        //! Współrzędna y.
     	double y;
+        //! Czas pomiaru.
         long long time;
+        //! Nadawca pomiaru wewnątrz ekosystemu.
     	Type type;
 
         /** Domyślny konstruktor, inicjalizuje typ na NONE z CommonUtil::Type.

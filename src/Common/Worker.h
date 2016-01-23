@@ -73,7 +73,13 @@ namespace CommonUtil {
 	};
 
 	using namespace Traits;
-	//! Ogólny szablon modułu aplikacji.
+
+	/** Ogólny szablon modułu aplikacji.
+
+		Domyślny przypadek użycia to wywołanie klasy dziedziczącej po tej klasie,
+		konkretnie Worker::operator()() - ta metoda obsługuje całą magię
+		związaną z synchronizacją, implementuje również wzorzec obserwator.
+	*/
 	template <typename T>
 	class Worker : public Workable
 	{
@@ -108,7 +114,7 @@ namespace CommonUtil {
 		template<class U>
 		void _Connect(Worker<U> & observer, std::true_type)
 		{
-			BOOST_LOG_TRIVIAL(trace) << "Entering _Connect(true_type)";
+			Currently in("Worker::_Connect(true_type)");
 			signal_.connect(std::bind(&Worker<U>::Update, std::ref(observer), std::placeholders::_1));
 		}
 
@@ -125,7 +131,7 @@ namespace CommonUtil {
 		//! Implementacja Worker::Update dla specjalizacji opartych na CommonUtil::Traits::ThreadProcSendable
 		void _Update(Status s, std::true_type)
 		{
-			BOOST_LOG_TRIVIAL(trace) << "Entering Worker::_Update(true_type)";
+			Currently in("Worker::_Update(true_type)");
 			{
 				std::lock_guard<std::mutex> l(mtx_);
 				queue_.push_back(s);
@@ -142,7 +148,7 @@ namespace CommonUtil {
 		//! Główna funkcja uruchomiona w wątku dla specjalizacji opartych o CommonUtil::Traits::OutputWorker.
 		void _MessageLoop(std::true_type)
 		{
-			BOOST_LOG_TRIVIAL(trace) << "Entering OutputWorker operator()()";
+			Currently in("Worker::_MessageLooP(std::true_type)");
 			Status ret;
 
 			while (good_)
@@ -150,14 +156,13 @@ namespace CommonUtil {
 				ret = ThreadProc(0);
 				signal_(ret);
 			}
-
-			BOOST_LOG_TRIVIAL(trace) << "Exiting OutputWorker operator()()";
 		}
 
 		//!  Główna funkcja uruchumiona w wątku dla specjalizacji opartych o CommonUtil::Traits::InputWorker
 		void _MessageLoop(std::false_type)
 		{
-			BOOST_LOG_TRIVIAL(trace) << "Entering InputWorker-based operator()()";
+			Currently in("Worker::_MessageLoop(std::false_type)");
+
 			typename T::ThreadProcType ret;
 			typename T::ThreadProcArg value;
 			std::unique_lock<std::mutex> lk(mtx_);
@@ -174,14 +179,18 @@ namespace CommonUtil {
 			}
 		}
 
-
+		//! Obsługa wartości zwracanych w specjalizacjach CommonUtil::Traits::ThreadProcSendable
 		void _MessageLoop_InputWorker_Send(typename T::ThreadProcType & ret, std::true_type)
 		{
+			Currently in("Worker::_InputWorker_Send(std::true_type)");
 			signal_(ret);
 		}
 
+		//! Pozostałe przypadki(czyli Traits::InputOnly - teoretycznie tylko wejście.)
 		void _MessageLoop_InputWorker_Send(typename T::ThreadProcType & ret, std::false_type)
 		{
+			Currently in("Worker::_InputWorker_Send(std::false_type)");
+
 			//! @bug przecież aktualna forma wywali aplikację...
 			if (ret > 0)
 				Worker::KillAll();
@@ -191,21 +200,26 @@ namespace CommonUtil {
 		Worker()  { };
 
 
+		/** Łączy obserwatora observer z obiektem na rzecz którego wywoływana jest metoda.
+
+			Implementacja wzorca obserwator w oparciu o boost::signals.
+
+		*/
 		template <typename U>
 		void Connect(Worker<U> & observer)
 		{
-			BOOST_LOG_TRIVIAL(trace) << "Entering Worker::Connect()";
+			Currently in("Worker::Connect()");
 			_Connect(observer, std::is_base_of<ThreadProcSendable, T>());
-			BOOST_LOG_TRIVIAL(trace) << "Exiting Worker::Connect()";
 		}
 
+		/** Dodanie statusu do kolejki oczekujących na przetworzenie. */
 		void Update(Status s)
 		{
-			BOOST_LOG_TRIVIAL(trace) << "Entering Worker::Update()";
+			Currently in("Worker::Update()");
 			_Update(s, std::is_base_of<InputWorker, T>());
-			BOOST_LOG_TRIVIAL(trace) << "Exiting Worker::Update()";
 		}
 
+		/** Wywołanie pętli komunikatów */
 		void operator()() override
 		{
 			BOOST_LOG_TRIVIAL(trace) << "Entering Worker::Operator()()";
@@ -224,6 +238,7 @@ namespace CommonUtil {
 		*/
 		static void KillAll()
 		{
+			Currently in("Worker::KillAll()");
 			good_ = false;
 		}
 	};
