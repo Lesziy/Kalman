@@ -13,11 +13,13 @@ namespace CommonUtil {
     {
     	double x;
     	double y;
-      long long time;
+		double ax;
+		double ay;
+		long long time;
     	Type type;
 
-      Status() : x(0), y(0), time(0), type(NONE) {};
-    	Status(double px, double py, long long ptime, Type who) : x(px), y(py), time(ptime), type(who) {};
+		Status() : x(0), y(0), ax(0), ay(0), time(0), type(NONE) {};
+		Status(double px, double py, double ax_, double ay_, long long ptime, Type who) : x(px), y(py), ax(ax_), ay(ay_), time(ptime), type(who) {};
     };
 
 };

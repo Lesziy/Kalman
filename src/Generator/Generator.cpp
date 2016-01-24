@@ -27,13 +27,14 @@ void Generator::Init()
 
 Status Generator::ExecuteUpdate()
 {
-	std::array<double, 2> retValue;
+	std::array<double, 4> retValue;
 
 	BOOST_LOG_TRIVIAL(trace) << "Generator::ExecuteUpdate()";
 	boost::python::object retObject;
 	try {
 		retObject = eval(pythonFile_.GetFunctionName().c_str(), mainNamespace_);
-		retValue = { boost::python::extract<double>(retObject[0]), boost::python::extract<double>(retObject[1]) };
+		retValue = {	boost::python::extract<double>(retObject[0]), boost::python::extract<double>(retObject[1]),
+						boost::python::extract<double>(retObject[2]), boost::python::extract<double>(retObject[3]) };
 	}
 	catch(const boost::python::error_already_set & eas)
 	{
@@ -42,7 +43,7 @@ Status Generator::ExecuteUpdate()
 		throw;
 	}
 
-	Status s(retValue[0], retValue[1], time_++, CommonUtil::GENERATOR);
+	Status s(retValue[0], retValue[1], retValue[2], retValue[3], time_++, CommonUtil::GENERATOR);
 	return s;
 }
 
