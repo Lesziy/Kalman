@@ -1,27 +1,22 @@
 #pragma once
 #include "Common.h"
-#include <kalman/ekfilter.hpp>
-#include <kalman/kfilter.hpp>
+#include "KalmanFilter_1D.h"
 
 
-class KalmanFilter : public Worker<CommonUtil::InputOutputWorker>, 
-							Kalman::KFilter<double, 1, false, false, true>
+
+class KalmanFilter : public Worker<CommonUtil::InputOutputWorker>
 {
     public:
-        KalmanFilter();
+        KalmanFilter(const double& time_step_, const double& pos_noise_, const double& acc_noise_,
+					 KalmanFilter_1D::Vector& init_x, KalmanFilter_1D::Vector& init_y);
         ~KalmanFilter();
 
 		Status ThreadProc(Status s);
 
 	protected:
-		void makeBaseA();
-		void makeBaseB();
-		void makeBaseH();
-		void makeBaseV();
-		void makeBaseR();
-		void makeBaseW();
-		void makeBaseQ();
 
-		double acc_noise, pos_noise, time_step;
+		KalmanFilter_1D x_Filter;
+		KalmanFilter_1D y_Filter;
+		KalmanFilter_1D::Vector ux, uy, zx, zy;
 };
 

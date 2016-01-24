@@ -1,59 +1,37 @@
 #include "KalmanFilter.h"
 #include <ctime>
 
+using namespace std;
 
 
-KalmanFilter::KalmanFilter() 
+KalmanFilter::KalmanFilter(const double& time_step_, const double& pos_noise_, const double& acc_noise_, 
+						   KalmanFilter_1D::Vector& init_x, KalmanFilter_1D::Vector& init_y) :
+			  x_Filter(time_step_, pos_noise_, acc_noise_), y_Filter(time_step_, pos_noise_, acc_noise_), ux(1), uy(1), zx(1), zy(1)
 {
+	x_Filter.initFilter(init_x);
+	y_Filter.initFilter(init_y);
 }
 
 KalmanFilter::~KalmanFilter()
 {
 }
 
-void KalmanFilter::makeBaseA() {
-	A(1, 1) = 1.0;
-	A(1, 2) = time_step;
-	A(2, 1) = 0.0;
-	A(2, 2) = 1.0;
-};
-void KalmanFilter::makeBaseB() {
-	B(1, 1) = time_step * time_step / 2;
-	B(2, 1) = time_step;
-};
-void KalmanFilter::makeBaseH() {
-	H(1, 1) = 1;
-	H(1, 2) = 0;
-};
-void KalmanFilter::makeBaseV() {
-	V(1, 1) = 1.0;
-};
-void KalmanFilter::makeBaseR() {
-	R(1, 1) = pos_noise * pos_noise;
-};
-void KalmanFilter::makeBaseW() {
-	W(1, 1) = 1.0;
-	W(1, 2) = 0.0;
-	W(2, 1) = 0.0;
-	W(2, 2) = 1.0;
-};
-void KalmanFilter::makeBaseQ() {
-	Q(1, 1) = time_step*time_step*time_step*time_step / 4 * acc_noise * acc_noise;
-	Q(1, 2) = time_step*time_step*time_step / 2 * acc_noise * acc_noise;
-	Q(2, 1) = time_step*time_step*time_step / 2 * acc_noise * acc_noise;
-	Q(2, 2) = time_step*time_step       * acc_noise * acc_noise;
-};
-
-
-
 
 Status KalmanFilter::ThreadProc(Status s)
 {
 	s.type = KALMAN;
-	/*
 	
-		Obliczenia
+	ux(1) = s.ax;
+	uy(1) = s.ay;
 
-	*/
+	zx(1) = s.x;
+	zy(1) = s.y; 
+
+	x_Filter.step(ux, zx);
+	y_Filter.step(uy, zy);
+
+	s.x = x_Filter.getX()(1);
+	s.y = y_Filter.getX()(1);
+	
 	return s;
 }

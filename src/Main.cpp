@@ -52,10 +52,20 @@ int main(int argc, char* argv[])
 	BOOST_LOG_TRIVIAL(trace) << "entering main()";
 	BOOST_LOG_TRIVIAL(info) << "Selected script file: " << vm["script"].as<std::string>();
 
+	KalmanFilter_1D::Vector init_x(2);
+	KalmanFilter_1D::Vector init_y(2);
 
+	init_x(1) = 10.0;
+	init_y(1) = 0.0;
+	init_x(2) = 0.0;
+	init_y(2) = 0.0;
+	const double time_step = 0.1;
+	const double pos_noise = 5.0;
+	const double acc_noise = 10;
+ 
 	auto generator = std::make_shared<Generator>(vm["script"].as<std::string>());
 	auto writer = std::make_shared<Writer>("output.csv", ';');
-	auto kalman = std::make_shared<KalmanFilter>();
+	auto kalman = std::make_shared<KalmanFilter>(time_step, pos_noise, acc_noise, init_x, init_y);
 
 	generator->Connect(*kalman);
 	generator->Connect(*writer);
