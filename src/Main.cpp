@@ -1,6 +1,6 @@
 #include <boost/program_options.hpp>
 #include "Common.h"
-#include "Kalman.h"
+#include "KalmanFilter.h"
 #include "Writer.h"
 #include "Generator.h"
 
@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 
 	auto generator = std::make_shared<Generator>(vm["script"].as<std::string>());
 	auto writer = std::make_shared<Writer>("output.csv", ';');
-	auto kalman = std::make_shared<Kalman>();
+	auto kalman = std::make_shared<KalmanFilter>();
 
 	generator->Connect(*kalman);
 	generator->Connect(*writer);
