@@ -1,6 +1,7 @@
 #pragma once
 #include "Common.h"
 #include "KalmanFilter_1D.h"
+#include "KalmanOptions.h"
 
 using namespace CommonUtil;
 
