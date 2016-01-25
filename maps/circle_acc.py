@@ -3,7 +3,7 @@ time_step = 0.1
 vx, vy = 5 , 0
 x,y = 0 , 0
 acc_x, acc_y = 0, 0
-noice = 1
+noice = 0
 radius = 10
 v_static = 5
 import random,math
