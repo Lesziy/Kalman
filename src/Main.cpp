@@ -3,6 +3,7 @@
 #include "KalmanFilter.h"
 #include "Writer.h"
 #include "Generator.h"
+#include "SensorWorker.h"
 
 namespace logging = boost::log;
 namespace options = boost::program_options;
@@ -65,13 +66,16 @@ int main(int argc, char* argv[])
  
 	auto generator = std::make_shared<Generator>(vm["script"].as<std::string>());
 	auto writer = std::make_shared<Writer>("output.csv", ';');
+	auto sensor = std::make_shared<SensorWorker>(std::pair<double, double>(pos_noise, pos_noise));
 	auto kalman = std::make_shared<KalmanFilter>(time_step, pos_noise, acc_noise, init_x, init_y);
 
-	generator->Connect(*kalman);
+	generator->Connect(*sensor);
+	sensor->Connect(*kalman);
+	sensor->Connect(*writer);
 	generator->Connect(*writer);
 	kalman->Connect(*writer);
 
-	pool.Register({ generator, kalman, writer });
+	pool.Register({ generator, kalman, sensor, writer });
 
 	std::thread t(std::ref(pool));
 

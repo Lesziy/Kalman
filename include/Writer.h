@@ -20,7 +20,7 @@ namespace WriterUtil
 
 class Writer : public Worker<CommonUtil::InputWorker>
 {
-	std::map<long long, std::pair<Status, Status>> data_;
+	std::map<long long, std::tuple<Status, Status, Status>> data_;
 	long long actualTime_;
 	std::ofstream file_;
 	char separator_;
