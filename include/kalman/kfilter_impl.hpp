@@ -55,14 +55,14 @@ namespace Kalman {
       x__(i) = T(0.0);
 
       for (j = BEG; j < this->n + BEG; ++j)
-        x__(i) += A(i,j) * x(j);
+        x__(i) += this->A(i,j) * this->x(j);
 
       for (j = BEG; j < this->nu + BEG; ++j)
-        x__(i) += B(i,j) * u(j);
+        x__(i) += B(i,j) * this->u(j);
 
     }
 
-    x.swap(x__);
+    this->x.swap(x__);
 
   }
 
@@ -78,7 +78,7 @@ namespace Kalman {
       this->z(i) = T(0.0);
 
       for (j = BEG; j < this->n + BEG; ++j)
-        this->z(i) += H(i,j) * this->x(j);
+        this->z(i) += this->H(i,j) * this->x(j);
 
     }
 
