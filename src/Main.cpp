@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 	init_y(2) = 0.0;
 	const double time_step = 0.1;
 	const double pos_noise = 5.0;
-	const double acc_noise = 10;
+	const double acc_noise = 1;
  
 	auto generator = std::make_shared<Generator>(vm["script"].as<std::string>());
 	auto writer = std::make_shared<Writer>("output.csv", ';');
