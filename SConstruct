@@ -74,7 +74,7 @@ if env['SYSTEM'] == 'windows':
 
 
 elif env['SYSTEM'] == 'linux':
-    env.Append(CXXFLAGS="-DBOOST_LOG_DYN_LINK -w -std=c++11")
+    env.Append(CXXFLAGS="-DBOOST_LOG_DYN_LINK -w -std=c++11 -fno-permissive")
 
     #Aby aplikacja widziala biblioteki wspodzielone w folderze aplikacji
     env.Append( LINKFLAGS = Split('-z origin'), RPATH = env.Literal(os.path.join('\\$$ORIGIN')) )

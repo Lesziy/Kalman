@@ -22,15 +22,15 @@ namespace CommonUtil
                 \param what nazwa funkcji wyświetlana w BOOST_LOG_TRIVIAL.
             */
 public:
-            Currently::Currently(std::string what) : what_(what)
+            Currently(std::string what) : what_(what)
             {
                 BOOST_LOG_TRIVIAL(trace) << "Entering " << what_;
             }
-/*
+
             //! Destruktor - również wyświetla komunikat o wyjściu z funkcji.
-            ~Currently::Currently()
+            ~Currently()
             {
                 BOOST_LOG_TRIVIAL(trace) << "Exiting " << what_;
             }
-*/    };
+    };
 }
