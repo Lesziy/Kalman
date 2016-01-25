@@ -1,7 +1,9 @@
 #pragma once
 #include "Common.h"
 
-class SensorWorker : public Worker<CommonUtil::InputOutputWorker>
+using namespace CommonUtil;
+
+class SensorWorker : public Worker<Traits::InputOutputWorker>
 {
 public:
 	SensorWorker(const std::pair<double, double>& noiseXY_);

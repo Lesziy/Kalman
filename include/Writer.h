@@ -4,7 +4,7 @@
 #include <fstream>
 #include "Common.h"
 
-
+using namespace CommonUtil;
 
 namespace WriterUtil
 {
@@ -18,7 +18,7 @@ namespace WriterUtil
 	};
 }
 
-class Writer : public Worker<CommonUtil::InputWorker>
+class Writer : public Worker<Traits::InputWorker>
 {
 	std::map<long long, std::tuple<Status, Status, Status>> data_;
 	long long actualTime_;
