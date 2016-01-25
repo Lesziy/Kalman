@@ -1,3 +1,5 @@
+#pragma GCC diagnostic ignored "-fpermissive"
+
 // This file is part of kfilter.
 // kfilter is a C++ variable-dimension extended kalman filter library.
 //
