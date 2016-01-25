@@ -14,6 +14,7 @@ namespace GeneratorUtil {};
 
 using namespace GeneratorUtil;
 using namespace CommonUtil;
+using namespace Traits;
 
 //! Klasa odpowiedzialna za generowanie trajektorii obiektu.
 class Generator : public Worker<OutputWorker>
@@ -23,9 +24,9 @@ class Generator : public Worker<OutputWorker>
 
 	boost::python::object mainModule_;				//!< Zmienna związana z obsługą Pythona.
 	boost::python::object mainNamespace_;			//!< Zmienna związana z obsługą Pythona.
-	std::chrono::milliseconds waitTime_;			//!< Opóźnienie pomiędzy wysyłanymi sygnałami.
+	
+	long long time_;								//!< Aktualny numer iteracji.
 
-	long long time_;
     /** Właściwa inicjalizacja obiektu.
         Metoda inicjalizuje interpreter Pythona i ładuje do niego zawartość pliku podanego jako argument konstruktora Generator::Generator().
         \returns nic
@@ -53,12 +54,10 @@ class Generator : public Worker<OutputWorker>
 public:
 	/** Konstruktor.
 		\param pFilename Ścieżka do skryptu na podstawie której ścieżka ma zostać wygenerowana.
-		\param waitTime Czas oczekiwania pomiędzy wywołaniami.
-		\sa Start()
 
 		W związku z planowaną wielowątkowością wszystkie kroki związane z inicjalizacją są opóźnione do wywołania funkcji Start()
 	*/
-	explicit Generator(std::string pFilename, std::chrono::milliseconds waitTime = std::chrono::milliseconds(100));
+	explicit Generator(std::string pFilename);
 	/** Destruktor.
 
         \bug Według dokumentacji boost::python nie jest zalecane wywoływanie funkcji dot. zwracania zasobów za interpreter.

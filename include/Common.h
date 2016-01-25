@@ -9,6 +9,7 @@
 #include <boost/log/sources/record_ostream.hpp>
 #include <boost/shared_ptr.hpp>
 
+#include "Currently.h"
 #include "Status.h"
 #include "Workable.h"
 #include "Worker.h"
@@ -18,7 +19,7 @@ namespace logging = boost::log;
 
 
 
-//! Klasa pozostawiona dla symetrii względem innych klas.
+//! Klasa pozostawiona dla symestrii, zawierająca funkcje ogólnego przeznaczenia.
 class Common
 {
 
@@ -26,5 +27,10 @@ class Common
         Common();
         ~Common();
 
+        /** Ustawienie filtru dla Boost::log.
+            Filtruje wiadomości poprzez makro BOOST_LOG_TRIVIAL.
+        \param which minimalna wyświetlana wartość, 0: trace, 6: fatal.
+        \returns nic
+        */
         static void InitBoostLog(int which);
 };

@@ -1,7 +1,7 @@
 #include "Common.h"
 #include <thread>
 
-class Producer : public Worker<CommonUtil::OutputWorker>
+class Producer : public Worker<CommonUtil::Traits::OutputWorker>
 {
 	long long d_;
 
@@ -13,10 +13,10 @@ class Producer : public Worker<CommonUtil::OutputWorker>
 
 public:
 	Producer() : d_(0) { };
-	
+
 };
 
-class Client : public Worker<CommonUtil::InputWorker>
+class Client : public Worker<CommonUtil::Traits::InputWorker>
 {
 	std::string name;
 	int ThreadProc(Status s) override
@@ -31,7 +31,7 @@ public:
 
 };
 
-class Seller : public Worker<CommonUtil::InputOutputWorker>
+class Seller : public Worker<CommonUtil::Traits::InputOutputWorker>
 {
 	std::string name;
 	Status ThreadProc(Status s) override
@@ -47,9 +47,9 @@ public:
 
 };
 
-#define SWPR(x) 
+#define SWPR(x)
 int main()
-{	
+{
 	Common::InitBoostLog(2);
 
 
@@ -63,8 +63,8 @@ int main()
 	producer->Connect(*better);
 	producer->Connect(*seller);
 	seller->Connect(*client);
-	
+
 	swp.Register({ producer, client, seller, better });
-	
+
 	swp();
 };
