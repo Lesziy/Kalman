@@ -28,7 +28,7 @@ Pod Ubuntu wymagane są następujące biblioteki:
  - python2.7
  - scons
  - octave
-
+ - gnuplot
 Na innych platformach analogicznie.
 ## Kompilacja
 
@@ -39,7 +39,6 @@ Dostępne cele kompilacji:
     scons test          - buduje testy.
     scons examples      - buduje wszystkie przykłady.
     scons all           - uruchamia wszystko powyżej. UWAGA: Nie zalicza się do tego poniższy cel!
-    scons matlabScripts - kompiluje runme w zależności od systemu i skrypty do katalogu build/
 
 Dostępne flagi:
     coverage=1  	- Pod Linuxem dołączane są flagi umożliwiające liczenie pokrycia kodu.
@@ -68,17 +67,19 @@ build/app --help
 ```
 
 ### runme - jak z tego korzystać?
+***Uwaga.*** Ze względu na problemy z kopiowaniem plików w automatyczny sposób należy samodzielnie skopiować plik runme zgodny z platformą i script.m.
+
 Przykład użycia pod Windowsem to:
 ```
 (projekt/build) $ runme.bat ..\maps\standard_acc.py scripts\matlab\script.m
 ```
-
-
+Przykład użycia pod Linuxem(po skopiowaniu script.m i runme.sh do katalogu build):
+```
+(projekt/build) $ ./runme.sh ../maps/robo_acc.py "script(1000)"
+```
 ## Testy
-Na chwile obecna kazdy moduł ma oddzielną aplikację z testami, ponieważ tak jest _zdecydowanie_ prościej.
+Na chwilę obecną każdy moduł ma oddzielną aplikację z testami, ponieważ tak jest _zdecydowanie_ prościej.
 
 ## FAQ
 - Co zrobić w przypadku błędu `ImportError: No module named site` pod Windowsem?
  - Pomaga postąpienie według [tych wskazówek](http://stackoverflow.com/questions/5599872/python-windows-importerror-no-module-named-site).
-- Nie znalezione `runme.bat` w katalogu `build`. Co robić?
- - Należy utworzyć katalog build.

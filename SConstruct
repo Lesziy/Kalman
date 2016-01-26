@@ -136,7 +136,7 @@ app = env.SConscript('src/SConscript',
            duplicate = 0,
            exports = 'env libs')
 
-# matlabScripts = env.SConscript('matlabScripts/SConscript',
+#matlabScripts = env.SConscript('matlabScripts/SConscript',
 #           variant_dir = 'build/scripts',
 #           duplicate = 0,
 #          exports = 'env')
