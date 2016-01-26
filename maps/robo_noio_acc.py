@@ -1,7 +1,7 @@
 time = 0
 time_step = 0.1
 vx, vy = 0 , 0
-x,y = 10 , 0
+x,y = 25 , 25
 acc_x, acc_y = 0, 0
 noice = 2
 radius = 5
@@ -19,7 +19,7 @@ status = Move.Stright
 phase_time = 1
 max_phase_time = 4
 
-def robo_acc():
+def robo_noio_acc():
 	global time, vx, vy, x, y, acc_x, acc_y, noice, radius, status, phase_time, max_phase_time
 	acc_x = 0
 	acc_y = 0
@@ -45,7 +45,7 @@ def robo_acc():
 	time = time + time_step
 	phase_time = phase_time - time_step
 	#print x, y
-	return (x,y,acc_x,acc_y)
+	return (x,y,0,0)
 	
 def odbicie():
 	global x, y, x_max, y_max, vx, vy
