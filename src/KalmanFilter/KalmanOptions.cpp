@@ -16,10 +16,10 @@ KalmanOptions::KalmanOptions(std::string name)
 		PosNoise = pt.get<double>("Config.PosNoise");
 		AccNoise = pt.get<double>("Config.AccNoise");
 
-		Position.first.x = pt.get<double>("FirstPosition.x");
-		Position.first.y = pt.get<double>("FirstPosition.y");
-		Position.second.x = pt.get<double>("SecondPosition.x");
-		Position.second.y = pt.get<double>("SecondPosition.y");
+		Position.x      = pt.get<double>("InitPosition.x");
+		Position.y      = pt.get<double>("InitPosition.y");
+		Velocity.first  = pt.get<double>("InitVelocity.x");
+		Velocity.second = pt.get<double>("InitVelocity.y");
 	}
 	catch(std::exception e)
 	{

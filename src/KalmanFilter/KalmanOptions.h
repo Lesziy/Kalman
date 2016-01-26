@@ -16,7 +16,8 @@ namespace KalmanUtil {
 		KalmanOptions(std::string name);
 
 
-		std::pair<Status, Status> Position;
+		Status Position;
+		std::pair<double, double> Velocity;
 		double TimeStep;
 		double PosNoise;
 		double AccNoise;

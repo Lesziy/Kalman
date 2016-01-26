@@ -1,6 +1,6 @@
 time = 0
 time_step = 0.1
-vx, vy = 2 , 2
+vx, vy = 0 , 0
 x,y = 10 , 0
 acc_x, acc_y = 0, 0
 noice = 2
@@ -67,7 +67,6 @@ def odbicie():
 		if(vy >= 0):
 			y = y_max
 	
-
 def hamowanie():
 
 	global  vx, vy, acc_x, acc_y, v_static, time_step
@@ -87,7 +86,6 @@ def hamowanie():
 			
 		acc_x = acc_x - dvx/time_step;
 		acc_y = acc_y - dvy/time_step;
-
 			
 def turn( ):
 	global time, vx, vy, x, y, acc_x, acc_y, noice, radius
