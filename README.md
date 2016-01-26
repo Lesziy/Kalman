@@ -2,9 +2,6 @@
 Implementacja filtru Kalmana do śledzenia celów i fuzji danych.
 
 
-## Opis
-TODO: Krótki, zwięzły opis. Ktoś chętny?
-
 ## Wymagania
 ### Windows
 #### Konieczne
@@ -71,7 +68,7 @@ build/app --help
 
 Przykład użycia pod Windowsem to:
 ```
-(projekt/build) $ runme.bat ..\maps\standard_acc.py scripts\matlab\script.m
+(projekt/build) $ runme.bat ..\maps\standard_acc.py script(1000)
 ```
 Przykład użycia pod Linuxem(po skopiowaniu script.m i runme.sh do katalogu build):
 ```
