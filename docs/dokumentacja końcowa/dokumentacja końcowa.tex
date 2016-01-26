@@ -78,7 +78,19 @@
 		\item Sensor - krótki opis co klasy robią
 		\item Kalman - j.w.
 		\item Writer - j.w.
-		\item Potencjalne skrypty matlaba.
+		\item Skrypty Matlab 
+		\begin{verse}
+		Z powstałego pliku .csv skrypt \texttt{script.m} wczytuje współrzędne
+		punktów wygenerowanych w trakcie symulacji przez program,
+		oblicza odchylenie standardowe różnic wartości współrzędnych
+		x, y dla czujnika i filtra kalmana oraz rysuje 3 wykresy : 
+		\begin{enumerate}
+			\item wartości zmiennych \texttt{X} dla generatora, czujnika i filtru Kalmana;
+			\item wartości zmiennych \texttt{Y} dla generatora, czujnika i filtru Kalmana;
+			\item torów ruchu na podstawie odczytu generatora, czujnika i filtru Kalmana.
+		\end{enumerate}
+		W celu uruchomienia programu z tą funkcją należy wywołać skrypt \texttt{runme.bat} (lub \texttt{runme.sh} dla systemów linuxowych) w argumentach podając mu ścieżkę do skryptu pythona dla interesującej nas trajektorii oraz wywołanie funkcji w języku Matlab np. \texttt{runme.bat ../maps/standard acc.py script(1000)}. Argumentem w przypadku skryptu \texttt{script.m} jest ilość punktów rysowanych na wykresie.
+		\end{verse}
 	\end{enumerate}
 	
 	\section{Napotkane problemy, popełnione błędy, wnioski}
