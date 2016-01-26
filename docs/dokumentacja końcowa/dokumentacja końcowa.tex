@@ -67,13 +67,14 @@
 				
 		\end{itemize}		
 	
-	\section{Deskrypcja stanu prac nad projektem - do zmiany, jak macie ładniej brzmiący pomysł}
+	\section{Opis stanu prac nad projektem}
 	
 	\subsection{Rozwiązania zastosowane w projekcie - synchronizacja, etc.}
-		opis klasy worker, wciągnięcie traitów, synchronizacji, kolejki. Zajmę się tym.
+		\subsubsection{Klasa Worker}
+		 Problem synchronizacji dotyczył praktycznie każdego modułu w aplikacji opartej na wątkach, dlatego został rozwiązany globalnie, poprzez klasę \texttt{Worker<T>}, która korzysta z dobrodziejstw programowania generycznego, czyli trejtów, uproszczając całą obsługę synchronizacji do przeciążenia funkcji \texttt{ThreadProc} w module dziedziczącym po w.w. klasie, a obsługa zmiennej warunkowej, kolejki i synchronizacji jest w gestii kompilatora dla wielu różnych, różniących się szczegółami klas.
 	\subsection{Jak program działa - opis}
 	\begin{enumerate}
-		\item Konsola - app, użycie program::options i zalety takiego rozwiązania
+		\item Aplikację można uruchomić z konsoli, bądź poprzez skrypty \texttt{runme}, dzięki czemu 
 		\item Generator - zrobię to później
 		\item Sensor - krótki opis co klasy robią
 		\item Kalman - j.w.
@@ -86,7 +87,8 @@
 	\subsection{Problemy}
 	La, la.
 	\subsection{Błędy}
-	1 2 3
+	\subsubsection{GCC i argument określany przez typedef}
+	Tutaj Zespół spotkał się z dość dziwnym błędem - GCC nie pozwalało na określanie argumentu funkcji jako typ \texttt{void} w przeciwieństwie do MSVC  który zezwala na taką operację, dlatego trejt \texttt{CommonUtil::Traits::InputWorker} definiuje typ argumentu funkcji \texttt{ThreadProc} jako int.  
 	\subsection{Wnioski}
  	4 5 6.
  	
