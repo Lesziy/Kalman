@@ -30,7 +30,7 @@
 	\section{Realizacja zagadnień}
 		Podsumowanie zostanie oparte o punkty z dokumentacji wstępnej, które zostaną skomentowane na podstawie bieżących etapów prac.	
 		\begin{itemize}
-		\item \textbf{Symulacja ruchu obiektu} - obiekt będzie poruszał się w przestrzeni dwuwumiarowej po zdefiniowanych wcześniej trajektoriach ruchu oraz przekazywał dane o swoim położeniu sensorom.
+		\item \textbf{Symulacja ruchu obiektu} - obiekt będzie poruszał się w przestrzeni dwuwymiarowej po zdefiniowanych wcześniej trajektoriach ruchu oraz przekazywał dane o swoim położeniu sensorom.
 		\begin{itemize}
 			\item Ten moduł programu udało się zrealizować w zadowalającym stopniu: trajektoria obiektu jest generowana w oparciu o skrypty w języku Python(katalog \texttt{maps/}).
 		\end{itemize}
@@ -94,7 +94,7 @@
 		\end{verse}
 		\item Kalman
 		\begin{verse}
-		Filtr Kalmana został oparty na bibliotekach "\texttt{The KFilter Project}"\footnote{http://kalman.sourceforge.net/}. Filtr skonfigurowany jest na potrzeby procesu ruchu o zmiennym przyśpieszeniu w przestrzeni dwu wymiarowej. Bierze pod uwagę szumy procesu, oraz szumy pomiarowe. Parametry filtra są definiowane w plikach ini: (początkowe położenie, początkowa prędkość oraz szum procesu i szum pomiarowy).  Filtr operuje na wektorze stanu procesu zawierającym położenie oraz wektor prędkości. Dla każdej współrzędnej został stworzony oddzielny obiekt filtru działający tylko w jednym wymiarze. Jako wejście obiekt filtru dostaje także przyśpieszenie będące sterowaniem obiektu. Przyśpieszenie to jest przekazywane z generatora. 
+		Filtr Kalmana został oparty na bibliotekach "\texttt{The KFilter Project}"\footnote{http://kalman.sourceforge.net/}. Filtr skonfigurowany jest na potrzeby procesu ruchu o zmiennym przyśpieszeniu w przestrzeni dwuwymiarowej. Bierze pod uwagę szumy procesu, oraz szumy pomiarowe. Parametry filtra są definiowane w plikach ini: (początkowe położenie, początkowa prędkość oraz szum procesu i szum pomiarowy).  Filtr operuje na wektorze stanu procesu zawierającym położenie oraz wektor prędkości. Dla każdej współrzędnej został stworzony oddzielny obiekt filtru działający tylko w jednym wymiarze. Jako wejście obiekt filtru dostaje także przyśpieszenie będące sterowaniem obiektu. Przyśpieszenie to jest przekazywane z generatora. 
 		\end{verse}
 		\item Writer
 		\begin{verse}
