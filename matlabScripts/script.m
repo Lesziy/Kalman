@@ -37,3 +37,5 @@ legend('{\fontsize{12} generator}','{\fontsize{12} kalman}','{\fontsize{12} sens
 title("path","fontsize", 16)
 xlabel("X","fontsize", 12)
 ylabel("Y","fontsize", 12)
+
+pause()

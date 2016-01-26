@@ -10,10 +10,13 @@ appRunner = {
 
 buildDir = os.path.join('..', 'build')
 scripts = Glob("*.m")
-parentDir = os.path.dirname(os.path.dirname(os.getcwd()))
-matlabDir = os.path.join(parentDir, 'matlabScripts')
+parentDir = os.path.dirname(os.getcwd())
+matlabDir = os.getcwd() #os.path.join(parentDir, 'matlabScripts')
 buildDir = os.path.join(parentDir, 'build')
 files = env.Install("matlab", source=scripts)
+
+print os.path.join(matlabDir, appRunner[env['SYSTEM']])
+print os.path.join(buildDir, appRunner[env['SYSTEM']])
 
 
 copyfile(   os.path.join(matlabDir, appRunner[env['SYSTEM']]),

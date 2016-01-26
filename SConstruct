@@ -164,6 +164,7 @@ Alias('all', app)
 Alias('all', test)
 Alias('all', examples)
 Alias('all', docs)
+Alias('all', 'matlabScripts')
 
 Help("""
     Available targets:
