@@ -1,0 +1,1 @@
+Ten folder zawierał aplikacje które były kompilowane poprzez środowisko ustawione w SConstruct i były używane do prototypowania różnych funkcjonalności. Niestety żadna z nich nie przetrwała do chwili obecnej.

@@ -1,5 +1,4 @@
 import platform, os, glob
-from scripts.newsetpath import MakeNewPathFile
 from subprocess import call
 
 #Drogi uzytkowniku ktory zajrzales tutaj ze wzgledu na bledy dot. brak bibliotek,
@@ -66,10 +65,7 @@ env['SHARED_LIBS'] = []
 Progress(['-\r', '\\\r', '|\r', '/\r'], interval=5)
 
 if env['SYSTEM'] == 'windows':
-    env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE /D WIN32 /D WINVER=0x0400 /D __WXMSW__ /D _WINDOWS', LINKFLAGS='/SUBSYSTEM:CONSOLE', TARGET_ARCH='x64' )
-    MakeNewPathFile(libs_dirs[env['SYSTEM']].values())
-    print '[!!!]     WAZNE: W przypadku szczesliwej kompilacji uruchom after_install.bat'
-
+    env.Append( CXXFLAGS='/EHsc /MD /D _UNICODE /D WIN32 /D _WINDOWS', LINKFLAGS='/SUBSYSTEM:CONSOLE', TARGET_ARCH='x64' )
 
 
 
@@ -136,7 +132,7 @@ app = env.SConscript('src/SConscript',
            duplicate = 0,
            exports = 'env libs')
 
-# matlabScripts = env.SConscript('matlabScripts/SConscript',
+#matlabScripts = env.SConscript('matlabScripts/SConscript',
 #           variant_dir = 'build/scripts',
 #           duplicate = 0,
 #          exports = 'env')
