@@ -67,7 +67,7 @@ build/app --help
 ```
 
 ### runme - jak z tego korzystać?
-***Uwaga.*** Ze względu na problemy z kopiowaniem plików w automatyczny sposób należy samodzielnie skopiować plik runme zgodny z platformą i script.m.
+***Uwaga.*** Ze względu na problemy z kopiowaniem plików w automatyczny sposób należy samodzielnie skopiować plik runme zgodny z platformą i script.m z folderu `matlabScripts` do folderu `build` po kompilacji.
 
 Przykład użycia pod Windowsem to:
 ```
