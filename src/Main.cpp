@@ -5,30 +5,29 @@
 #include "Generator.h"
 #include "SensorWorker.h"
 
+namespace KalmanUtil {
+	class KalmanOptions;
+}
+
 namespace logging = boost::log;
 namespace options = boost::program_options;
-
-void Foo(Status s)
-      {
-		  std::cout << "Got " << s.x << " " << s.y << "at time " << s.time << std::endl;
-      }
 
 int main(int argc, char* argv[])
 {
 	SimpleWorkerPool pool;
 	options::variables_map vm;
 	std::cout << "Kalman" << std::endl;
-    std::chrono::seconds sleepTime;
+	std::chrono::seconds sleepTime;
 	try
 	{
 		options::options_description desc("Options");
 
 		desc.add_options()
 			("help,h", "Produce help message")
-			("script,s", options::value<std::string>()->default_value("../maps/standard.py"), "set script path")
+			("script,s", options::value<std::string>()->default_value("../maps/standard_acc.py"), "set script path")
 			("verbose,v", options::value<int>()->default_value(3), "set verbose level")
-            ("time,t", options::value<int>()->default_value(1), "set duration of experiment in seconds")
-            ;
+			("time,t", options::value<int>()->default_value(1), "set duration of experiment in seconds")
+			;
 
 
 		options::store(options::parse_command_line(argc, argv, desc), vm);
@@ -41,13 +40,13 @@ int main(int argc, char* argv[])
 		}
 
 		Common::InitBoostLog(vm["verbose"].as<int>());
-        sleepTime = std::chrono::seconds(vm["verbose"].as<int>());
+		sleepTime = std::chrono::seconds(vm["verbose"].as<int>());
 
 	}
 	catch (std::exception e)
 	{
-			std::cout << e.what() << std::endl;
-			return 1;
+		std::cout << e.what() << std::endl;
+		return 1;
 	}
 
 	BOOST_LOG_TRIVIAL(trace) << "entering main()";
@@ -55,15 +54,27 @@ int main(int argc, char* argv[])
 
 	KalmanFilter_1D::Vector init_x(2);
 	KalmanFilter_1D::Vector init_y(2);
+	double time_step = 0;
+	double pos_noise = 0;
+	double acc_noise = 0;
+	try {
+		KalmanUtil::KalmanOptions ko(vm["script"].as<std::string>() + ".ini");
 
-	init_x(1) = 10.0;
-	init_y(1) = 0.0;
-	init_x(2) = 0.0;
-	init_y(2) = 0.0;
-	const double time_step = 0.1;
-	const double pos_noise = 1.0;
-	const double acc_noise = 1;
- 
+		init_x(1) = ko.Position.first.x;
+		init_y(1) = ko.Position.first.y;
+		init_x(2) = ko.Position.second.x;
+		init_y(2) = ko.Position.second.y;
+
+		time_step = ko.TimeStep;
+		pos_noise = ko.PosNoise;
+		acc_noise = ko.AccNoise;
+	}
+	catch (...)
+	{
+		return 1;
+	}
+
+
 	auto generator = std::make_shared<Generator>(vm["script"].as<std::string>());
 	auto writer = std::make_shared<Writer>("output.csv", ';');
 	auto sensor = std::make_shared<SensorWorker>(std::pair<double, double>(pos_noise, pos_noise));
@@ -79,15 +90,16 @@ int main(int argc, char* argv[])
 
 	std::thread t(std::ref(pool));
 
-    std::this_thread::sleep_for(sleepTime);
+	std::this_thread::sleep_for(sleepTime);
 
-    Worker<CommonUtil::Traits::InputWorker>::KillAll();
-    Worker<CommonUtil::Traits::OutputWorker>::KillAll();
-    Worker<CommonUtil::Traits::InputOutputWorker>::KillAll();
+	Worker<CommonUtil::Traits::InputWorker>::KillAll();
+	Worker<CommonUtil::Traits::OutputWorker>::KillAll();
+	Worker<CommonUtil::Traits::InputOutputWorker>::KillAll();
 
 
-    t.join();
+	t.join();
 
 	BOOST_LOG_TRIVIAL(trace) << "exiting main() gracefully";
-    return 0;
+	return 0;
 }
+
