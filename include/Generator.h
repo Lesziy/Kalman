@@ -49,7 +49,7 @@ class Generator : public Worker<OutputWorker>
         \returns nic
         \throws nic
     */
-	virtual Status ThreadProc(int) override;
+
 
 public:
 	/** Konstruktor.
@@ -62,6 +62,7 @@ public:
 
         \bug Według dokumentacji boost::python nie jest zalecane wywoływanie funkcji dot. zwracania zasobów za interpreter.
     */
+	virtual Status ThreadProc(int) override;
     ~Generator();
 
 };
