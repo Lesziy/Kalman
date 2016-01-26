@@ -37,12 +37,12 @@
 
 		\item \textbf{Sensor ruchu} - odbiera dane o położeniu obiektu i przekazuje je razem z własnym szumem pomiarowym na wejście filtru Kalmana.
 			\begin{itemize}
-				\item Miejsce na komentarze... 
+				\item Szum sensora jest nakładany z rozkładem jednostajnym z parametrem wczytywanym z pliku wejściowego ini. 
 			\end{itemize}
 
-		\item \textbf{Filtr Kalmana} - Odbiera dane z sensorów i wyznacza stan wewnętrzny modelowanego obiektu
+		\item \textbf{Filtr Kalmana} - Odbiera dane z sensorów i wyznacza stan wewnętrzny modelowanego obiektu. 
 			\begin{itemize}
-				\item Miejsce na komentarze... 
+				\item Moduł został zrealizowany jako złożenie dwóch filtrów - każdy działający w jednej płaszczyźnie. 
 			\end{itemize}
 		
 		\item \textbf{Moduł określający błąd pomiaru} - Odbiera dane od obiektu, sensorów oraz filtru Kalmana i określa jak dokładnie filtr Kalmana przewiduje tor w kolejnych iteracjach oraz określa poprawę w stosunku do odczytów sensorów.
@@ -80,6 +80,10 @@
 		\begin{verse} 
 			Aplikację można uruchomić z konsoli, bądź poprzez skrypty \texttt{runme}, dzięki czemu automatycznie zostanie uruchomiony punkt 6 po zakończonej symulacji.
 		\end{verse}
+		\item Pliki wejściowe
+		\begin{verse}
+			Plikami wejściowymi są plik zawierający skrypt w języku Python umieszczony w katalogu \texttt{maps/} generujący oraz pliki ini z parametrami dla filtru Kalmana. Plik ini musi mieć taką samą nazwę jak skrypt generatora. w pliku ini zdefiniowane są następujące parametry: \texttt{TimeStep} - przedział czasu w jakim wykonujemy kolejne kroki obliczeń,    \textbf{PosNoise} - szum sensora, \textbf{AccNoise} - szum procesu będący parametrem zakłócającym przyśpieszenie, \textbf{[InitPosition]} - początkowa pozycję w wektorze stanu filtru Kalmana, \textbf{[InitVelocity}] - początkowa prędkość w wektorze stanu filtru Kalmana. 
+		\end{verse}		
 		\item Generator
 		 \begin{verse}
 		 \texttt{Worker<OutputWorker>} uruchamia przeciążoną funkcję ThreadProc, która natomiast wywołuje skrypt który jest załadowany z pliku - za pomocą wyrażeń regularnych jest przeprowadzone wstępne sprawdzenie czy skrypt jest prawidłowy(tj. czy istnieje funkcja która ma taką samą nazwę co plik w celu weryfikacji) jest cyklicznie uruchamiana i wszystkie obliczenia są przeprowadzane w środowisku Python(dzięki czemu między wywołaniami funkcji w Pythonie możemy przechowywać dane w zmiennych globalnych - por. pliki w katalogu \texttt{maps/}, a biblioteka \texttt{Booost::python} pozwala na załadowanie tych wyników i dalsze przetwarzanie.
@@ -90,7 +94,7 @@
 		\end{verse}
 		\item Kalman
 		\begin{verse}
-		KALMAN OPIS TUTEJ
+		Filtr Kalmana został oparty na bibliotek "\texttt{The KFilter Project}"\footnote{http://kalman.sourceforge.net/}. Filtr skonfigurowany jest na potrzeby procesu ruchu o zmiennym przyśpieszeniu w przestrzeni dwu wymiarowej. Bierze pod uwagę szumy procesu, oraz szumy pomiarowe. Parametry filtra są definiowane w plikach ini: (początkowe położenie, początkowa prędkość oraz szum procesu i szum pomiarowy).  Filtr operuje na wektorze stanu procesu zawierającym położenie oraz wektor prędkości. Dla każdej współrzędnej został stworzony oddzielny obiekt filtru działający tylko w jednym wymiarze. Jako wejście obiekt filtru dostaje także przyśpieszenie będące sterowaniem obiektu. Przyśpieszenie to jest przekazywane z generatora. 
 		\end{verse}
 		\item Writer
 		\begin{verse}
