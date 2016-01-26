@@ -103,6 +103,7 @@
     <ClCompile Include="examples\workers.cpp" />
     <ClCompile Include="src\Generator\Generator.cpp" />
     <ClCompile Include="src\Generator\PythonFile.cpp" />
+    <ClCompile Include="src\KalmanFilter\KalmanOptions.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\ObserverGUI\observer.cpp" />
     <ClCompile Include="src\ObserverGUI\ObserverGUI.cpp" />
@@ -110,8 +111,8 @@
   <ItemGroup>
     <ClInclude Include="include\Generator.h" />
     <ClInclude Include="include\ObserverGUI.h" />
-    <ClInclude Include="src\Common\ExitHandler.h" />
     <ClInclude Include="src\Generator\PythonFile.h" />
+    <ClInclude Include="src\KalmanFilter\KalmanOptions.h" />
     <ClInclude Include="src\ObserverGUI\Observator.h" />
     <ClInclude Include="src\ObserverGUI\Observee.h" />
   </ItemGroup>
