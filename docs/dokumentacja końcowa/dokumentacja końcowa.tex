@@ -136,27 +136,43 @@
  	(Gwoli ścisłości: testy zaznaczone na czerwono odnoszą się do skryptów wykonywanych przy wykorzystaniu ścieżek relatywnych, a plugin w jenkinsie odpowiedzialny za ich wykonanie \textit{ucieka} ze względów bezpieczeństwa do folderu \texttt{/tmp}, przez co takiego testy są skazane na niepowodzenie. )
  	
  	
- 	
- 	\begin{table}[]
- \centering
-\caption{Końcowe statystyki}
-\label{my-label}
-\begin{tabular}{|l|l|}
-\hline
-Liczba linijek kodu & 1 \\ \hline
-Liczba commitów     & 2 \\ \hline
-Liczba testów       & 3 \\ \hline
-\end{tabular}
-\end{table}
-%\begin{thebibliography}{19}
- 
-%\bibitem{regulamin}
-%  Centralne Laboratorium Fizyki Wydziału Fizyki Politechniki Warszawskiej, \\
-%  \emph{Regulamin CLF}.
-%  Dostęp: 21 marca, 2015 r,   
-%  \url{http://clf.if.pw.edu.pl/?q=pl/regulamin-clf}
-  
-%\end{thebibliography}
+\section{Statystyki}
+Wynik uruchomienia programu \texttt{cloc} w głównym katalogu projektu:
+
+\newpage
+
+\begin{verbatim}
+-------------------------------------------------------------------------------
+
+Language                     files          blank        comment           code
+
+-------------------------------------------------------------------------------
+
+C/C++ Header                    25            756           1723           1706
+
+C++                             23            168              6            611
+
+Python                           8             46             13            313
+
+MATLAB                           2              0             10             72
+
+Bourne Shell                     3              2              2             19
+
+DOS Batch                        1              5              0             15
+
+XML                              2              0              0              6
+
+C                                2              6              0              5
+
+-------------------------------------------------------------------------------
+
+SUM:                            66            983           1754           2747
+
+-------------------------------------------------------------------------------
+
+\end{verbatim}
+
+Testów natomiast jest ok. 7.
 
 
 \end{document}
