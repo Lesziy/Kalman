@@ -1,0 +1,107 @@
+\documentclass{article}
+
+\usepackage{amssymb}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\title{Aplikacja do śledzenia celów i fuzji danych  \\ {\large Dokumentacja końcowa}}
+\author{Przemysław Saramonowicz, Marcin Buczko, Jacek Palczewski \\ Wydział Elektroniki i Technik Informacyjnych \\ Politechnika Warszawska}
+\date{26 stycznia 2015 r.}
+%wypełnienie strony
+%\setlength{\textheight}{24cm}
+%\setlength{\textwidth}{15.92cm}
+%\setlength{\footskip}{10mm}
+%\setlength{\oddsidemargin}{0mm}
+%\setlength{\evensidemargin}{0mm}
+%\setlength{\topmargin}{0mm}
+%\setlength{\headsep}{5mm}
+
+%kropki po \section
+\usepackage{titlesec}
+\titlelabel{\thetitle.\quad}
+
+\begin{document}
+	\maketitle
+	
+	\section{Realizacja zagadnień}
+		Podsumowanie zostanie oparte o punkty z dokumentacji wstępnej, które zostaną skomentowane na podstawie bieżących etapów prac.	
+		\begin{itemize}
+		\item \textbf{Symulacja ruchu obiektu} - obiekt będzie poruszał się w przestrzeni dwuwumiarowej po zdefiniowanych wcześniej trajektoriach ruchu oraz przekazywał dane o swoim położeniu sensorom.
+		\begin{itemize}
+			\item Ten moduł programu udało się zrealizować w zadowalającym stopniu: trajektoria obiektu jest generowana w oparciu o skrypty w języku Python(katalog \texttt{maps/}).
+		\end{itemize}
+
+		\item \textbf{Sensor ruchu} - odbiera dane o położeniu obiektu i przekazuje je razem z własnym szumem pomiarowym na wejście filtru Kalmana.
+			\begin{itemize}
+				\item Miejsce na komentarze... 
+			\end{itemize}
+
+		\item \textbf{Filtr Kalmana} - Odbiera dane z sensorów i wyznacza stan wewnętrzny modelowanego obiektu
+			\begin{itemize}
+				\item Miejsce na komentarze... 
+			\end{itemize}
+		
+		\item \textbf{Moduł określający błąd pomiaru} - Odbiera dane od obiektu, sensorów oraz filtru Kalmana i określa jak dokładnie filtr Kalmana przewiduje tor w kolejnych iteracjach oraz określa poprawę w stosunku do odczytów sensorów.
+			\begin{itemize}
+				\item Miejsce na komentarze... 
+			\end{itemize}
+				
+		\item \textbf{Interpretacja graficzna działania programu} - Rysuje obiekt w kolejnych iteracjach na jego pozycji oraz jego kopię w miejscu określonym przez układ sensorów z filtrem Kalmana a także trajektorię obu instancji obiektu.
+			\begin{itemize}
+				\item Mimo pierwotnych planów o zrealizowaniu tego modułu w języku C++, ze względu na problemy z implementacją wyświetlania wyników symulacji w czasie rzeczywistym Zespół podjął decyzję o zmianie podejścia: program składający się z pozostałych modułów jest zrealizowany jako aplikacja w C++, a bieżący moduł został napisany jako uniwersalny skrypt do środowiska Octave(kompatybilnego z Matlabem). Dokładne działanie całego projektu zostanie opisane później.
+			\end{itemize}
+			
+		\item Zależność pomiędzy torem ruchu i prędkością a dokładnością pomiaru; wpływ ilości sensorów na dokładność odczytu. 
+			\begin{itemize}
+				\item Możliwość uruchomienia z innym torem obiektu(jak również zmiany współczynników - pliki .ini) w opinii Zespołu realizuje olbrzymią część tego założenia.
+				\item Miejsce na komentarze... 
+			\end{itemize}
+		\item Przenośność pomiędzy Windowsem a Linuxem
+			\begin{itemize}
+				\item Miejsce na komentarze... - ale uzupełnię to ja, jak wrócę
+			\end{itemize}
+				
+		\end{itemize}		
+	
+	\section{Deskrypcja stanu prac nad projektem - do zmiany, jak macie ładniej brzmiący pomysł}
+	
+	\subsection{Rozwiązania zastosowane w projekcie - synchronizacja, etc.}
+		opis klasy worker, wciągnięcie traitów, synchronizacji, kolejki. Zajmę się tym.
+	\subsection{Jak program działa - opis}
+	\begin{enumerate}
+		\item Konsola - app, użycie program::options i zalety takiego rozwiązania
+		\item Generator - zrobię to później
+		\item Sensor - krótki opis co klasy robią
+		\item Kalman - j.w.
+		\item Writer - j.w.
+		\item Potencjalne skrypty matlaba.
+	\end{enumerate}
+	
+	\section{Napotkane problemy, popełnione błędy, wnioski}
+	
+	\subsection{Problemy}
+	La, la.
+	\subsection{Błędy}
+	1 2 3
+	\subsection{Wnioski}
+ 	4 5 6.
+ 	
+ 	\section{Końcowe statystyki}
+ 	Liczba linii kodu, liczba commitów z gita, liczba testów i pomiar, odwołanie się do nieudanej próby z gcovem.
+ 	
+%\begin{thebibliography}{19}
+ 
+%\bibitem{regulamin}
+%  Centralne Laboratorium Fizyki Wydziału Fizyki Politechniki Warszawskiej, \\
+%  \emph{Regulamin CLF}.
+%  Dostęp: 21 marca, 2015 r,   
+%  \url{http://clf.if.pw.edu.pl/?q=pl/regulamin-clf}
+  
+%\end{thebibliography}
+
+
+\end{document}
