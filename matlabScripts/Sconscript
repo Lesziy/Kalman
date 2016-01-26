@@ -1,0 +1,24 @@
+import os
+from shutil import copyfile
+
+Import('env')
+
+appRunner = {
+    'windows' : 'runme.bat',
+    'linux' : 'runme.sh'
+}
+
+buildDir = os.path.join('..', 'build')
+scripts = Glob("*.m")
+parentDir = os.path.dirname(os.path.dirname(os.getcwd()))
+matlabDir = os.path.join(parentDir, 'matlabScripts')
+buildDir = os.path.join(parentDir, 'build')
+files = env.Install("matlab", source=scripts)
+
+
+copyfile(   os.path.join(matlabDir, appRunner[env['SYSTEM']]),
+            os.path.join(buildDir, appRunner[env['SYSTEM']]))
+
+env.SideEffect(os.path.join(buildDir, appRunner[env['SYSTEM']]), files)
+
+Export('env')

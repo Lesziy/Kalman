@@ -136,6 +136,10 @@ app = env.SConscript('src/SConscript',
            duplicate = 0,
            exports = 'env libs')
 
+matlab = env.SConscript('matlabScripts/SConscript',
+           variant_dir = 'build/scripts',
+           duplicate = 0,
+           exports = 'env')
 
 #Testy
 test = env.SConscript('test/SConscript',
@@ -154,7 +158,7 @@ examples = env.SConscript('examples/SConscript',
 #Ciezko
 docs = env.Docs("Foo", "Doxyfile")
 
-#env.Depends(app, docs)
+env.Depends(app, matlab)
 #all
 Alias('all', app)
 Alias('all', test)
