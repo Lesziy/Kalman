@@ -47,7 +47,7 @@
 		
 		\item \textbf{Moduł określający błąd pomiaru} - Odbiera dane od obiektu, sensorów oraz filtru Kalmana i określa jak dokładnie filtr Kalmana przewiduje tor w kolejnych iteracjach oraz określa poprawę w stosunku do odczytów sensorów.
 			\begin{itemize}
-				\item Miejsce na komentarze... 
+				\item Moduł został połączony z poniższym, por. punkt niżej i dalsze rozdziały.
 			\end{itemize}
 				
 		\item \textbf{Interpretacja graficzna działania programu} - Rysuje obiekt w kolejnych iteracjach na jego pozycji oraz jego kopię w miejscu określonym przez układ sensorów z filtrem Kalmana a także trajektorię obu instancji obiektu.
@@ -60,9 +60,9 @@
 				\item Możliwość uruchomienia z innym torem obiektu(jak również zmiany współczynników - pliki .ini) w opinii Zespołu realizuje olbrzymią część tego założenia.
 				\item Miejsce na komentarze... 
 			\end{itemize}
-		\item Przenośność pomiędzy Windowsem a Linuxem
+		\item Przenośność pomiędzy Windowsem a Linuxem.
 			\begin{itemize}
-				\item Miejsce na komentarze... - ale uzupełnię to ja, jak wrócę
+				\item Był to podpunkt intrygujący ze względu na wiele niespodzianek(głównie ze względu na ciekawe różnice pomiędzy kompilatorami(Visual Studio jest o wiele bardziej liberalny i różni się subtelnościami w implementacji niektórych rzeczy nawet w bibliotece standardowej: dla przykładu konstruktor \texttt{std::exception} przyjmujący ciągi znaków pod MSVC, który nie jest dozwolony w GCC - tam identyczną funkcję pełni \texttt{std::runtime\_error})), aczkolwiek dzięki wykorzystaniu Jenkinsa udało się utrzymać ten podpunkt. 
 			\end{itemize}
 				
 		\end{itemize}		
