@@ -1,4 +1,4 @@
-#include <boost/program_options.hpp>
+﻿#include <boost/program_options.hpp>
 #include "Common.h"
 #include "KalmanFilter.h"
 #include "Writer.h"
@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
 		}
 
 		Common::InitBoostLog(vm["verbose"].as<int>());
-        sleepTime = std::chrono::seconds(vm["verbose"].as<int>());
+        sleepTime = std::chrono::seconds(vm["time"].as<int>());
 
 	}
 	catch (std::exception e)
@@ -96,6 +96,10 @@ int main(int argc, char* argv[])
     Worker<CommonUtil::Traits::InputWorker>::KillAll();
     Worker<CommonUtil::Traits::OutputWorker>::KillAll();
     Worker<CommonUtil::Traits::InputOutputWorker>::KillAll();
+
+	sensor->RemindMeThatIAmDead();
+	kalman->RemindMeThatIAmDead();
+	writer->RemindMeThatIAmDead();
 
 
     t.join();

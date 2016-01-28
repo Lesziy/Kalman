@@ -6,8 +6,8 @@ acc_x, acc_y = 0, 0
 noice = 2
 radius = 5
 v_static = 5
-x_max = 50
-y_max = 50
+x_max = 500
+y_max = 500
 import random,math
 
 class Move:
@@ -49,8 +49,8 @@ def robo_acc():
 	
 def odbicie():
 	global x, y, x_max, y_max, vx, vy
-	if (x < 0):
-		x = 0
+	if (x < -x_max):
+		x = -x_max
 		if(vx <= 0):
 			vx = -vx
 	elif (x > x_max):
@@ -58,8 +58,8 @@ def odbicie():
 		if(vx >= 0):
 			x = x_max
 			
-	if (y < 0):
-		y = 0
+	if (y < -x_max):
+		y = -x_max
 		if(vy <= 0):
 			vy = -vy
 	elif (y > y_max):

@@ -162,22 +162,32 @@ namespace CommonUtil {
 		void _MessageLoop(std::false_type)
 		{
 			Currently in("Worker::_MessageLoop(std::false_type)");
-
+			
 			typename T::ThreadProcType ret;
 			typename T::ThreadProcArg value;
 			std::unique_lock<std::mutex> lk(mtx_);
-
+			
 			while (good_)
-			{
-				cv_.wait(lk, [&] { return !queue_.empty(); });
+				{
+					cv_.wait(lk, [&] { return !queue_.empty() || !good_; });
+					if (good_)
+					{
+						value = queue_.front();
+						queue_.pop_front();
+						ret = ThreadProc(value);
+						_MessageLoop_InputWorker_Send(ret, std::is_base_of<ThreadProcSendable, T>());
+					}
+				}
+		};
+   
+  public:
 
-				value = queue_.front();
-				queue_.pop_front();
-				ret = ThreadProc(value);
-				_MessageLoop_InputWorker_Send(ret, std::is_base_of<ThreadProcSendable, T>());
+		void RemindMeThatIAmDead()
+		{
+			cv_.notify_all();
+		};
 
-			}
-		}
+	private:
 
 		//! Obsługa wartości zwracanych w specjalizacjach CommonUtil::Traits::ThreadProcSendable
 		void _MessageLoop_InputWorker_Send(typename T::ThreadProcType & ret, std::true_type)
