@@ -1,6 +1,6 @@
 time = 0
 time_step = 0.1
-vx, vy = 0 , 0
+vx, vy = 2 , 2
 x,y = 10 , 0
 acc_x, acc_y = 0, 0
 noice = 2
